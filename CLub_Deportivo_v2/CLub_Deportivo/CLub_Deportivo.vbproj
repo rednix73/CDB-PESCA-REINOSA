@@ -87,6 +87,12 @@
     <Compile Include="frm_busqueda.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frm_imprimir.Designer.vb">
+      <DependentUpon>frm_imprimir.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frm_imprimir.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frm_listados.Designer.vb">
       <DependentUpon>frm_listados.vb</DependentUpon>
     </Compile>
@@ -142,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frm_busqueda.resx">
       <DependentUpon>frm_busqueda.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frm_imprimir.resx">
+      <DependentUpon>frm_imprimir.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frm_listados.resx">
       <DependentUpon>frm_listados.vb</DependentUpon>
