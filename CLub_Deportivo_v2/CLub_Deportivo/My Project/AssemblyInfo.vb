@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 ' Revisar los valores de los atributos del ensamblado
 
 <Assembly: AssemblyTitle("CLub Deportivo Básico  Reinosa")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("Aplicación para la gestion de los socios del Club Deportivo Básico de pesca Reinosa.")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("CLub_Deportivo")>
-<Assembly: AssemblyCopyright("Roberto Macho González. Copyright ©  2018.")>
+<Assembly: AssemblyProduct("CDB_pesca_reinosa_Gestión_Socios")>
+<Assembly: AssemblyCopyright("Roberto Macho González. Copyright ©  2020.")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

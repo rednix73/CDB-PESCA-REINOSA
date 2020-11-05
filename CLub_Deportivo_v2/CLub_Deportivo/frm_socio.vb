@@ -18,7 +18,7 @@
     End Sub
 
 
-    Private Sub cmb_provincias_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmb_prov.SelectedIndexChanged
+    Private Sub cmb_provincias_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         If cmb_prov.SelectedItem = "CANTABRIA" Then
             cmb_localidad.Items.Clear()
             For i = 0 To lista_localidades.Count - 1
@@ -34,11 +34,11 @@
         End If
     End Sub
 
-    Private Sub cmb_localidad_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cmb_localidad.SelectedIndexChanged
+    Private Sub cmb_localidad_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         txt_cp.Text = lista_localidades(cmb_localidad.SelectedIndex).CP
     End Sub
 
-    Public Sub foco_txt(sender As System.Object, e As System.EventArgs) Handles txt_nsocio.GotFocus, txt_email.GotFocus, txt_direcc.GotFocus, txt_coment.GotFocus
+    Public Sub foco_txt(sender As System.Object, e As System.EventArgs) Handles txt_nsocio.GotFocus, txt_email.GotFocus, txt_coment.GotFocus
         'Color de fondo: gris
         'Tipo de letra: cursiva.
         sender.Backcolor = Color.WhiteSmoke
@@ -47,7 +47,7 @@
         sender.font = fuente
 
     End Sub
-    Public Sub _salir_foco_txt(sender As System.Object, e As System.EventArgs) Handles txt_nsocio.LostFocus, txt_email.LostFocus, txt_direcc.LostFocus, txt_coment.LostFocus
+    Public Sub _salir_foco_txt(sender As System.Object, e As System.EventArgs) Handles txt_nsocio.LostFocus, txt_email.LostFocus, txt_coment.LostFocus
         'Color de fondo: gris
         'Tipo de letra: cursiva.
         sender.Backcolor = Color.White
@@ -94,7 +94,7 @@
 
     End Sub
 
-    Private Sub btn_buscar_apell_Click(sender As Object, e As EventArgs) Handles btn_buscar_apell.Click
+    Private Sub btn_buscar_apell_Click(sender As Object, e As EventArgs)
         buscar_nombre(txt_apellido.Text)
     End Sub
 
@@ -208,7 +208,7 @@
 
     End Sub
 
-    Private Sub txt_cp_TextChanged(sender As Object, e As EventArgs) Handles txt_cp.TextChanged
+    Private Sub txt_cp_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -224,15 +224,15 @@
 
     End Sub
 
-    Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
+    Private Sub Label13_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub cmb_pais_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_pais.SelectedIndexChanged
+    Private Sub cmb_pais_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub cmb_tarjeta_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_tarjeta.SelectedIndexChanged
+    Private Sub cmb_tarjeta_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -248,15 +248,15 @@
 
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+    Private Sub Label1_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub txt_direcc_TextChanged(sender As Object, e As EventArgs) Handles txt_direcc.TextChanged
+    Private Sub txt_direcc_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
+    Private Sub Label8_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -272,19 +272,19 @@
 
     End Sub
 
-    Private Sub txt_apellido_TextChanged(sender As Object, e As EventArgs) Handles txt_apellido.TextChanged
+    Private Sub txt_apellido_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
+    Private Sub Label6_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub txt_nombre_TextChanged(sender As Object, e As EventArgs) Handles txt_nombre.TextChanged
+    Private Sub txt_nombre_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
+    Private Sub Label5_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -292,15 +292,15 @@
 
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+    Private Sub Label2_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+    Private Sub Label3_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
+    Private Sub Label9_Click(sender As Object, e As EventArgs)
 
     End Sub
 

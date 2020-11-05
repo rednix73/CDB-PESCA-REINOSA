@@ -191,6 +191,33 @@
   <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alevines1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alevines.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alevines2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alevin-trucha.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bogas saltando en el medidor de aforos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cola rata.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Huevas de trucha de diferente coloración..JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Huevas.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\alevines21.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

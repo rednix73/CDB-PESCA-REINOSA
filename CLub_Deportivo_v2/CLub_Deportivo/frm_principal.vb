@@ -1,10 +1,7 @@
 ﻿Public Class frm_principal
 
     Private Sub SociosToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SociosToolStripMenuItem.Click
-
-
-
-
+        frm_socio.MdiParent = Me
         frm_socio.Show()
     End Sub
 
