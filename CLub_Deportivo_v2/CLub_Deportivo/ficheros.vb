@@ -7,8 +7,6 @@ Module ficheros
     Dim sr3 As StreamReader
     Public lista_localidades As New List(Of localidad)
     Public lista_provincias As New List(Of String)
-
-
     Public Sub leer()
         Try
             sr1 = New StreamReader("../../Resources/cantabria_localidades.txt")
@@ -28,20 +26,9 @@ Module ficheros
                 lista_provincias.Add(sr3.ReadLine)
             End While
             sr3.Close()
-
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
     End Sub
-
-
-
-
-
-
-
-
-
-
 
 End Module

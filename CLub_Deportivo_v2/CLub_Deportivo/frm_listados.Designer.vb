@@ -33,7 +33,7 @@ Partial Class frm_listados
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(25, 61)
+        Me.DataGridView1.Location = New System.Drawing.Point(24, 46)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(459, 494)
         Me.DataGridView1.TabIndex = 0

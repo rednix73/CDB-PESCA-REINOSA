@@ -98,7 +98,7 @@
         buscar_nombre(txt_apellido.Text)
     End Sub
 
-    Private Sub btn_buscar_dni_Click(sender As Object, e As EventArgs) Handles btn_buscar_dni.Click
+    Private Sub btn_buscar_dni_Click(sender As Object, e As EventArgs)
         buscar_dni(txt_dni.Text)
     End Sub
 
@@ -260,15 +260,15 @@
 
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
+    Private Sub Label7_Click(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub txt_dni_TextChanged(sender As Object, e As EventArgs) Handles txt_dni.TextChanged
+    Private Sub txt_dni_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub btn_letranif_Click(sender As Object, e As EventArgs) Handles btn_letranif.Click
+    Private Sub btn_letranif_Click(sender As Object, e As EventArgs)
 
     End Sub
 
