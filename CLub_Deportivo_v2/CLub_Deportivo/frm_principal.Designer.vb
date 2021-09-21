@@ -38,6 +38,7 @@ Partial Class frm_principal
         Me.ModificarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfiguraciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -73,7 +74,7 @@ Partial Class frm_principal
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
@@ -150,6 +151,12 @@ Partial Class frm_principal
         Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.ExportarToolStripMenuItem.Text = "Exportar"
         '
+        'ConfiguraciónToolStripMenuItem
+        '
+        Me.ConfiguraciónToolStripMenuItem.Name = "ConfiguraciónToolStripMenuItem"
+        Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ConfiguraciónToolStripMenuItem.Text = "Configuración"
+        '
         'frm_principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 22.0!)
@@ -188,4 +195,5 @@ Partial Class frm_principal
     Friend WithEvents ModificarSocioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EliminarSocioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExportarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ConfiguraciónToolStripMenuItem As ToolStripMenuItem
 End Class
