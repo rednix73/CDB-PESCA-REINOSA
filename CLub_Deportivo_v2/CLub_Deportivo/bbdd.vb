@@ -2,56 +2,115 @@
 Imports MySql.Data.MySqlClient
 
 Module bbdd
-    Public cadena As String = "Server=31.220.20.207;Port=3306;Database=u127917223_socio;Uid=u127917223_redn;Pwd=EaHb8Hx2nThGhNCw"
-    Public conn As New MySqlConnection
-    Public consulta As New MySqlCommand
-    Public dr As MySqlDataReader
+
+    'Tipo de origen de datos
+    Public Enum tipobd
+        excel
+        mysql
+    End Enum
+    Public tp As tipobd
+
+    ' Base de datos remota mysql
+    Public cadena1 As String = "Server=153.92.7.1;Port=3306;Database=u127917223_socio;Uid=u127917223_redn;Pwd=EaHb8Hx2nThGhNCw"
+    Public conn1 As MySqlConnection
+    Public consulta1 As New MySqlCommand
+    Public dr1 As MySqlDataReader
     Public dr2 As MySqlDataReader
+    'Tabla socios mysql
+    Public da_socios1 As MySqlDataAdapter
+    Public cb_socios1 As MySqlCommandBuilder
+    'Tabla Base de datos de socios mysql
+    Public da_bdsocios1 As MySqlDataAdapter
+    Public cb_bdsocios1 As MySqlCommandBuilder
 
-    'Tabla socios
-    Public da_socios As MySqlDataAdapter
-    Public cb_socios As MySqlCommandBuilder
+    ' Base de datos local excel
+    Public cadena2 As String = "DSN=cdb-pesca-xls"
+    Public conn2 As New OdbcConnection
+    Public consulta2 As New OdbcCommand
+    Public dr3 As OdbcDataReader
+    Public dr4 As OdbcDataReader
+    'Tabla socios excel
+    Public da_socios2 As OdbcDataAdapter
+    Public cb_socios2 As OdbcCommandBuilder
+    'Tabla Base de datos de socios excel
+    Public da_bdsocios2 As OdbcDataAdapter
+    Public cb_bdsocios2 As OdbcCommandBuilder
+
     Public dw_socios As DataView
+    Public dw_bdsocios As New DataView
 
-    'Tabla Base de datos de socios
-    Public da_bdsocios As MySqlDataAdapter
-    Public cb_bdsocios As MySqlCommandBuilder
-    Public dw_bdsocios As DataView
-
-    'Dataset con ambas tablas.
+    'Dataset con ambas tablas
     Public ds_club As New DataSet
 
     Public Sub conectar()
         Try
-            conn.ConnectionString = cadena
-            conn.Open()
-            If Not conn.State = ConnectionState.Open Then
-                MsgBox("Error de conexion")
-            End If
+            tp = tipobd.mysql
+            Select Case tp
+                Case tipobd.excel
+                    conn2 = New OdbcConnection
+                    conn2.ConnectionString = cadena2
+                    conn2.Open()
+                    If Not conn2.State = ConnectionState.Open Then
+                        MsgBox("Error de conexion")
+                    End If
+                Case tipobd.mysql
+                    conn1 = New MySqlConnection
+                    conn1.ConnectionString = cadena1
+                    conn1.Open()
+                    If Not conn1.State = ConnectionState.Open Then
+                        MsgBox("Error de conexion")
+                    End If
+                Case Else
+            End Select
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+
     End Sub
+
     Public Sub desconectar()
         Try
-            conn.Close()
-            If conn.State = ConnectionState.Open Then
+            conn1.Close()
+            If conn1.State = ConnectionState.Open Then
+                MsgBox("Error de desconexión")
+            End If
+            conn2.Close()
+            If conn2.State = ConnectionState.Open Then
                 MsgBox("Error de desconexión")
             End If
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
     End Sub
+
     Public Sub cargar()
         conectar()
-        da_socios = New MySqlDataAdapter("Select * from socios", conn)
-        da_socios.Fill(ds_club, "socios")
-        cb_socios = New MySqlCommandBuilder(da_socios)
-        dw_socios = New DataView(ds_club.Tables(0))
-        da_bdsocios = New MySqlDataAdapter("Select * from bdsocios", conn)
-        da_bdsocios.Fill(ds_club, "bdsocios")
-        cb_bdsocios = New MySqlCommandBuilder(da_bdsocios)
-        dw_bdsocios = New DataView(ds_club.Tables(1))
+        Select Case tp
+            Case tipobd.excel
+                conectar()
+                da_socios2 = New OdbcDataAdapter()
+                da_socios2 = New OdbcDataAdapter("Select * from socios", conn2)
+                da_socios2.Fill(ds_club, "socios")
+                cb_socios2 = New OdbcCommandBuilder(da_socios2)
+                dw_socios = New DataView(ds_club.Tables(0))
+                da_bdsocios2 = New OdbcDataAdapter("Select * from bdsocios", conn2)
+                da_bdsocios2.Fill(ds_club, "bdsocios")
+                cb_bdsocios2 = New OdbcCommandBuilder(da_bdsocios2)
+                dw_bdsocios = New DataView(ds_club.Tables(1))
+            Case tipobd.mysql
+                conectar()
+                da_socios1 = New MySqlDataAdapter("Select * from socios", conn1)
+                da_socios1.Fill(ds_club, "socios")
+                cb_socios1 = New MySqlCommandBuilder(da_socios1)
+                dw_socios = New DataView(ds_club.Tables(0))
+                da_bdsocios1 = New MySqlDataAdapter("Select * from bdsocios", conn1)
+                da_bdsocios1.Fill(ds_club, "bdsocios")
+                cb_bdsocios1 = New MySqlCommandBuilder(da_bdsocios1)
+                dw_bdsocios = New DataView(ds_club.Tables(1))
+            Case Else
+        End Select
+
+
         desconectar()
     End Sub
 
@@ -62,56 +121,98 @@ Module bbdd
     ''' Devuelve una lista de enteros, con los números de socio no usados.
     ''' </returns>
     Public Function numeros_libres() As List(Of Integer)
-
         Dim libres As New List(Of Integer)
         Dim libres1 As New List(Of Integer)
         Dim libres2 As New List(Of Integer)
+        Dim libre As Boolean = True
         libres.Clear()
         libres1.Clear()
         libres2.Clear()
 
-        consulta = New MySqlCommand()
-        consulta.Connection = conn
-        'Obtenemos el último número usado en la base de datos de socios.
-        consulta.CommandText = "Select MAX(n_socio) from bdsocios"
-        Dim ultimo_bd As Integer = consulta.ExecuteScalar
-        consulta = New MySqlCommand()
-        consulta.Connection = conn
-        'Obtenemos el último número usado en la tabla de socios actual.
-        consulta.CommandText = "Select MAX(n_socio) from socios"
-        Dim ultimo_soc As Integer = consulta.ExecuteScalar
-        consulta = New MySqlCommand()
-        consulta.Connection = conn
-        'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-        consulta.CommandText = "Select n_socio from bdsocios"
+        Dim ultimo_bd As Integer
+        Select Case tp
+            Case tipobd.excel
+                consulta2 = New OdbcCommand()
+                consulta2.Connection = conn2
+                'Obtenemos el último número usado en la base de datos de socios.
+                consulta2.CommandText = "Select MAX(n_socio) from bdsocios"
+                ultimo_bd = consulta1.ExecuteScalar
+                consulta2 = New OdbcCommand()
+                consulta2.Connection = conn2
+                'Obtenemos el último número usado en la tabla de socios actual.
+                consulta2.CommandText = "Select MAX(n_socio) from socios"
+                Dim ultimo_soc As Integer = consulta2.ExecuteScalar
+                consulta2 = New OdbcCommand()
+                consulta2.Connection = conn2
+                'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
+                consulta2.CommandText = "Select n_socio from bdsocios"
 
-        Dim libre As Boolean = True
-        'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tbal bdsocios.
-        For index = 1 To ultimo_bd
-            dr = consulta.ExecuteReader()
-            While dr.Read
-                If index = dr(0) Then
-                    libre = False
-                End If
-            End While
-            dr.Close()
+                'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
+                For index = 1 To ultimo_bd
+                    dr3 = consulta2.ExecuteReader()
+                    While dr1.Read
+                        If index = dr3(0) Then
+                            libre = False
+                        End If
+                    End While
+                    dr3.Close()
 
-            If libre = True Then
-                libres1.Add(index)
-            End If
-            libre = True
-        Next
+                    If libre = True Then
+                        libres1.Add(index)
+                    End If
+                    libre = True
+                Next
 
-        consulta = New MySqlCommand()
-        consulta.Connection = conn
-        'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
-        consulta.CommandText = "Select n_socio from socios"
+                consulta2 = New OdbcCommand()
+                consulta2.Connection = conn2
+                'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
+                consulta2.CommandText = "Select n_socio from socios"
 
-        dr = consulta.ExecuteReader()
-        While dr.Read
-            libres2.Add(dr(0))
-        End While
-        dr.Close()
+                dr3 = consulta2.ExecuteReader()
+                While dr3.Read
+                    libres2.Add(dr3(0))
+                End While
+                dr3.Close()
+
+            Case tipobd.mysql
+                consulta1 = New MySqlCommand()
+                consulta1.Connection = conn1
+                'Obtenemos el último número usado en la base de datos de socios.
+                consulta1.CommandText = "Select MAX(n_socio) from bdsocios"
+                ultimo_bd = consulta1.ExecuteScalar
+                consulta1 = New MySqlCommand()
+                consulta1.Connection = conn1
+                'Obtenemos el último número usado en la tabla de socios actual.
+                consulta1.CommandText = "Select MAX(n_socio) from socios"
+                Dim ultimo_soc As Integer = consulta1.ExecuteScalar
+                consulta1 = New MySqlCommand()
+                consulta1.Connection = conn1
+                'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
+                consulta1.CommandText = "Select n_socio from bdsocios"
+                'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
+                For index = 1 To ultimo_bd
+                    dr1 = consulta1.ExecuteReader()
+                    While dr1.Read
+                        If index = dr1(0) Then
+                            libre = False
+                        End If
+                    End While
+                    dr1.Close()
+                    If libre = True Then
+                        libres1.Add(index)
+                    End If
+                    libre = True
+                Next
+                consulta1 = New MySqlCommand()
+                consulta1.Connection = conn1
+                'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
+                consulta1.CommandText = "Select n_socio from socios"
+                dr1 = consulta1.ExecuteReader()
+                While dr1.Read
+                    libres2.Add(dr1(0))
+                End While
+                dr1.Close()
+        End Select
 
         'Recorremos la lista de numeros libres de la tabla bdsocios, y eliminamos de la lista de numeros libre los que estén usados en la tabla socios de la temporada actual.
         For Each n2 In libres2
@@ -121,14 +222,9 @@ Module bbdd
                 End If
             Next
         Next
-
-
-
-        'Devolvemos la lista de numeros libres de la tabal bdsocios, eliminados los usados en la tabla socios.
+        'Devolvemos la lista de numeros libres de la tabla bdsocios, eliminados los usados en la tabla socios.
         libres = libres1
-
         Return libres
-
     End Function
 
     ''' <summary>
@@ -137,11 +233,24 @@ Module bbdd
     ''' <returns>Develve un entero con el último número de socio en uso.</returns>
     Public Function ultimo(tabla As String) As Integer
 
-        consulta = New MySqlCommand()
-        consulta.Connection = conn
-        'Obtenemos el último número usado.
-        consulta.CommandText = "Select MAX(n_socio) from " + tabla
-        Dim ult As Integer = consulta.ExecuteScalar
+        Dim ult As Integer
+
+        Select Case tp
+            Case tipobd.excel
+                consulta2 = New OdbcCommand()
+                consulta2.Connection = conn2
+                'Obtenemos el último número usado.
+                consulta2.CommandText = "Select MAX(n_socio) from " + tabla
+                ult = consulta2.ExecuteScalar()
+
+            Case tipobd.mysql
+                consulta1 = New MySqlCommand()
+                consulta1.Connection = conn1
+                'Obtenemos el último número usado.
+                consulta1.CommandText = "Select MAX(n_socio) from " + tabla
+                ult = consulta1.ExecuteScalar()
+
+        End Select
 
         Return ult
 
@@ -193,27 +302,27 @@ Module bbdd
     Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
 
         Try
-            consulta = New MySqlCommand()
-            consulta.Connection = conn
-            If (Not conn.State = ConnectionState.Open) Then
+            consulta1 = New MySqlCommand()
+            consulta1.Connection = conn1
+            If (Not conn1.State = ConnectionState.Open) Then
                 conectar()
             End If
             'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
             Dim sql_txt As String
             sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
-            consulta.CommandText = sql_txt
-            dr = consulta.ExecuteReader
-            If (dr.HasRows) Then
+            consulta1.CommandText = sql_txt
+            dr1 = consulta1.ExecuteReader
+            If (dr1.HasRows) Then
                 MsgBox("Número de socio no válido. Ya existe otro socio con ese número asignado. Asigne otro número a este socio")
-                dr.Close()
+                dr1.Close()
             Else
-                dr.Close()
+                dr1.Close()
                 'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
                 Dim sql_txt2 As String
                 sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
-                consulta.CommandText = sql_txt2
+                consulta1.CommandText = sql_txt2
 
-                dr2 = consulta.ExecuteReader
+                dr2 = consulta1.ExecuteReader
                 If (dr2.HasRows) Then
                     MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
                     dr2.Close()
@@ -226,10 +335,10 @@ Module bbdd
                     Dim sql_txt3 As String = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,pago,comentarios) 
 VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + pago + ",'" + comentarios + "')"
 
-                    consulta.CommandText = sql_txt3
+                    consulta1.CommandText = sql_txt3
 
 
-                    Dim salida3 As Integer = consulta.ExecuteNonQuery
+                    Dim salida3 As Integer = consulta1.ExecuteNonQuery
                     If (salida3 > 0) Then
                         MsgBox("Socio insertado correctamente")
                     End If
@@ -267,43 +376,43 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
 
         Try
-            consulta = New MySqlCommand()
-            consulta.Connection = conn
-            If (Not conn.State = ConnectionState.Open) Then
+            consulta1 = New MySqlCommand()
+            consulta1.Connection = conn1
+            If (Not conn1.State = ConnectionState.Open) Then
                 conectar()
             End If
             'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
             'Se muestran los socios con el mismo número.
             Dim sql_txt As String
             sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
-            consulta.CommandText = sql_txt
-            dr = consulta.ExecuteReader
+            consulta1.CommandText = sql_txt
+            dr1 = consulta1.ExecuteReader
             Dim n_reg As Integer = 0
             Dim socios As String = ""
-            If (dr.HasRows) Then
-                While (dr.Read())
+            If (dr1.HasRows) Then
+                While (dr1.Read())
                     n_reg += 1
-                    socios += dr(0).ToString + vbCrLf
+                    socios += dr1(0).ToString + vbCrLf
                 End While
-                dr.Close()
+                dr1.Close()
                 If (n_reg > 1) Then
                     MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
                 End If
             Else
-                dr.Close()
+                dr1.Close()
             End If
 
             'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
             Dim sql_txt2 As String
             sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
-            consulta.CommandText = sql_txt2
-            dr2 = consulta.ExecuteReader
+            consulta1.CommandText = sql_txt2
+            dr2 = consulta1.ExecuteReader
             n_reg = 0
             socios = ""
             If (dr2.HasRows) Then
-                While (dr.Read())
+                While (dr1.Read())
                     n_reg += 1
-                    socios += dr(0) + vbCrLf
+                    socios += dr1(0) + vbCrLf
                 End While
                 If (n_reg > 1) Then
                     MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
@@ -320,10 +429,10 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                     "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago" + pago + ", comentarios='" + comentarios + "'" +
                 "WHERE dni=" + dni
 
-            consulta.CommandText = sql_txt3
+            consulta1.CommandText = sql_txt3
 
 
-            Dim salida3 As Integer = consulta.ExecuteNonQuery
+            Dim salida3 As Integer = consulta1.ExecuteNonQuery
             If (salida3 > 0) Then
                 MsgBox("Socio modificado correctamente")
             End If
@@ -358,17 +467,17 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
 
         Try
-            consulta = New MySqlCommand()
-            consulta.Connection = conn
-            If (Not conn.State = ConnectionState.Open) Then
+            consulta1 = New MySqlCommand()
+            consulta1.Connection = conn1
+            If (Not conn1.State = ConnectionState.Open) Then
                 conectar()
             End If
 
             'Consulta de eliminacion.
             Dim sql_txt3 As String = "DELETE FROM socios WHERE dni='" + dni + "'"
 
-            consulta.CommandText = sql_txt3
-            MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta.ExecuteNonQuery.ToString + " registros.")
+            consulta1.CommandText = sql_txt3
+            MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta1.ExecuteNonQuery.ToString + " registros.")
 
             desconectar()
         Catch ex As Exception

@@ -34,6 +34,10 @@ Partial Class frm_principal
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NuevoSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ModificarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EliminarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -69,7 +73,7 @@ Partial Class frm_principal
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
@@ -97,6 +101,7 @@ Partial Class frm_principal
         '
         'SociosToolStripMenuItem
         '
+        Me.SociosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoSocioToolStripMenuItem, Me.ModificarSocioToolStripMenuItem, Me.EliminarSocioToolStripMenuItem})
         Me.SociosToolStripMenuItem.Name = "SociosToolStripMenuItem"
         Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.SociosToolStripMenuItem.Text = "Socios"
@@ -120,6 +125,30 @@ Partial Class frm_principal
         Me.AcercaDeToolStripMenuItem.Name = "AcercaDeToolStripMenuItem"
         Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
+        '
+        'NuevoSocioToolStripMenuItem
+        '
+        Me.NuevoSocioToolStripMenuItem.Name = "NuevoSocioToolStripMenuItem"
+        Me.NuevoSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.NuevoSocioToolStripMenuItem.Text = "Nuevo socio"
+        '
+        'ModificarSocioToolStripMenuItem
+        '
+        Me.ModificarSocioToolStripMenuItem.Name = "ModificarSocioToolStripMenuItem"
+        Me.ModificarSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.ModificarSocioToolStripMenuItem.Text = "Modificar socio"
+        '
+        'EliminarSocioToolStripMenuItem
+        '
+        Me.EliminarSocioToolStripMenuItem.Name = "EliminarSocioToolStripMenuItem"
+        Me.EliminarSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.EliminarSocioToolStripMenuItem.Text = "Eliminar socio"
+        '
+        'ExportarToolStripMenuItem
+        '
+        Me.ExportarToolStripMenuItem.Name = "ExportarToolStripMenuItem"
+        Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ExportarToolStripMenuItem.Text = "Exportar"
         '
         'frm_principal
         '
@@ -155,4 +184,8 @@ Partial Class frm_principal
     Friend WithEvents AyudaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AcercaDeToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents NuevoSocioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ModificarSocioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EliminarSocioToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExportarToolStripMenuItem As ToolStripMenuItem
 End Class

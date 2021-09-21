@@ -50,12 +50,14 @@ Partial Class frm_socio
         Me.Button6 = New System.Windows.Forms.Button()
         Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cmb_tarjeta = New System.Windows.Forms.ComboBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.txt_nombre = New CLub_Deportivo.textbox_club()
-        Me.btn_buscar_apell = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.btn_buscar_apell = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmb_localidad = New System.Windows.Forms.ComboBox()
@@ -67,8 +69,6 @@ Partial Class frm_socio
         Me.cmb_prov = New System.Windows.Forms.ComboBox()
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.cmb_tarjeta = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.grp_socio.SuspendLayout()
         Me.grp_estado.SuspendLayout()
         Me.grp_commnent.SuspendLayout()
@@ -80,7 +80,7 @@ Partial Class frm_socio
         'dtpk_fecha_nac
         '
         Me.dtpk_fecha_nac.Location = New System.Drawing.Point(160, 146)
-        Me.dtpk_fecha_nac.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dtpk_fecha_nac.Margin = New System.Windows.Forms.Padding(4)
         Me.dtpk_fecha_nac.Name = "dtpk_fecha_nac"
         Me.dtpk_fecha_nac.Size = New System.Drawing.Size(271, 24)
         Me.dtpk_fecha_nac.TabIndex = 26
@@ -108,7 +108,7 @@ Partial Class frm_socio
         'txt_email
         '
         Me.txt_email.Location = New System.Drawing.Point(12, 170)
-        Me.txt_email.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_email.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_email.Name = "txt_email"
         Me.txt_email.Size = New System.Drawing.Size(271, 24)
         Me.txt_email.TabIndex = 28
@@ -119,9 +119,9 @@ Partial Class frm_socio
         Me.grp_socio.Controls.Add(Me.rdo_jubilado)
         Me.grp_socio.Controls.Add(Me.rdo_normal)
         Me.grp_socio.Location = New System.Drawing.Point(644, 203)
-        Me.grp_socio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_socio.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_socio.Name = "grp_socio"
-        Me.grp_socio.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_socio.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_socio.Size = New System.Drawing.Size(249, 134)
         Me.grp_socio.TabIndex = 35
         Me.grp_socio.TabStop = False
@@ -131,7 +131,7 @@ Partial Class frm_socio
         '
         Me.rdo_otros.AutoSize = True
         Me.rdo_otros.Location = New System.Drawing.Point(26, 90)
-        Me.rdo_otros.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdo_otros.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_otros.Name = "rdo_otros"
         Me.rdo_otros.Size = New System.Drawing.Size(213, 22)
         Me.rdo_otros.TabIndex = 2
@@ -143,7 +143,7 @@ Partial Class frm_socio
         '
         Me.rdo_jubilado.AutoSize = True
         Me.rdo_jubilado.Location = New System.Drawing.Point(26, 60)
-        Me.rdo_jubilado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdo_jubilado.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_jubilado.Name = "rdo_jubilado"
         Me.rdo_jubilado.Size = New System.Drawing.Size(131, 22)
         Me.rdo_jubilado.TabIndex = 1
@@ -155,7 +155,7 @@ Partial Class frm_socio
         '
         Me.rdo_normal.AutoSize = True
         Me.rdo_normal.Location = New System.Drawing.Point(26, 30)
-        Me.rdo_normal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdo_normal.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_normal.Name = "rdo_normal"
         Me.rdo_normal.Size = New System.Drawing.Size(82, 22)
         Me.rdo_normal.TabIndex = 0
@@ -168,9 +168,9 @@ Partial Class frm_socio
         Me.grp_estado.Controls.Add(Me.rdo_nopagado)
         Me.grp_estado.Controls.Add(Me.rdo_pagado)
         Me.grp_estado.Location = New System.Drawing.Point(644, 345)
-        Me.grp_estado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_estado.Name = "grp_estado"
-        Me.grp_estado.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_estado.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_estado.Size = New System.Drawing.Size(247, 87)
         Me.grp_estado.TabIndex = 36
         Me.grp_estado.TabStop = False
@@ -180,7 +180,7 @@ Partial Class frm_socio
         '
         Me.rdo_nopagado.AutoSize = True
         Me.rdo_nopagado.Location = New System.Drawing.Point(26, 55)
-        Me.rdo_nopagado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdo_nopagado.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_nopagado.Name = "rdo_nopagado"
         Me.rdo_nopagado.Size = New System.Drawing.Size(106, 22)
         Me.rdo_nopagado.TabIndex = 1
@@ -192,7 +192,7 @@ Partial Class frm_socio
         '
         Me.rdo_pagado.AutoSize = True
         Me.rdo_pagado.Location = New System.Drawing.Point(26, 25)
-        Me.rdo_pagado.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdo_pagado.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_pagado.Name = "rdo_pagado"
         Me.rdo_pagado.Size = New System.Drawing.Size(84, 22)
         Me.rdo_pagado.TabIndex = 0
@@ -214,9 +214,9 @@ Partial Class frm_socio
         '
         Me.grp_commnent.Controls.Add(Me.txt_coment)
         Me.grp_commnent.Location = New System.Drawing.Point(11, 440)
-        Me.grp_commnent.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_commnent.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_commnent.Name = "grp_commnent"
-        Me.grp_commnent.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.grp_commnent.Padding = New System.Windows.Forms.Padding(4)
         Me.grp_commnent.Size = New System.Drawing.Size(882, 101)
         Me.grp_commnent.TabIndex = 37
         Me.grp_commnent.TabStop = False
@@ -225,7 +225,7 @@ Partial Class frm_socio
         'txt_coment
         '
         Me.txt_coment.Location = New System.Drawing.Point(8, 25)
-        Me.txt_coment.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_coment.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_coment.Multiline = True
         Me.txt_coment.Name = "txt_coment"
         Me.txt_coment.Size = New System.Drawing.Size(864, 65)
@@ -234,7 +234,7 @@ Partial Class frm_socio
         'btn_insertar
         '
         Me.btn_insertar.Location = New System.Drawing.Point(24, 549)
-        Me.btn_insertar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_insertar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_insertar.Name = "btn_insertar"
         Me.btn_insertar.Size = New System.Drawing.Size(181, 32)
         Me.btn_insertar.TabIndex = 38
@@ -245,7 +245,7 @@ Partial Class frm_socio
         '
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.Location = New System.Drawing.Point(455, 600)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(438, 48)
         Me.Button2.TabIndex = 39
@@ -255,7 +255,7 @@ Partial Class frm_socio
         'txt_nsocio
         '
         Me.txt_nsocio.Location = New System.Drawing.Point(8, 44)
-        Me.txt_nsocio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_nsocio.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_nsocio.Name = "txt_nsocio"
         Me.txt_nsocio.Size = New System.Drawing.Size(65, 24)
         Me.txt_nsocio.TabIndex = 13
@@ -273,7 +273,7 @@ Partial Class frm_socio
         'btn_buscar_dni
         '
         Me.btn_buscar_dni.Location = New System.Drawing.Point(341, 58)
-        Me.btn_buscar_dni.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_buscar_dni.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_buscar_dni.Name = "btn_buscar_dni"
         Me.btn_buscar_dni.Size = New System.Drawing.Size(148, 32)
         Me.btn_buscar_dni.TabIndex = 41
@@ -283,7 +283,7 @@ Partial Class frm_socio
         'btn_letranif
         '
         Me.btn_letranif.Location = New System.Drawing.Point(488, 33)
-        Me.btn_letranif.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_letranif.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_letranif.Name = "btn_letranif"
         Me.btn_letranif.Size = New System.Drawing.Size(105, 57)
         Me.btn_letranif.TabIndex = 42
@@ -293,19 +293,19 @@ Partial Class frm_socio
         'btn_num_libres
         '
         Me.btn_num_libres.Location = New System.Drawing.Point(81, 47)
-        Me.btn_num_libres.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_num_libres.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_num_libres.Name = "btn_num_libres"
-        Me.btn_num_libres.Size = New System.Drawing.Size(172, 32)
+        Me.btn_num_libres.Size = New System.Drawing.Size(172, 29)
         Me.btn_num_libres.TabIndex = 44
         Me.btn_num_libres.Text = "Ver Números Libres"
         Me.btn_num_libres.UseVisualStyleBackColor = True
         '
         'btn_buscar_nsocio
         '
-        Me.btn_buscar_nsocio.Location = New System.Drawing.Point(81, 15)
-        Me.btn_buscar_nsocio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_buscar_nsocio.Location = New System.Drawing.Point(81, 22)
+        Me.btn_buscar_nsocio.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_buscar_nsocio.Name = "btn_buscar_nsocio"
-        Me.btn_buscar_nsocio.Size = New System.Drawing.Size(172, 32)
+        Me.btn_buscar_nsocio.Size = New System.Drawing.Size(172, 25)
         Me.btn_buscar_nsocio.TabIndex = 47
         Me.btn_buscar_nsocio.Text = "Buscar"
         Me.btn_buscar_nsocio.UseVisualStyleBackColor = True
@@ -313,7 +313,7 @@ Partial Class frm_socio
         'btn_modificar
         '
         Me.btn_modificar.Location = New System.Drawing.Point(367, 549)
-        Me.btn_modificar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_modificar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_modificar.Name = "btn_modificar"
         Me.btn_modificar.Size = New System.Drawing.Size(165, 32)
         Me.btn_modificar.TabIndex = 48
@@ -323,7 +323,7 @@ Partial Class frm_socio
         'btn_eliminar
         '
         Me.btn_eliminar.Location = New System.Drawing.Point(714, 549)
-        Me.btn_eliminar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_eliminar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_eliminar.Name = "btn_eliminar"
         Me.btn_eliminar.Size = New System.Drawing.Size(165, 32)
         Me.btn_eliminar.TabIndex = 49
@@ -334,7 +334,7 @@ Partial Class frm_socio
         '
         Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button6.Location = New System.Drawing.Point(11, 600)
-        Me.Button6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button6.Margin = New System.Windows.Forms.Padding(4)
         Me.Button6.Name = "Button6"
         Me.Button6.Size = New System.Drawing.Size(436, 48)
         Me.Button6.TabIndex = 50
@@ -347,7 +347,7 @@ Partial Class frm_socio
         Me.txt_dni.Foco = System.Drawing.Color.Empty
         Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
         Me.txt_dni.Location = New System.Drawing.Point(341, 33)
-        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_dni.Name = "txt_dni"
         Me.txt_dni.Size = New System.Drawing.Size(148, 27)
         Me.txt_dni.TabIndex = 43
@@ -366,6 +366,27 @@ Partial Class frm_socio
         Me.GroupBox1.TabIndex = 51
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Socio"
+        '
+        'cmb_tarjeta
+        '
+        Me.cmb_tarjeta.FormattingEnabled = True
+        Me.cmb_tarjeta.Items.AddRange(New Object() {"SALMON", "TRUCHA"})
+        Me.cmb_tarjeta.Location = New System.Drawing.Point(10, 125)
+        Me.cmb_tarjeta.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmb_tarjeta.Name = "cmb_tarjeta"
+        Me.cmb_tarjeta.Size = New System.Drawing.Size(180, 26)
+        Me.cmb_tarjeta.TabIndex = 48
+        Me.cmb_tarjeta.Text = "Seleccionar..."
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(7, 103)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(105, 18)
+        Me.Label13.TabIndex = 49
+        Me.Label13.Text = "Tipo de tarjeta:"
         '
         'GroupBox2
         '
@@ -387,14 +408,6 @@ Partial Class frm_socio
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos personales"
         '
-        'txt_apellido
-        '
-        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
-        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_apellido.Name = "txt_apellido"
-        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
-        Me.txt_apellido.TabIndex = 57
-        '
         'txt_nombre
         '
         Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
@@ -403,15 +416,23 @@ Partial Class frm_socio
         Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
         Me.txt_nombre.TabIndex = 56
         '
-        'btn_buscar_apell
+        'txt_apellido
         '
-        Me.btn_buscar_apell.Location = New System.Drawing.Point(81, 96)
-        Me.btn_buscar_apell.Margin = New System.Windows.Forms.Padding(4)
-        Me.btn_buscar_apell.Name = "btn_buscar_apell"
-        Me.btn_buscar_apell.Size = New System.Drawing.Size(208, 32)
-        Me.btn_buscar_apell.TabIndex = 55
-        Me.btn_buscar_apell.Text = "Buscar"
-        Me.btn_buscar_apell.UseVisualStyleBackColor = True
+        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
+        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_apellido.Name = "txt_apellido"
+        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
+        Me.txt_apellido.TabIndex = 57
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(7, 33)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(66, 18)
+        Me.Label5.TabIndex = 52
+        Me.Label5.Text = "Nombre:"
         '
         'Label6
         '
@@ -423,15 +444,15 @@ Partial Class frm_socio
         Me.Label6.TabIndex = 53
         Me.Label6.Text = "Apellidos:"
         '
-        'Label5
+        'btn_buscar_apell
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(7, 33)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(66, 18)
-        Me.Label5.TabIndex = 52
-        Me.Label5.Text = "Nombre:"
+        Me.btn_buscar_apell.Location = New System.Drawing.Point(81, 96)
+        Me.btn_buscar_apell.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_buscar_apell.Name = "btn_buscar_apell"
+        Me.btn_buscar_apell.Size = New System.Drawing.Size(208, 25)
+        Me.btn_buscar_apell.TabIndex = 55
+        Me.btn_buscar_apell.Text = "Buscar"
+        Me.btn_buscar_apell.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -549,27 +570,6 @@ Partial Class frm_socio
         Me.Label3.TabIndex = 60
         Me.Label3.Text = "Provincia:"
         '
-        'cmb_tarjeta
-        '
-        Me.cmb_tarjeta.FormattingEnabled = True
-        Me.cmb_tarjeta.Items.AddRange(New Object() {"SALMON", "TRUCHA"})
-        Me.cmb_tarjeta.Location = New System.Drawing.Point(10, 125)
-        Me.cmb_tarjeta.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmb_tarjeta.Name = "cmb_tarjeta"
-        Me.cmb_tarjeta.Size = New System.Drawing.Size(180, 26)
-        Me.cmb_tarjeta.TabIndex = 48
-        Me.cmb_tarjeta.Text = "Seleccionar..."
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 103)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(105, 18)
-        Me.Label13.TabIndex = 49
-        Me.Label13.Text = "Tipo de tarjeta:"
-        '
         'frm_socio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
@@ -589,7 +589,7 @@ Partial Class frm_socio
         Me.Controls.Add(Me.btn_insertar)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_socio"
         Me.Text = "C.D.B. Pesca Reinosa -Gestion - Socios."
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
