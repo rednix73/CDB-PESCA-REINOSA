@@ -118,43 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="provincias" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\provincias.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="comunidades" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\comunidades.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="cantabria_localidades" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cantabria_localidades.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
-  <data name="cantabria_cp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cantabria_cp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
-  </data>
   <data name="alevines1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alevines1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="alevines" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\alevines.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="alevines2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alevines2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="alevin-trucha" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\alevin-trucha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="comunidades" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\comunidades.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="bogas saltando en el medidor de aforos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bogas saltando en el medidor de aforos.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Huevas de trucha de diferente coloración." type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Huevas de trucha de diferente coloración..JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cola rata" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cola rata.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Huevas de trucha de diferente coloración." type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Huevas de trucha de diferente coloración..JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bogas saltando en el medidor de aforos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bogas saltando en el medidor de aforos.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="alevines" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\alevines.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cantabria_localidades" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cantabria_localidades.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="provincias" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\provincias.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Huevas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Huevas.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="alevines21" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\alevines21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cantabria_cp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cantabria_cp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-16</value>
+  </data>
+  <data name="alevin-trucha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\alevin-trucha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CDB-PESCAREINOSA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CDB-PESCAREINOSA.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

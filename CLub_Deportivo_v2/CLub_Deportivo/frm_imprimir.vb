@@ -10,25 +10,25 @@ Public Class frm_imprimir
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         streamToPrint = New StreamReader("C:\\My Documents\\MyFile.txt")
-        Try
+        'Try
 
-            printFont = New Font("Arial", 10)
-            Dim pd As New PrintDocument
+        '    printFont = New Font("Arial", 10)
+        '    Dim pd As New PrintDocument
 
-            pd.PrintPage += New PrintPageEventHandler
-                   (this.pd_PrintPage);
-                pd.Print();
-            }
-            Finally
-            {
-                streamToPrint.Close();
-            }
-        }
-        Catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-
+        '    pd.PrintPage += New PrintPageEventHandler
+        '           (this.pd_PrintPage)
+        '        pd.Print()
+        '    }
+        '    Finally
+        '    {
+        '        streamToPrint.Close()
+        '    }
+        '}
+        'Catch (Exception ex)
+        '{
+        '    MessageBox.Show(ex.Message)
+        '}
+        'End Try
     End Sub
 
     Private Sub frm_imprimir_Load(sender As Object, e As EventArgs) Handles MyBase.Load
