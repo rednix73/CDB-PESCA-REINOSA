@@ -273,34 +273,32 @@ Module bbdd
         libres = libres1
         Return libres
     End Function
-
     ''' <summary>
     ''' Método que devuelve el último número de socio usado.
     ''' </summary>
     ''' <returns>Develve un entero con el último número de socio en uso.</returns>
     Public Function ultimo(tabla As String) As Integer
+        Try
+            Dim ult As Integer
+            Select Case tp
+                Case tipobd.excel
+                    consulta2 = New OdbcCommand()
+                    consulta2.Connection = conn2
+                    'Obtenemos el último número usado.
+                    consulta2.CommandText = "Select MAX(n_socio) from " + tabla
+                    ult = consulta2.ExecuteScalar()
 
-        Dim ult As Integer
-
-        Select Case tp
-            Case tipobd.excel
-                consulta2 = New OdbcCommand()
-                consulta2.Connection = conn2
-                'Obtenemos el último número usado.
-                consulta2.CommandText = "Select MAX(n_socio) from " + tabla
-                ult = consulta2.ExecuteScalar()
-
-            Case tipobd.mysql
-                consulta1 = New MySqlCommand()
-                consulta1.Connection = conn1
-                'Obtenemos el último número usado.
-                consulta1.CommandText = "Select MAX(n_socio) from " + tabla
-                ult = consulta1.ExecuteScalar()
-
-        End Select
-
-        Return ult
-
+                Case tipobd.mysql
+                    consulta1 = New MySqlCommand()
+                    consulta1.Connection = conn1
+                    'Obtenemos el último número usado.
+                    consulta1.CommandText = "Select MAX(n_socio) from " + tabla
+                    ult = consulta1.ExecuteScalar()
+            End Select
+            Return ult
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Function
 
     Public Sub buscar_nombre(valor As String)
@@ -314,21 +312,36 @@ Module bbdd
     End Sub
 
     Public Sub buscar_nsocio(valor As String)
-        If (valor <> "") Then
-            dw_bdsocios.RowFilter = "numero=" + valor
-        End If
+        Try
+            If (valor <> "") Then
+                dw_bdsocios.RowFilter = "numero=" + valor
+            End If
 
-        frm_busqueda.Show()
-        frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-
-
+            frm_busqueda.Show()
+            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Sub
 
     Public Sub buscar_dni(valor As String)
         Try
-            dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
-            frm_busqueda.Show()
-            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+
+            dw_socios.RowFilter = "dni like '%" + valor + "%'"
+            frm_busqueda.DataGridView1.DataSource = dw_socios
+            If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
+                frm_busqueda.Show()
+            Else
+                MsgBox("Socio no encontrado en temporada actual. Buscando en la base de datos de socios...")
+                dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
+                frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+                If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
+                    frm_busqueda.Show()
+                Else
+                    MsgBox("Socio no encontrado")
+                End If
+            End If
+
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
