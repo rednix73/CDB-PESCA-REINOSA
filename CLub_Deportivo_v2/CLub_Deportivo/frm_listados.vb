@@ -3,6 +3,7 @@
         Me.MdiParent = frm_principal
 
         DataGridView1.DataSource = ds_club.Tables(0)
+        DataGridView1.DataSource = ds_club.Tables(1)
 
     End Sub
 

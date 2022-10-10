@@ -1,5 +1,8 @@
 ﻿Imports System.Data.Odbc
 Imports MySql.Data.MySqlClient
+Imports System.Data.OleDb
+Imports Microsoft.Office.Interop.Excel
+Imports OdbcConnection = System.Data.Odbc.OdbcConnection
 
 Module bbdd
 
@@ -12,7 +15,7 @@ Module bbdd
 
     ' Base de datos remota mysql
     Public cadena1 As String = "Server=153.92.7.1;Port=3306;Database=u127917223_socio;Uid=u127917223_redn;Pwd=EaHb8Hx2nThGhNCw"
-    Public conn1 As MySqlConnection
+    Public conn1 As New MySqlConnection
     Public consulta1 As New MySqlCommand
     Public dr1 As MySqlDataReader
     Public dr2 As MySqlDataReader
@@ -23,7 +26,7 @@ Module bbdd
     Public da_bdsocios1 As MySqlDataAdapter
     Public cb_bdsocios1 As MySqlCommandBuilder
 
-    ' Base de datos local excel
+    ' Base de datos local excel - conexion odbc
     Public cadena2 As String = "DSN=cdb-pesca-xls"
     Public conn2 As New OdbcConnection
     Public consulta2 As New OdbcCommand
@@ -36,6 +39,24 @@ Module bbdd
     Public da_bdsocios2 As OdbcDataAdapter
     Public cb_bdsocios2 As OdbcCommandBuilder
 
+    ' Base de datos local excel - conexion oledb - falla cadena de conexion
+    Public cadena3 As String = "Provider=Microsoft.ACE.OLEDB.12.0;" & "Data source=" & Archivo_excel & ";" & "Extended Properties=Excel 8.0;HDR=Yes"
+    'Public cadena3 As String ="Provider=Microsoft.ACE.OLEDB.12.0;" & "data source=" & Archivo_excel & "; " & "Extended Properties='Excel 12.0 Xml;HDR=Yes'"
+    Public conn3 As New OleDb.OleDbConnection
+    Public consulta3 As New OleDbCommand
+    Public dr5 As OleDbDataReader
+    Public dr6 As OleDbDataReader
+    'Tabla socios excel
+    Public da_socios3 As OleDbDataAdapter
+    Public cb_socios3 As OleDbCommandBuilder
+    'Tabla Base de datos de socios excel
+    Public da_bdsocios3 As OleDbDataAdapter
+    Public cb_bdsocios3 As OleDbCommandBuilder
+    'Nombre del archivo excel
+    Public Archivo_excel As String = "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
+    'Nombre de la hoja excel donde están los datos
+    Public Hoja_excel_socios As String = "[socios_2022_2023$]"
+
     Public dw_socios As DataView
     Public dw_bdsocios As New DataView
 
@@ -44,7 +65,7 @@ Module bbdd
 
     Public Sub conectar()
         Try
-            tp = tipobd.mysql
+            tp = tipobd.excel
             Select Case tp
                 Case tipobd.excel
                     conn2 = New OdbcConnection
@@ -53,6 +74,12 @@ Module bbdd
                     If Not conn2.State = ConnectionState.Open Then
                         MsgBox("Error de conexion")
                     End If
+                    'conn3 = New OleDb.OleDbConnection()
+                    'conn3.ConnectionString = cadena3
+                    'conn3.Open()
+                    'If Not conn3.State = ConnectionState.Open Then
+                    '    MsgBox("Error de conexion")
+                    'End If
                 Case tipobd.mysql
                     conn1 = New MySqlConnection
                     conn1.ConnectionString = cadena1
@@ -69,13 +96,17 @@ Module bbdd
     End Sub
 
     Public Sub desconectar()
+
         Try
             conn1.Close()
             If conn1.State = ConnectionState.Open Then
+                        MsgBox("Error de desconexión")
+                    End If
+                    conn2.Close()
+            If conn2.State = ConnectionState.Open Then
                 MsgBox("Error de desconexión")
             End If
-            conn2.Close()
-            If conn2.State = ConnectionState.Open Then
+            If conn3.State = ConnectionState.Open Then
                 MsgBox("Error de desconexión")
             End If
         Catch ex As Exception
@@ -87,16 +118,32 @@ Module bbdd
         conectar()
         Select Case tp
             Case tipobd.excel
+
+                'Conexión por ODBC
                 conectar()
                 da_socios2 = New OdbcDataAdapter()
-                da_socios2 = New OdbcDataAdapter("Select * from socios", conn2)
+                da_socios2 = New OdbcDataAdapter("SELECT * FROM [socios_2022_23$]", conn2)
                 da_socios2.Fill(ds_club, "socios")
                 cb_socios2 = New OdbcCommandBuilder(da_socios2)
                 dw_socios = New DataView(ds_club.Tables(0))
-                da_bdsocios2 = New OdbcDataAdapter("Select * from bdsocios", conn2)
+                da_bdsocios2 = New OdbcDataAdapter("SELECT * FROM  [bdsocios$]", conn2)
                 da_bdsocios2.Fill(ds_club, "bdsocios")
                 cb_bdsocios2 = New OdbcCommandBuilder(da_bdsocios2)
                 dw_bdsocios = New DataView(ds_club.Tables(1))
+
+                ''Conexión directa por OLEDB
+                'conectar()
+                'da_socios3 = New OleDbDataAdapter()
+                'da_socios3 = New OleDbDataAdapter("SELECT * FROM " & Hoja_excel_socios, conn3)
+                'da_socios3.Fill(ds_club, "socios")
+                'cb_socios3 = New OleDbCommandBuilder(da_socios3)
+                'dw_socios = New DataView(ds_club.Tables(0))
+                'da_bdsocios3 = New OleDbDataAdapter("SELECT * FROM [bdsocios$]", conn3)
+                'da_bdsocios3.Fill(ds_club, "bdsocios")
+                'cb_bdsocios3 = New OleDbCommandBuilder(da_bdsocios3)
+                'dw_bdsocios = New DataView(ds_club.Tables(1))
+
+
             Case tipobd.mysql
                 conectar()
                 da_socios1 = New MySqlDataAdapter("Select * from socios", conn1)
@@ -136,7 +183,7 @@ Module bbdd
                 consulta2.Connection = conn2
                 'Obtenemos el último número usado en la base de datos de socios.
                 consulta2.CommandText = "Select MAX(n_socio) from bdsocios"
-                ultimo_bd = consulta1.ExecuteScalar
+                ultimo_bd = consulta2.ExecuteScalar
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos el último número usado en la tabla de socios actual.
@@ -257,17 +304,18 @@ Module bbdd
     End Function
 
     Public Sub buscar_nombre(valor As String)
-
-        dw_bdsocios.RowFilter = "nombre Like '%" + valor + "%'"
-        frm_busqueda.Show()
-        frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-
-
+        Try
+            dw_bdsocios.RowFilter = "apellidos Like '%" + valor + "%'"
+            frm_busqueda.Show()
+            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Sub
 
     Public Sub buscar_nsocio(valor As String)
         If (valor <> "") Then
-            dw_bdsocios.RowFilter = "n_socio=" + valor
+            dw_bdsocios.RowFilter = "numero=" + valor
         End If
 
         frm_busqueda.Show()
@@ -277,9 +325,14 @@ Module bbdd
     End Sub
 
     Public Sub buscar_dni(valor As String)
-        dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
-        frm_busqueda.Show()
-        frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+        Try
+            dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
+            frm_busqueda.Show()
+            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
     End Sub
     ''' <summary>
     ''' Inserta un registro en la tabla socios.

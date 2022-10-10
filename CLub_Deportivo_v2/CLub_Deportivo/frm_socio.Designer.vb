@@ -48,13 +48,10 @@ Partial Class frm_socio
         Me.btn_modificar = New System.Windows.Forms.Button()
         Me.btn_eliminar = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
-        Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.cmb_tarjeta = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txt_nombre = New CLub_Deportivo.textbox_club()
-        Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_buscar_apell = New System.Windows.Forms.Button()
@@ -69,6 +66,9 @@ Partial Class frm_socio
         Me.cmb_prov = New System.Windows.Forms.ComboBox()
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.txt_nombre = New CLub_Deportivo.textbox_club()
+        Me.txt_apellido = New CLub_Deportivo.textbox_club()
+        Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.grp_socio.SuspendLayout()
         Me.grp_estado.SuspendLayout()
         Me.grp_commnent.SuspendLayout()
@@ -341,17 +341,6 @@ Partial Class frm_socio
         Me.Button6.Text = "Tabla socios"
         Me.Button6.UseVisualStyleBackColor = True
         '
-        'txt_dni
-        '
-        Me.txt_dni.BackColor = System.Drawing.Color.White
-        Me.txt_dni.Foco = System.Drawing.Color.Empty
-        Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
-        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_dni.Name = "txt_dni"
-        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
-        Me.txt_dni.TabIndex = 43
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.cmb_tarjeta)
@@ -407,22 +396,6 @@ Partial Class frm_socio
         Me.GroupBox2.TabIndex = 52
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos personales"
-        '
-        'txt_nombre
-        '
-        Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
-        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_nombre.Name = "txt_nombre"
-        Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
-        Me.txt_nombre.TabIndex = 56
-        '
-        'txt_apellido
-        '
-        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
-        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_apellido.Name = "txt_apellido"
-        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
-        Me.txt_apellido.TabIndex = 57
         '
         'Label5
         '
@@ -569,6 +542,33 @@ Partial Class frm_socio
         Me.Label3.Size = New System.Drawing.Size(73, 18)
         Me.Label3.TabIndex = 60
         Me.Label3.Text = "Provincia:"
+        '
+        'txt_nombre
+        '
+        Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
+        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_nombre.Name = "txt_nombre"
+        Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
+        Me.txt_nombre.TabIndex = 56
+        '
+        'txt_apellido
+        '
+        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
+        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_apellido.Name = "txt_apellido"
+        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
+        Me.txt_apellido.TabIndex = 57
+        '
+        'txt_dni
+        '
+        Me.txt_dni.BackColor = System.Drawing.Color.White
+        Me.txt_dni.Foco = System.Drawing.Color.Empty
+        Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
+        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_dni.Name = "txt_dni"
+        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
+        Me.txt_dni.TabIndex = 43
         '
         'frm_socio
         '

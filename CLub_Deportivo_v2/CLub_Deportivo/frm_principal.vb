@@ -41,12 +41,11 @@
     Private Sub NuevoSocioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevoSocioToolStripMenuItem.Click
         frm_socio.MdiParent = Me
         frm_socio.Show()
-        frm_socio.btn_buscar_nsocio.Visible = False
-        frm_socio.btn_buscar_dni.Visible = False
-        frm_socio.btn_buscar_apell.Visible = False
+        frm_socio.btn_buscar_nsocio.Visible = True
+        frm_socio.btn_buscar_dni.Visible = True
+        frm_socio.btn_buscar_apell.Visible = True
         frm_socio.btn_eliminar.Visible = False
         frm_socio.btn_modificar.Visible = False
-
 
     End Sub
 

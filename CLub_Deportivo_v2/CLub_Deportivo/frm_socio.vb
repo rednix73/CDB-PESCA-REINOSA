@@ -341,4 +341,16 @@
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
 
     End Sub
+
+    Private Sub btn_buscar_dni_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_dni.Click
+        buscar_dni(txt_dni.Text)
+    End Sub
+
+    Private Sub btn_letranif_Click_1(sender As Object, e As EventArgs) Handles btn_letranif.Click
+
+    End Sub
+
+    Private Sub btn_buscar_apell_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_apell.Click
+        buscar_nombre(txt_apellido.Text)
+    End Sub
 End Class

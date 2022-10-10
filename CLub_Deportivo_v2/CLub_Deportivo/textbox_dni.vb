@@ -88,7 +88,8 @@ Public Class textbox_dni
         b = CInt(Int(a / 23))
         c = a - (23 * b)
 
-        Return strA & Mid(cCADENA, CInt(c + 1), 1)
+        Return strA & "-" & Mid(cCADENA, CInt(c + 1), 1)
+
     End Function
 
     Public Sub New()
