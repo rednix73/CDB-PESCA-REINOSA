@@ -6,27 +6,33 @@
     Private Sub btn_usar_Click(sender As Object, e As EventArgs) Handles btn_usar.Click
         Try
             If DataGridView1.SelectedRows.Count > 0 Then
-                frm_socio.txt_nsocio.Text = DataGridView1.SelectedRows(0).Cells(0).Value
-                frm_socio.txt_nombre.Text = DataGridView1.SelectedRows(0).Cells(1).Value
-                frm_socio.txt_apellido.Text = DataGridView1.SelectedRows(0).Cells(2).Value
-                frm_socio.txt_dni.Text = DataGridView1.SelectedRows(0).Cells(3).Value
-                frm_socio.txt_direcc.Text = DataGridView1.SelectedRows(0).Cells(4).Value
-                frm_socio.cmb_pais.SelectedItem = DataGridView1.SelectedRows(0).Cells(8).Value
-                frm_socio.cmb_prov.SelectedItem = DataGridView1.SelectedRows(0).Cells(7).Value
-                frm_socio.cmb_localidad.SelectedText = DataGridView1.SelectedRows(0).Cells(6).Value
-                frm_socio.txt_cp.Text = DataGridView1.SelectedRows(0).Cells(5).Value
-                frm_socio.txt_email.Text = DataGridView1.SelectedRows(0).Cells(10).Value
-                frm_socio.cmb_tarjeta.SelectedIndex = CInt(DataGridView1.SelectedRows(0).Cells(11).Value) - 1
+                frm_socio.txt_nsocio.Text = DataGridView1.SelectedRows(0).Cells(0).Value.ToString()
+                frm_socio.txt_nombre.Text = DataGridView1.SelectedRows(0).Cells(1).Value.ToString()
+                frm_socio.txt_apellido.Text = DataGridView1.SelectedRows(0).Cells(2).Value.ToString()
+                frm_socio.txt_dni.Text = DataGridView1.SelectedRows(0).Cells(3).Value.ToString()
+                frm_socio.txt_direcc.Text = DataGridView1.SelectedRows(0).Cells(4).Value.ToString()
+                frm_socio.txt_cp.Text = DataGridView1.SelectedRows(0).Cells(5).Value.ToString()
+                frm_socio.cmb_localidad.SelectedText = DataGridView1.SelectedRows(0).Cells(6).Value.ToString()
+                frm_socio.cmb_prov.SelectedItem = DataGridView1.SelectedRows(0).Cells(7).Value.ToString()
+                frm_socio.cmb_pais.SelectedItem = DataGridView1.SelectedRows(0).Cells(8).Value.ToString()
                 If Not IsDBNull(DataGridView1.SelectedRows(0).Cells(9).Value) Then
-                    frm_socio.dtpk_fecha_nac.Value = DataGridView1.SelectedRows(0).Cells(9).Value
+                    Dim fechanac As Date
+                    fechanac = CDate(DataGridView1.SelectedRows(0).Cells(9).Value.ToString())
+                    frm_socio.dtpk_fecha_nac.Value = fechanac
+                    If (Calcula_edad(fechanac).Year >= 65) Then
+                        frm_socio.rdo_jubilado.Checked = True
+                    End If
+                Else
+                    frm_socio.dtpk_fecha_nac.Value = "2000/01/01"
                 End If
-                Select Case DataGridView1.SelectedRows(0).Cells(12).Value
+                frm_socio.txt_email.Text = DataGridView1.SelectedRows(0).Cells(10).Value.ToString()
+                frm_socio.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value))
+                Select Case DataGridView1.SelectedRows(0).Cells(12).Value.ToString()
                     Case "NORMAL"
                         frm_socio.rdo_normal.Checked = True
                     Case "JUBILADO"
                         frm_socio.rdo_jubilado.Checked = True
                     Case "MENOR, FEMINA, OTROS"
-
                         frm_socio.rdo_otros.Checked = True
                 End Select
             End If
@@ -43,4 +49,14 @@
     Private Sub frm_busqueda_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+    Public Function Calcula_edad(fechanac As Date) As Date
+        Dim ahora As New DateTime()
+        Dim edad_socio As New DateTime()
+        ahora = DateTime.Now
+        Dim años As Long = DateDiff(DateInterval.Year, edad_socio, ahora)
+        Dim meses As Long = DateDiff(DateInterval.Month, edad_socio, ahora)
+        Dim dias As Long = DateDiff(DateInterval.Day, edad_socio, ahora)
+        edad_socio = New Date(años, meses, dias)
+        Return edad_socio
+    End Function
 End Class
