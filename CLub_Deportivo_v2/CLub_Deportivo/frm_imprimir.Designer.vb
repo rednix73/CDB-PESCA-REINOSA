@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_imprimir
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frm_imprimir
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_imprimir))
@@ -30,7 +30,6 @@ Partial Class frm_imprimir
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
-        Me.cmb_posicion = New System.Windows.Forms.ComboBox()
         Me.lbl_tarjeta = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -78,24 +77,17 @@ Partial Class frm_imprimir
         Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
         Me.Mapa_tarjetas1.Size = New System.Drawing.Size(412, 537)
         Me.Mapa_tarjetas1.TabIndex = 12
-        '
-        'cmb_posicion
-        '
-        Me.cmb_posicion.FormattingEnabled = True
-        Me.cmb_posicion.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
-        Me.cmb_posicion.Location = New System.Drawing.Point(263, 20)
-        Me.cmb_posicion.Name = "cmb_posicion"
-        Me.cmb_posicion.Size = New System.Drawing.Size(55, 24)
-        Me.cmb_posicion.TabIndex = 13
+        Me.Mapa_tarjetas1.tarjeta = 0
         '
         'lbl_tarjeta
         '
         Me.lbl_tarjeta.AutoSize = True
-        Me.lbl_tarjeta.Location = New System.Drawing.Point(26, 20)
+        Me.lbl_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_tarjeta.Location = New System.Drawing.Point(26, 27)
         Me.lbl_tarjeta.Name = "lbl_tarjeta"
-        Me.lbl_tarjeta.Size = New System.Drawing.Size(231, 17)
+        Me.lbl_tarjeta.Size = New System.Drawing.Size(392, 24)
         Me.lbl_tarjeta.TabIndex = 14
-        Me.lbl_tarjeta.Text = "Seleccione la posición de la tarjeta:"
+        Me.lbl_tarjeta.Text = "Seleccione la posición de la tarjeta a imprimir:"
         '
         'frm_imprimir
         '
@@ -103,7 +95,6 @@ Partial Class frm_imprimir
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(492, 663)
         Me.Controls.Add(Me.lbl_tarjeta)
-        Me.Controls.Add(Me.cmb_posicion)
         Me.Controls.Add(Me.Mapa_tarjetas1)
         Me.Controls.Add(Me.btn_imprimir)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -120,5 +111,4 @@ Partial Class frm_imprimir
     Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
     Friend WithEvents Mapa_tarjetas1 As mapa_tarjetas
     Friend WithEvents lbl_tarjeta As Label
-    Friend WithEvents cmb_posicion As ComboBox
 End Class

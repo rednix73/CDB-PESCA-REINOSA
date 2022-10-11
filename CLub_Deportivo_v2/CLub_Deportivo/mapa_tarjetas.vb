@@ -1,17 +1,6 @@
 ﻿Public Class mapa_tarjetas
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lbl_t1.Click
-        restablecer()
-
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t1.BackColor = color1 Then
-            lbl_t1.BackColor = color2
-        Else
-            lbl_t1.BackColor = color1
-        End If
+        tarjeta = 1
         comprobar_tarjeta()
     End Sub
     Private _tarjeta As Integer
@@ -41,6 +30,7 @@
                         comprobar_tarjeta()
                     End If
                 Next
+
             Catch ex As Exception
                 MsgBox(ex.ToString())
             End Try
@@ -76,120 +66,41 @@
     End Sub
 
     Private Sub lbl_t2_Click(sender As Object, e As EventArgs) Handles lbl_t2.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t2.BackColor = color1 Then
-            lbl_t2.BackColor = color2
-        Else
-            lbl_t2.BackColor = color1
-        End If
+        tarjeta = 2
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t4_Click(sender As Object, e As EventArgs) Handles lbl_t4.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t4.BackColor = color1 Then
-            lbl_t4.BackColor = color2
-        Else
-            lbl_t4.BackColor = color1
-        End If
+        tarjeta = 4
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t5_Click(sender As Object, e As EventArgs) Handles lbl_t5.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t5.BackColor = color1 Then
-            lbl_t5.BackColor = color2
-        Else
-            lbl_t5.BackColor = color1
-        End If
+        tarjeta = 5
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t6_Click(sender As Object, e As EventArgs) Handles lbl_t6.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t6.BackColor = color1 Then
-            lbl_t6.BackColor = color2
-        Else
-            lbl_t6.BackColor = color1
-        End If
+        tarjeta = 6
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t7_Click(sender As Object, e As EventArgs) Handles lbl_t7.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t7.BackColor = color1 Then
-            lbl_t7.BackColor = color2
-        Else
-            lbl_t7.BackColor = color1
-        End If
+        tarjeta = 7
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t8_Click(sender As Object, e As EventArgs) Handles lbl_t8.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t8.BackColor = color1 Then
-            lbl_t8.BackColor = color2
-        Else
-            lbl_t8.BackColor = color1
-        End If
+        tarjeta = 8
         comprobar_tarjeta()
     End Sub
 
     Private Sub lbl_t9_Click(sender As Object, e As EventArgs) Handles lbl_t9.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t9.BackColor = color1 Then
-            lbl_t9.BackColor = color2
-        Else
-            lbl_t9.BackColor = color1
-        End If
+        tarjeta = 9
         comprobar_tarjeta()
     End Sub
     Private Sub lbl_t10_Click(sender As Object, e As EventArgs) Handles lbl_t10.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-        If lbl_t10.BackColor = color1 Then
-            lbl_t10.BackColor = color2
-        Else
-            lbl_t10.BackColor = color1
-        End If
+        tarjeta = 10
         comprobar_tarjeta()
     End Sub
 
@@ -231,17 +142,7 @@
     End Function
 
     Private Sub lbl_t3_Click(sender As Object, e As EventArgs) Handles lbl_t3.Click
-        restablecer()
-        Dim color1 As New Color
-        color1 = SystemColors.Control
-        Dim color2 As New Color
-        color2 = Color.Green
-
-        If lbl_t3.BackColor = color1 Then
-            lbl_t3.BackColor = color2
-        Else
-            lbl_t3.BackColor = color1
-        End If
+        tarjeta = 3
         comprobar_tarjeta()
     End Sub
 End Class
