@@ -25,6 +25,7 @@
 
     Private Sub GuardarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GuardarToolStripMenuItem.Click
         Try
+
             If (Not ds_club.GetChanges Is Nothing) Then
                 conectar()
                 da_socios1.Update(ds_club.Tables(0))

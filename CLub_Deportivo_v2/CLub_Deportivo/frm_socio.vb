@@ -1,10 +1,11 @@
-﻿Public Class frm_socio
-
-
-
+﻿Imports CLub_Deportivo.bbdd
+Public Class frm_socio
 
     Dim pago As Integer
     Dim tipo As String = ""
+    Dim importe As Integer = 0
+
+
 
     Private Sub frm_socio_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.MdiParent = frm_principal
@@ -16,7 +17,42 @@
         cmb_prov.SelectedItem = "CANTABRIA"
         cmb_pais.SelectedItem = "ESPAÑA"
     End Sub
-
+    Private Function calcula_importe() As Integer
+        Try
+            Select Case cmb_tarjeta.SelectedIndex
+                Case 1
+                    If (rdo_normal.Checked) Then
+                        importe = precio_trucha
+                        Return importe
+                    End If
+                    If (rdo_jubilado.Checked) Then
+                        importe = precio_trucha / 2
+                        Return importe
+                    End If
+                    If (rdo_otros.Checked) Then
+                        importe = 0
+                        Return importe
+                    End If
+                Case 0
+                    If (rdo_normal.Checked) Then
+                        importe = precio_salmon
+                        Return importe
+                    End If
+                    If (rdo_jubilado.Checked) Then
+                        importe = precio_salmon / 2
+                        Return importe
+                    End If
+                    If (rdo_otros.Checked) Then
+                        importe = 0
+                        Return importe
+                    End If
+                Case Else
+                    Return 0
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+    End Function
 
     Private Sub cmb_provincias_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
         If cmb_prov.SelectedItem = "CANTABRIA" Then
@@ -58,7 +94,8 @@
     End Sub
 
     Private Sub rdo_otros_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_otros.CheckedChanged
-
+        rdo_nopagado.Checked = True
+        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
@@ -340,7 +377,8 @@
     End Sub
 
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
-
+        rdo_pagado.Checked = True
+        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
     Private Sub btn_buscar_dni_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_dni.Click
@@ -353,5 +391,14 @@
 
     Private Sub btn_buscar_apell_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_apell.Click
         buscar_nombre(txt_apellido.Text)
+    End Sub
+
+    Private Sub cmb_tarjeta_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmb_tarjeta.SelectedIndexChanged
+        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+    End Sub
+
+    Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
+        rdo_pagado.Checked = True
+        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 End Class

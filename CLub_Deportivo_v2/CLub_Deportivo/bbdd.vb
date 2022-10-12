@@ -5,6 +5,9 @@ Imports Microsoft.Office.Interop.Excel
 Imports OdbcConnection = System.Data.Odbc.OdbcConnection
 
 Module bbdd
+    Public temporada As String = "2023"
+    Public precio_salmon As Integer = 16
+    Public precio_trucha As Integer = 10
 
     'Tipo de origen de datos
     Public Enum tipobd
@@ -182,22 +185,22 @@ Module bbdd
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos el último número usado en la base de datos de socios.
-                consulta2.CommandText = "Select MAX(n_socio) from bdsocios"
-                ultimo_bd = consulta2.ExecuteScalar
+                consulta2.CommandText = "Select MAX(numero) from [bdsocios$]"
+                ultimo_bd = consulta2.ExecuteScalar()
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos el último número usado en la tabla de socios actual.
-                consulta2.CommandText = "Select MAX(n_socio) from socios"
-                Dim ultimo_soc As Integer = consulta2.ExecuteScalar
+                consulta2.CommandText = "Select MAX(numero) from [socios_2022_23$]"
+                Dim ultimo_soc As Integer = consulta2.ExecuteScalar()
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-                consulta2.CommandText = "Select n_socio from bdsocios"
+                consulta2.CommandText = "Select numero from [bdsocios$]"
 
                 'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
                 For index = 1 To ultimo_bd
                     dr3 = consulta2.ExecuteReader()
-                    While dr1.Read
+                    While dr3.Read
                         If index = dr3(0) Then
                             libre = False
                         End If
@@ -213,7 +216,7 @@ Module bbdd
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
-                consulta2.CommandText = "Select n_socio from socios"
+                consulta2.CommandText = "Select numero from [socios_2022_23$]"
 
                 dr3 = consulta2.ExecuteReader()
                 While dr3.Read

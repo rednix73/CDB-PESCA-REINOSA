@@ -19,12 +19,7 @@ Public Class frm_imprimir
         End If
 
 
-
-
         'PrintForm1.Print()
-
-
-
 
         ' streamToPrint = New StreamReader("C:\\My Documents\\MyFile.txt")
         'Try

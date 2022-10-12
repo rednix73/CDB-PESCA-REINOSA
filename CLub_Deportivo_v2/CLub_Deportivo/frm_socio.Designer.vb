@@ -52,12 +52,9 @@ Partial Class frm_socio
         Me.cmb_tarjeta = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txt_nombre = New CLub_Deportivo.textbox_club()
-        Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_buscar_apell = New System.Windows.Forms.Button()
-        Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmb_localidad = New System.Windows.Forms.ComboBox()
@@ -69,6 +66,10 @@ Partial Class frm_socio
         Me.cmb_prov = New System.Windows.Forms.ComboBox()
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.txt_nombre = New CLub_Deportivo.textbox_club()
+        Me.txt_apellido = New CLub_Deportivo.textbox_club()
+        Me.txt_dni = New CLub_Deportivo.textbox_dni()
+        Me.lbl_importe = New System.Windows.Forms.Label()
         Me.grp_socio.SuspendLayout()
         Me.grp_estado.SuspendLayout()
         Me.grp_commnent.SuspendLayout()
@@ -135,7 +136,6 @@ Partial Class frm_socio
         Me.rdo_otros.Name = "rdo_otros"
         Me.rdo_otros.Size = New System.Drawing.Size(213, 22)
         Me.rdo_otros.TabIndex = 2
-        Me.rdo_otros.TabStop = True
         Me.rdo_otros.Text = "Menor/fémina/otros (gratis)."
         Me.rdo_otros.UseVisualStyleBackColor = True
         '
@@ -147,13 +147,13 @@ Partial Class frm_socio
         Me.rdo_jubilado.Name = "rdo_jubilado"
         Me.rdo_jubilado.Size = New System.Drawing.Size(131, 22)
         Me.rdo_jubilado.TabIndex = 1
-        Me.rdo_jubilado.TabStop = True
         Me.rdo_jubilado.Text = "Jubilado (50%)."
         Me.rdo_jubilado.UseVisualStyleBackColor = True
         '
         'rdo_normal
         '
         Me.rdo_normal.AutoSize = True
+        Me.rdo_normal.Checked = True
         Me.rdo_normal.Location = New System.Drawing.Point(26, 30)
         Me.rdo_normal.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_normal.Name = "rdo_normal"
@@ -165,16 +165,17 @@ Partial Class frm_socio
         '
         'grp_estado
         '
+        Me.grp_estado.Controls.Add(Me.lbl_importe)
         Me.grp_estado.Controls.Add(Me.rdo_nopagado)
         Me.grp_estado.Controls.Add(Me.rdo_pagado)
         Me.grp_estado.Location = New System.Drawing.Point(644, 345)
         Me.grp_estado.Margin = New System.Windows.Forms.Padding(4)
         Me.grp_estado.Name = "grp_estado"
         Me.grp_estado.Padding = New System.Windows.Forms.Padding(4)
-        Me.grp_estado.Size = New System.Drawing.Size(247, 87)
+        Me.grp_estado.Size = New System.Drawing.Size(249, 87)
         Me.grp_estado.TabIndex = 36
         Me.grp_estado.TabStop = False
-        Me.grp_estado.Text = "Estado:"
+        Me.grp_estado.Text = "Pago:"
         '
         'rdo_nopagado
         '
@@ -182,15 +183,15 @@ Partial Class frm_socio
         Me.rdo_nopagado.Location = New System.Drawing.Point(26, 55)
         Me.rdo_nopagado.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_nopagado.Name = "rdo_nopagado"
-        Me.rdo_nopagado.Size = New System.Drawing.Size(106, 22)
+        Me.rdo_nopagado.Size = New System.Drawing.Size(85, 22)
         Me.rdo_nopagado.TabIndex = 1
-        Me.rdo_nopagado.TabStop = True
-        Me.rdo_nopagado.Text = "No pagado."
+        Me.rdo_nopagado.Text = "Gratuita."
         Me.rdo_nopagado.UseVisualStyleBackColor = True
         '
         'rdo_pagado
         '
         Me.rdo_pagado.AutoSize = True
+        Me.rdo_pagado.Checked = True
         Me.rdo_pagado.Location = New System.Drawing.Point(26, 25)
         Me.rdo_pagado.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_pagado.Name = "rdo_pagado"
@@ -400,22 +401,6 @@ Partial Class frm_socio
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos personales"
         '
-        'txt_nombre
-        '
-        Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
-        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_nombre.Name = "txt_nombre"
-        Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
-        Me.txt_nombre.TabIndex = 56
-        '
-        'txt_apellido
-        '
-        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
-        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_apellido.Name = "txt_apellido"
-        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
-        Me.txt_apellido.TabIndex = 57
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -445,17 +430,6 @@ Partial Class frm_socio
         Me.btn_buscar_apell.TabIndex = 55
         Me.btn_buscar_apell.Text = "Buscar"
         Me.btn_buscar_apell.UseVisualStyleBackColor = True
-        '
-        'txt_dni
-        '
-        Me.txt_dni.BackColor = System.Drawing.Color.White
-        Me.txt_dni.Foco = System.Drawing.Color.Empty
-        Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
-        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_dni.Name = "txt_dni"
-        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
-        Me.txt_dni.TabIndex = 43
         '
         'GroupBox3
         '
@@ -573,6 +547,42 @@ Partial Class frm_socio
         Me.Label3.TabIndex = 60
         Me.Label3.Text = "Provincia:"
         '
+        'txt_nombre
+        '
+        Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
+        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_nombre.Name = "txt_nombre"
+        Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
+        Me.txt_nombre.TabIndex = 56
+        '
+        'txt_apellido
+        '
+        Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
+        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_apellido.Name = "txt_apellido"
+        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
+        Me.txt_apellido.TabIndex = 57
+        '
+        'txt_dni
+        '
+        Me.txt_dni.BackColor = System.Drawing.Color.White
+        Me.txt_dni.Foco = System.Drawing.Color.Empty
+        Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
+        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_dni.Name = "txt_dni"
+        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
+        Me.txt_dni.TabIndex = 43
+        '
+        'lbl_importe
+        '
+        Me.lbl_importe.AutoSize = True
+        Me.lbl_importe.Location = New System.Drawing.Point(118, 44)
+        Me.lbl_importe.Name = "lbl_importe"
+        Me.lbl_importe.Size = New System.Drawing.Size(88, 18)
+        Me.lbl_importe.TabIndex = 2
+        Me.lbl_importe.Text = "Importe: -- €"
+        '
         'frm_socio
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
@@ -657,4 +667,5 @@ Partial Class frm_socio
     Friend WithEvents Label3 As Label
     Friend WithEvents cmb_tarjeta As ComboBox
     Friend WithEvents Label13 As Label
+    Friend WithEvents lbl_importe As Label
 End Class
