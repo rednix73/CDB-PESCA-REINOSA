@@ -29,8 +29,8 @@ Partial Class frm_imprimir
         Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
-        Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
         Me.lbl_tarjeta = New System.Windows.Forms.Label()
+        Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
         Me.SuspendLayout()
         '
         'btn_imprimir
@@ -70,15 +70,6 @@ Partial Class frm_imprimir
         Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
         Me.PrintPreviewDialog1.Visible = False
         '
-        'Mapa_tarjetas1
-        '
-        Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Mapa_tarjetas1.Location = New System.Drawing.Point(29, 66)
-        Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
-        Me.Mapa_tarjetas1.Size = New System.Drawing.Size(412, 537)
-        Me.Mapa_tarjetas1.TabIndex = 12
-        Me.Mapa_tarjetas1.tarjeta = 0
-        '
         'lbl_tarjeta
         '
         Me.lbl_tarjeta.AutoSize = True
@@ -88,6 +79,15 @@ Partial Class frm_imprimir
         Me.lbl_tarjeta.Size = New System.Drawing.Size(392, 24)
         Me.lbl_tarjeta.TabIndex = 14
         Me.lbl_tarjeta.Text = "Seleccione la posición de la tarjeta a imprimir:"
+        '
+        'Mapa_tarjetas1
+        '
+        Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Mapa_tarjetas1.Location = New System.Drawing.Point(29, 66)
+        Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
+        Me.Mapa_tarjetas1.Size = New System.Drawing.Size(412, 537)
+        Me.Mapa_tarjetas1.TabIndex = 12
+        Me.Mapa_tarjetas1.tarjeta = 0
         '
         'frm_imprimir
         '
@@ -99,7 +99,7 @@ Partial Class frm_imprimir
         Me.Controls.Add(Me.btn_imprimir)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_imprimir"
-        Me.Text = "frm_imprimir"
+        Me.Text = "Imprimir"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

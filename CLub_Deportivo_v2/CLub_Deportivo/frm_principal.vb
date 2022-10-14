@@ -71,4 +71,8 @@
         frm_socio.btn_modificar.Visible = False
         frm_socio.btn_insertar.Visible = False
     End Sub
+
+    Private Sub ConfiguraciónToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfiguraciónToolStripMenuItem.Click
+        frm_configuracion.Show()
+    End Sub
 End Class

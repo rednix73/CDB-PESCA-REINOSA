@@ -99,29 +99,33 @@ Public Class frm_socio
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
-
-        If rdo_normal.Checked Then
-            tipo = "NORMAL"
-        End If
-        If rdo_jubilado.Checked Then
-            tipo = "JUBILADO"
-        End If
-        If rdo_otros.Checked Then
-            tipo = "MENOR, FEMINA, OTROS"
-        End If
-
-
-        If rdo_pagado.Checked Then
-            pago = 1
-        End If
-        If rdo_nopagado.Checked Then
-            pago = 2
-        End If
+        Try
+            If rdo_normal.Checked Then
+                tipo = "NORMAL"
+            End If
+            If rdo_jubilado.Checked Then
+                tipo = "JUBILADO"
+            End If
+            If rdo_otros.Checked Then
+                tipo = "MENOR, FEMINA, OTROS"
+            End If
 
 
-        If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
-            insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
-        End If
+            If rdo_pagado.Checked Then
+                pago = 1
+            End If
+            If rdo_nopagado.Checked Then
+                pago = 2
+            End If
+
+
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
 
     End Sub
 
