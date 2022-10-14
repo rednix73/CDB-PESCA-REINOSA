@@ -5,7 +5,8 @@
     End Sub
 
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cargar()
+        bbdd.cargar()
+
     End Sub
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click

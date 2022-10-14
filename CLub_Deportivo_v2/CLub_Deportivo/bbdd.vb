@@ -10,8 +10,8 @@ Module bbdd
     'Base de datos:
     'Tipo de origen de datos
     Public Enum tipobd
-        excel
-        mysql
+        Excel_ODBC
+        MySQL
     End Enum
     ''' <summary>
     ''' Tipo de base de datos.
@@ -33,7 +33,7 @@ Module bbdd
     'Public Archivo_excel As String = "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
 
     'Nombre de las tablas donde están los datos. Formato en excel: [Tabla$]
-    Public tabla_socios_xls As String = "[socios_2022_2023$]"
+    Public tabla_socios_xls As String = "[socios_2022_23$]"
     Public tabla_bdsocios_xls As String = "[bdsocios$]"
 
     Public temporada As String = "2023"
@@ -41,7 +41,7 @@ Module bbdd
     Public precio_trucha As Integer = 10
 
     ' Base de datos remota mysql
-    Public cadena1 As String = "Server=" + server + ";Port=" + port + ";Database=" + bd_mysql + ";Uid=" + user + ";Pwd=" + +password
+    Public cadena1 As String = "Server=" & server & ";Port=" & port & ";Database=" & bd_mysql & ";Uid=" + user + ";Pwd=" & password & ";"
     Public conn1 As New MySqlConnection
     Public consulta1 As New MySqlCommand
     Public dr1 As MySqlDataReader
@@ -88,10 +88,10 @@ Module bbdd
 
     Public Sub conectar()
         Try
-            tp = tipobd.excel
+            tp = tipobd.Excel_ODBC
             Select Case tp
-                Case tipobd.excel
-                    conn2 = New OdbcConnection
+                Case tipobd.Excel_ODBC
+                    conn2 = New OdbcConnection()
                     conn2.ConnectionString = cadena2
                     conn2.Open()
                     If Not conn2.State = ConnectionState.Open Then
@@ -140,12 +140,11 @@ Module bbdd
     Public Sub cargar()
         conectar()
         Select Case tp
-            Case tipobd.excel
+            Case tipobd.Excel_ODBC
 
                 'Conexión por ODBC
-                conectar()
                 da_socios2 = New OdbcDataAdapter()
-                da_socios2 = New OdbcDataAdapter("SELECT * FROM " + tabla_socios_xls, conn2)
+                da_socios2 = New OdbcDataAdapter("SELECT * FROM " & tabla_socios_xls & "", conn2)
                 da_socios2.Fill(ds_club, "socios")
                 cb_socios2 = New OdbcCommandBuilder(da_socios2)
                 dw_socios = New DataView(ds_club.Tables(0))
@@ -201,7 +200,7 @@ Module bbdd
 
         Dim ultimo_bd As Integer
         Select Case tp
-            Case tipobd.excel
+            Case tipobd.Excel_ODBC
                 consulta2 = New OdbcCommand()
                 consulta2.Connection = conn2
                 'Obtenemos el último número usado en la base de datos de socios.
@@ -304,7 +303,7 @@ Module bbdd
         Try
             Dim ult As Integer
             Select Case tp
-                Case tipobd.excel
+                Case tipobd.Excel_ODBC
                     consulta2 = New OdbcCommand()
                     consulta2.Connection = conn2
                     'Obtenemos el último número usado.
@@ -391,7 +390,7 @@ Module bbdd
     Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
         Try
             Select Case tp
-                Case tipobd.excel
+                Case tipobd.Excel_ODBC
                     consulta2 = New OdbcCommand()
                     consulta2.Connection = conn2
                     If (Not conn2.State = ConnectionState.Open) Then

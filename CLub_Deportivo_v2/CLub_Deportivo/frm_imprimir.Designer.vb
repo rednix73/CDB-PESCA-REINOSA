@@ -97,9 +97,10 @@ Partial Class frm_imprimir
         Me.Controls.Add(Me.lbl_tarjeta)
         Me.Controls.Add(Me.Mapa_tarjetas1)
         Me.Controls.Add(Me.btn_imprimir)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_imprimir"
-        Me.Text = "Imprimir"
+        Me.Text = " C.D.B. pesca Reinosa - Imprimir"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

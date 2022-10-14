@@ -253,6 +253,15 @@
   <ItemGroup>
     <None Include="Resources\CDB-PESCAREINOSA.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icono_cdb.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CDB-PESCAREINOSA-WEB.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\configuracion.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

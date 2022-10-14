@@ -268,6 +268,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        '''</summary>
+        Friend ReadOnly Property CDB_PESCAREINOSA_WEB() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("CDB_PESCAREINOSA_WEB", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property cola_rata() As System.Drawing.Bitmap
@@ -301,6 +311,15 @@ Namespace My.Resources
         Friend ReadOnly Property comunidades() As String
             Get
                 Return ResourceManager.GetString("comunidades", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca una cadena traducida similar a .
+        '''</summary>
+        Friend ReadOnly Property configuracion() As String
+            Get
+                Return ResourceManager.GetString("configuracion", resourceCulture)
             End Get
         End Property
         
