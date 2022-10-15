@@ -7,6 +7,12 @@ Imports OdbcConnection = System.Data.Odbc.OdbcConnection
 Module bbdd
 
     ' CONFIGURACIÓN
+    ' General
+    Public temporada As String = "2023"
+    Public precio_salmon As Integer = 16
+    Public precio_trucha As Integer = 10
+    Public tarjeta_socio_anverso As String = "../../Resources/tarjeta_socio_anverso.gif"
+    Public tarjeta_socio_reverso As String = "../../Resources/tarjeta_socio_reverso.jpg"
     'Base de datos:
     'Tipo de origen de datos
     Public Enum tipobd
@@ -35,10 +41,6 @@ Module bbdd
     'Nombre de las tablas donde están los datos. Formato en excel: [Tabla$]
     Public tabla_socios_xls As String = "[socios_2022_23$]"
     Public tabla_bdsocios_xls As String = "[bdsocios$]"
-
-    Public temporada As String = "2023"
-    Public precio_salmon As Integer = 16
-    Public precio_trucha As Integer = 10
 
     ' Base de datos remota mysql
     Public cadena1 As String = "Server=" & server & ";Port=" & port & ";Database=" & bd_mysql & ";Uid=" + user + ";Pwd=" & password & ";"

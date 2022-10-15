@@ -396,5 +396,25 @@ Namespace My.Resources
                 Return ResourceManager.GetString("provincias", resourceCulture)
             End Get
         End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property tarjeta_socio_anverso() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("tarjeta_socio_anverso", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property tarjeta_socio_reverso() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("tarjeta_socio_reverso", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
     End Module
 End Namespace

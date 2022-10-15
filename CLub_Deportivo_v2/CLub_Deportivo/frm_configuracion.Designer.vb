@@ -27,10 +27,10 @@ Partial Class frm_configuracion
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.pctbox_tsocio_reverso = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.pctbox_tsocio_anverso = New System.Windows.Forms.PictureBox()
         Me.cmb_temporada = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
@@ -67,10 +67,16 @@ Partial Class frm_configuracion
         Me.lbl_bd = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
+        Me.OpenFile_anverso = New System.Windows.Forms.OpenFileDialog()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txt_tarjeta_salmon = New System.Windows.Forms.TextBox()
+        Me.txt_tarjeta_trucha = New System.Windows.Forms.TextBox()
+        Me.OpenFile_reverso = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctbox_tsocio_reverso, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctbox_tsocio_anverso, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.grpbox_excel.SuspendLayout()
         Me.grpbox_mysql.SuspendLayout()
@@ -88,12 +94,16 @@ Partial Class frm_configuracion
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.txt_tarjeta_trucha)
+        Me.TabPage1.Controls.Add(Me.txt_tarjeta_salmon)
+        Me.TabPage1.Controls.Add(Me.Label20)
+        Me.TabPage1.Controls.Add(Me.Label19)
         Me.TabPage1.Controls.Add(Me.Button2)
         Me.TabPage1.Controls.Add(Me.Label3)
-        Me.TabPage1.Controls.Add(Me.PictureBox2)
+        Me.TabPage1.Controls.Add(Me.pctbox_tsocio_reverso)
         Me.TabPage1.Controls.Add(Me.Button1)
         Me.TabPage1.Controls.Add(Me.Label2)
-        Me.TabPage1.Controls.Add(Me.PictureBox1)
+        Me.TabPage1.Controls.Add(Me.pctbox_tsocio_anverso)
         Me.TabPage1.Controls.Add(Me.cmb_temporada)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 25)
@@ -106,7 +116,7 @@ Partial Class frm_configuracion
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(359, 311)
+        Me.Button2.Location = New System.Drawing.Point(443, 276)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(221, 26)
         Me.Button2.TabIndex = 8
@@ -116,23 +126,24 @@ Partial Class frm_configuracion
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(356, 157)
+        Me.Label3.Location = New System.Drawing.Point(440, 122)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(172, 17)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Tarjeta de socio (reverso)"
         '
-        'PictureBox2
+        'pctbox_tsocio_reverso
         '
-        Me.PictureBox2.Location = New System.Drawing.Point(359, 177)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(221, 134)
-        Me.PictureBox2.TabIndex = 6
-        Me.PictureBox2.TabStop = False
+        Me.pctbox_tsocio_reverso.Location = New System.Drawing.Point(443, 142)
+        Me.pctbox_tsocio_reverso.Name = "pctbox_tsocio_reverso"
+        Me.pctbox_tsocio_reverso.Size = New System.Drawing.Size(221, 134)
+        Me.pctbox_tsocio_reverso.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pctbox_tsocio_reverso.TabIndex = 6
+        Me.pctbox_tsocio_reverso.TabStop = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(93, 311)
+        Me.Button1.Location = New System.Drawing.Point(27, 276)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(221, 26)
         Me.Button1.TabIndex = 5
@@ -142,25 +153,26 @@ Partial Class frm_configuracion
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(90, 157)
+        Me.Label2.Location = New System.Drawing.Point(24, 122)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(175, 17)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Tarjeta de socio (anverso)"
         '
-        'PictureBox1
+        'pctbox_tsocio_anverso
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(93, 177)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(221, 134)
-        Me.PictureBox1.TabIndex = 3
-        Me.PictureBox1.TabStop = False
+        Me.pctbox_tsocio_anverso.Location = New System.Drawing.Point(27, 142)
+        Me.pctbox_tsocio_anverso.Name = "pctbox_tsocio_anverso"
+        Me.pctbox_tsocio_anverso.Size = New System.Drawing.Size(221, 134)
+        Me.pctbox_tsocio_anverso.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pctbox_tsocio_anverso.TabIndex = 3
+        Me.pctbox_tsocio_anverso.TabStop = False
         '
         'cmb_temporada
         '
         Me.cmb_temporada.FormattingEnabled = True
         Me.cmb_temporada.Items.AddRange(New Object() {"2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
-        Me.cmb_temporada.Location = New System.Drawing.Point(407, 18)
+        Me.cmb_temporada.Location = New System.Drawing.Point(115, 19)
         Me.cmb_temporada.Name = "cmb_temporada"
         Me.cmb_temporada.Size = New System.Drawing.Size(121, 24)
         Me.cmb_temporada.TabIndex = 2
@@ -168,7 +180,7 @@ Partial Class frm_configuracion
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(316, 21)
+        Me.Label1.Location = New System.Drawing.Point(24, 22)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 17)
         Me.Label1.TabIndex = 1
@@ -490,6 +502,46 @@ Partial Class frm_configuracion
         Me.Button5.Text = "Cerrar"
         Me.Button5.UseVisualStyleBackColor = True
         '
+        'OpenFile_anverso
+        '
+        Me.OpenFile_anverso.FileName = "OpenFileDialog1"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(24, 65)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(187, 17)
+        Me.Label19.TabIndex = 9
+        Me.Label19.Text = "Precio tarjeta de salmón (€):"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(404, 65)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(182, 17)
+        Me.Label20.TabIndex = 10
+        Me.Label20.Text = "Precio tarjeta de trucha (€):"
+        '
+        'txt_tarjeta_salmon
+        '
+        Me.txt_tarjeta_salmon.Location = New System.Drawing.Point(217, 62)
+        Me.txt_tarjeta_salmon.Name = "txt_tarjeta_salmon"
+        Me.txt_tarjeta_salmon.Size = New System.Drawing.Size(67, 22)
+        Me.txt_tarjeta_salmon.TabIndex = 11
+        '
+        'txt_tarjeta_trucha
+        '
+        Me.txt_tarjeta_trucha.Location = New System.Drawing.Point(598, 62)
+        Me.txt_tarjeta_trucha.Name = "txt_tarjeta_trucha"
+        Me.txt_tarjeta_trucha.Size = New System.Drawing.Size(66, 22)
+        Me.txt_tarjeta_trucha.TabIndex = 12
+        '
+        'OpenFile_reverso
+        '
+        Me.OpenFile_reverso.FileName = "OpenFileDialog1"
+        '
         'frm_configuracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -504,8 +556,8 @@ Partial Class frm_configuracion
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctbox_tsocio_reverso, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctbox_tsocio_anverso, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.grpbox_excel.ResumeLayout(False)
@@ -521,10 +573,10 @@ Partial Class frm_configuracion
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents Button2 As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents pctbox_tsocio_reverso As PictureBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Label2 As Label
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents pctbox_tsocio_anverso As PictureBox
     Friend WithEvents cmb_temporada As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents txt_archivo_excel As TextBox
@@ -560,4 +612,10 @@ Partial Class frm_configuracion
     Friend WithEvents Label18 As Label
     Friend WithEvents txt_tabla_bdsocios_mysql As TextBox
     Friend WithEvents txt_tabla_socios_mysql As TextBox
+    Friend WithEvents OpenFile_anverso As OpenFileDialog
+    Friend WithEvents txt_tarjeta_trucha As TextBox
+    Friend WithEvents txt_tarjeta_salmon As TextBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents OpenFile_reverso As OpenFileDialog
 End Class

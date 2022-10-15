@@ -262,6 +262,15 @@
   <ItemGroup>
     <None Include="Resources\configuracion.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tarjeta_socio_reverso.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tarjetas de socio_anverso.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tarjeta_socio_anverso.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
