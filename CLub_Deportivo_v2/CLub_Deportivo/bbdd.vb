@@ -3,14 +3,15 @@ Imports MySql.Data.MySqlClient
 Imports System.Data.OleDb
 Imports Microsoft.Office.Interop.Excel
 Imports OdbcConnection = System.Data.Odbc.OdbcConnection
+Imports System.IO
 
 Module bbdd
 
-    ' CONFIGURACIÓN
+    ' ---------CONFIGURACIÓN------------------------------------------------------------
     ' General
-    Public temporada As String = "2023"
-    Public precio_salmon As Integer = 16
-    Public precio_trucha As Integer = 10
+    Public temporada As String '= "2023"
+    Public precio_salmon As Integer '= 16
+    Public precio_trucha As Integer '= 10
     Public tarjeta_socio_anverso As String = "../../Resources/tarjeta_socio_anverso.gif"
     Public tarjeta_socio_reverso As String = "../../Resources/tarjeta_socio_reverso.jpg"
     'Base de datos:
@@ -23,25 +24,28 @@ Module bbdd
     ''' Tipo de base de datos.
     ''' </summary>
     Public tp As tipobd
-    'Mysql
-    Public server As String = "153.92.7.1"
-    Public port As String = "3306"
-    Public bd_mysql As String = "u127917223_socio"
-    Public user As String = "u127917223_redn"
-    Public password As String = "EaHb8Hx2nThGhNCw"
-    'Nombre de las tablas Mysql donde están los datos.
-    Public tabla_socios_mysql As String = "socios"
-    Public tabla_bdsocios_mysql As String = "bdsocios"
 
-    'Excel-ODBC
-    Public ruta_bd_excel As String = "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
-    Public DSN As String = "cdb-pesca-xls"
-    'Public Archivo_excel As String = "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
-
+    '----Excel-ODBC----
+    Public ruta_bd_excel As String '= "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
+    Public DSN As String '= "cdb-pesca-xls"
     'Nombre de las tablas donde están los datos. Formato en excel: [Tabla$]
-    Public tabla_socios_xls As String = "[socios_2022_23$]"
-    Public tabla_bdsocios_xls As String = "[bdsocios$]"
+    Public tabla_socios_xls As String ' = "[socios_2022_23$]"
+    Public tabla_bdsocios_xls As String '= "[bdsocios$]"
 
+    '----Mysql----
+    Public server As String '= "153.92.7.1"
+    Public port As String '= "3306"
+    Public bd_mysql As String '= "u127917223_socio"
+    Public user As String '= "u127917223_redn"
+    Public password As String '= "EaHb8Hx2nThGhNCw"
+    'Nombre de las tablas Mysql donde están los datos.
+    Public tabla_socios_mysql As String '= "socios"
+    Public tabla_bdsocios_mysql As String '= "bdsocios"
+    '------------FIN VARIABLES DE  CONFIGURACIÓN------------------------------------------------------------------
+
+
+
+    '------- OBJETOS DE CONEXIÓN A LAS BASES DE DATOS------------------------------------
     ' Base de datos remota mysql
     Public cadena1 As String = "Server=" & server & ";Port=" & port & ";Database=" & bd_mysql & ";Uid=" + user + ";Pwd=" & password & ";"
     Public conn1 As New MySqlConnection
@@ -90,10 +94,11 @@ Module bbdd
 
     Public Sub conectar()
         Try
-            tp = tipobd.Excel_ODBC
+            'tp = tipobd.Excel_ODBC
             Select Case tp
                 Case tipobd.Excel_ODBC
                     conn2 = New OdbcConnection()
+                    cadena2 += DSN
                     conn2.ConnectionString = cadena2
                     conn2.Open()
                     If Not conn2.State = ConnectionState.Open Then
@@ -105,8 +110,9 @@ Module bbdd
                     'If Not conn3.State = ConnectionState.Open Then
                     '    MsgBox("Error de conexion")
                     'End If
-                Case tipobd.mysql
+                Case tipobd.MySQL
                     conn1 = New MySqlConnection
+                    cadena1 = "Server=" & server & "; Port=" & port & "; Database=" & bd_mysql & "; Uid=" + user + "; Pwd=" & password & ";"
                     conn1.ConnectionString = cadena1
                     conn1.Open()
                     If Not conn1.State = ConnectionState.Open Then
@@ -168,7 +174,7 @@ Module bbdd
                 'dw_bdsocios = New DataView(ds_club.Tables(1))
 
 
-            Case tipobd.mysql
+            Case tipobd.MySQL
                 conectar()
                 da_socios1 = New MySqlDataAdapter("Select * from " + tabla_socios_mysql, conn1)
                 da_socios1.Fill(ds_club, "socios")
@@ -184,6 +190,63 @@ Module bbdd
 
         desconectar()
     End Sub
+    ''' <summary>
+    ''' Lee la configuración establecida en el fichero configuración.txt y la carga en las variables globales correspondientes para que la aplicación
+    ''' pueda mostrarla en el formulario de configuración (frm_configuracion)
+    ''' </summary>
+    Public Sub leer_configuracion()
+        Try
+            Dim sr As New StreamReader("../../Resources/configuracion.txt")
+            Dim linea As String = ""
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            temporada = sr.ReadLine()
+            linea = sr.ReadLine()
+            precio_salmon = sr.ReadLine()
+            linea = sr.ReadLine()
+            precio_trucha = sr.ReadLine()
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            If (linea = tipobd.Excel_ODBC.ToString()) Then
+                tp = tipobd.Excel_ODBC
+            End If
+            If (linea = tipobd.MySQL.ToString()) Then
+                tp = tipobd.MySQL
+            End If
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            ruta_bd_excel = sr.ReadLine()
+            linea = sr.ReadLine()
+            DSN = sr.ReadLine()
+            linea = sr.ReadLine()
+            tabla_socios_xls = sr.ReadLine()
+            linea = sr.ReadLine()
+            tabla_bdsocios_xls = sr.ReadLine()
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            linea = sr.ReadLine()
+            server = sr.ReadLine()
+            linea = sr.ReadLine()
+            port = sr.ReadLine()
+            linea = sr.ReadLine()
+            bd_mysql = sr.ReadLine()
+            linea = sr.ReadLine()
+            user = sr.ReadLine()
+            linea = sr.ReadLine()
+            password = sr.ReadLine()
+            linea = sr.ReadLine()
+            tabla_socios_mysql = sr.ReadLine()
+            linea = sr.ReadLine()
+            tabla_bdsocios_mysql = sr.ReadLine()
+            sr.Close()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
+    End Sub
+
 
     ''' <summary>
     ''' Método que devuelve una lista con los números de socio no utilizados.
@@ -245,7 +308,7 @@ Module bbdd
                 End While
                 dr3.Close()
 
-            Case tipobd.mysql
+            Case tipobd.MySQL
                 consulta1 = New MySqlCommand()
                 consulta1.Connection = conn1
                 'Obtenemos el último número usado en la base de datos de socios.
@@ -312,7 +375,7 @@ Module bbdd
                     consulta2.CommandText = "Select MAX(n_socio) from " + tabla
                     ult = consulta2.ExecuteScalar()
 
-                Case tipobd.mysql
+                Case tipobd.MySQL
                     consulta1 = New MySqlCommand()
                     consulta1.Connection = conn1
                     'Obtenemos el último número usado.
@@ -430,7 +493,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                     End If
                     desconectar()
 
-                Case tipobd.mysql
+                Case tipobd.MySQL
                     consulta1 = New MySqlCommand()
                     consulta1.Connection = conn1
                     If (Not conn1.State = ConnectionState.Open) Then

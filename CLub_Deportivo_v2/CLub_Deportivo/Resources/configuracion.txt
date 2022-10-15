@@ -1,0 +1,36 @@
+------Configuración - General------
+Temporada:
+2023
+Precio tarjeta  de Salmon(€):
+16
+Precio tarjeta  de Trucha(€):
+10
+------Configuración - Bases de datos------
+Tipo de base de datos:
+Excel_ODBC
+
+----Excel-ODBC----
+Archivo de base de datos:
+C:\Users\roberto\Documents\tarjetas_socio_2023.xls
+DSN:
+cdb-pesca-xls
+Tabla de socios:
+[socios_2022_23$]
+Tabla de base de datos de socios:
+[bdsocios$]
+
+----MySQL----
+Servidor:
+153.92.7.1
+Puerto:
+3306
+Base de datos:
+u127917223_socio
+Usuario:
+u127917223_redn
+Contraseña:
+EaHb8Hx2nThGhNCw
+Tabla de socios:
+socios
+Tabla de base de datos de socios:
+bdsocios

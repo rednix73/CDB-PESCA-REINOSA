@@ -5,6 +5,9 @@
     End Sub
 
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        bbdd.leer_configuracion()
+
         bbdd.cargar()
 
     End Sub

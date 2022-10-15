@@ -5,7 +5,49 @@ Public Class frm_configuracion
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-
+        Try
+            Dim sw As New StreamWriter("../../Resources/configuracion.txt", False)
+            sw.WriteLine("------Configuración - General------")
+            sw.WriteLine("Temporada:")
+            sw.WriteLine(cmb_temporada.SelectedItem.ToString())
+            sw.WriteLine("Precio tarjeta  de Salmon(€):")
+            sw.WriteLine(txt_tarjeta_salmon.Text)
+            sw.WriteLine("Precio tarjeta  de Trucha(€):")
+            sw.WriteLine(txt_tarjeta_trucha.Text)
+            sw.WriteLine("------Configuración - Bases de datos------")
+            sw.WriteLine("Tipo de base de datos:")
+            sw.WriteLine(cmb_bd.SelectedItem.ToString())
+            sw.WriteLine()
+            sw.WriteLine("----Excel-ODBC----")
+            sw.WriteLine("Archivo de base de datos:")
+            sw.WriteLine(txt_archivo_excel.Text)
+            sw.WriteLine("DSN:")
+            sw.WriteLine(txt_dsn.Text)
+            sw.WriteLine("Tabla de socios:")
+            sw.WriteLine(txt_tabla_socios_xls.Text)
+            sw.WriteLine("Tabla de base de datos de socios:")
+            sw.WriteLine(txt_tabla_bdsocios_xls.Text)
+            sw.WriteLine()
+            sw.WriteLine("----MySQL----")
+            sw.WriteLine("Servidor:")
+            sw.WriteLine(txt_server.Text)
+            sw.WriteLine("Puerto:")
+            sw.WriteLine(txt_port.Text)
+            sw.WriteLine("Base de datos:")
+            sw.WriteLine(txt_bbdd.Text)
+            sw.WriteLine("Usuario:")
+            sw.WriteLine(txt_user.Text)
+            sw.WriteLine("Contraseña:")
+            sw.WriteLine(txt_password.Text)
+            sw.WriteLine("Tabla de socios:")
+            sw.WriteLine(txt_tabla_socios_mysql.Text)
+            sw.WriteLine("Tabla de base de datos de socios:")
+            sw.WriteLine(txt_tabla_bdsocios_mysql.Text)
+            sw.Close()
+            MsgBox("Configuración guardada correctamente", MsgBoxStyle.Information)
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Sub
 
     Private Sub cmb_bd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_bd.SelectedIndexChanged
