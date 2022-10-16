@@ -71,8 +71,8 @@ Public Class frm_configuracion
         cmb_temporada.SelectedItem = bbdd.temporada
         txt_tarjeta_salmon.Text = bbdd.precio_salmon.ToString()
         txt_tarjeta_trucha.Text = bbdd.precio_trucha.ToString()
-        pctbox_tsocio_anverso.Image = Image.FromFile(bbdd.tarjeta_socio_anverso)
-        pctbox_tsocio_reverso.Image = Image.FromFile(bbdd.tarjeta_socio_reverso)
+        pctbox_tsocio_anverso.Image = Image.FromFile("../../Resources/" & bbdd.tarjeta_socio_anverso)
+        pctbox_tsocio_reverso.Image = Image.FromFile("../../Resources/" & bbdd.tarjeta_socio_reverso)
 
         ' Pestaña Base de datos
         'ODBC-excel
@@ -92,15 +92,19 @@ Public Class frm_configuracion
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
         OpenFile_anverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
         OpenFile_anverso.ShowDialog()
+
 
     End Sub
 
     Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_anverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_anverso.FileName)
+        pctbox_tsocio_anverso.Image.Dispose()
+        pctbox_tsocio_anverso.Image = Nothing
         File.Copy(f.FullName, "../../Resources/" & bbdd.tarjeta_socio_anverso, True)
-        pctbox_tsocio_anverso.Image = Image.FromFile(bbdd.tarjeta_socio_anverso)
+        pctbox_tsocio_anverso.Image = Image.FromFile("../../Resources/" & bbdd.tarjeta_socio_anverso)
 
     End Sub
 
@@ -111,6 +115,7 @@ Public Class frm_configuracion
 
     Private Sub OpenFile_reverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_reverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_reverso.FileName)
+        pctbox_tsocio_anverso.Image = Nothing
         File.Copy(f.FullName, "../../Resources/" & bbdd.tarjeta_socio_reverso, True)
         pctbox_tsocio_reverso.Image = Image.FromFile(bbdd.tarjeta_socio_reverso)
     End Sub

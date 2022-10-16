@@ -12,8 +12,8 @@ Module bbdd
     Public temporada As String '= "2023"
     Public precio_salmon As Integer '= 16
     Public precio_trucha As Integer '= 10
-    Public tarjeta_socio_anverso As String = "../../Resources/tarjeta_socio_anverso.gif"
-    Public tarjeta_socio_reverso As String = "../../Resources/tarjeta_socio_reverso.jpg"
+    Public tarjeta_socio_anverso As String = "tarjeta_socio_anverso.gif"
+    Public tarjeta_socio_reverso As String = "tarjeta_socio_reverso.jpg"
     'Base de datos:
     'Tipo de origen de datos
     Public Enum tipobd

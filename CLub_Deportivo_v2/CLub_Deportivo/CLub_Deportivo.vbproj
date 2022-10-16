@@ -266,9 +266,6 @@
     <None Include="Resources\tarjeta_socio_reverso.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tarjetas de socio_anverso.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\tarjeta_socio_anverso.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
