@@ -2,9 +2,9 @@
 Temporada:
 2023
 Precio tarjeta  de Salmon(€):
-16
+17
 Precio tarjeta  de Trucha(€):
-10
+11
 ------Configuración - Bases de datos------
 Tipo de base de datos:
 Excel_ODBC

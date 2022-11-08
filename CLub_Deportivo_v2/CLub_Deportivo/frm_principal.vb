@@ -32,8 +32,16 @@
 
             If (Not ds_club.GetChanges Is Nothing) Then
                 conectar()
-                da_socios1.Update(ds_club.Tables(0))
-                da_bdsocios1.Update(ds_club.Tables(1))
+                Select Case bbdd.tp
+                    Case tipobd.Excel_ODBC
+                        da_socios2.Update(ds_club.Tables(0))
+                        da_bdsocios2.Update(ds_club.Tables(1))
+                    Case tipobd.MySQL
+                        da_socios1.Update(ds_club.Tables(0))
+                        da_bdsocios1.Update(ds_club.Tables(1))
+                    Case Else
+                End Select
+
                 desconectar()
                 ds_club.AcceptChanges()
             End If

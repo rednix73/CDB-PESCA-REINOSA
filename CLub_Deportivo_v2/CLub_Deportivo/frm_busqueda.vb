@@ -26,7 +26,7 @@
                     frm_socio.dtpk_fecha_nac.Value = "2000/01/01"
                 End If
                 frm_socio.txt_email.Text = DataGridView1.SelectedRows(0).Cells(10).Value.ToString()
-                frm_socio.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value))
+                frm_socio.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value) - 1)
                 Select Case DataGridView1.SelectedRows(0).Cells(12).Value.ToString()
                     Case "NORMAL"
                         frm_socio.rdo_normal.Checked = True
