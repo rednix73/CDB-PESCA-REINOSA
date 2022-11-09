@@ -156,6 +156,7 @@ Module bbdd
             Case tipobd.Excel_ODBC
 
                 'Conexión por ODBC
+                ds_club = New DataSet()
                 da_socios2 = New OdbcDataAdapter()
                 da_socios2 = New OdbcDataAdapter("SELECT * FROM " & tabla_socios_xls & "", conn2)
                 da_socios2.Fill(ds_club, "socios")
@@ -180,7 +181,9 @@ Module bbdd
 
 
             Case tipobd.MySQL
-                conectar()
+
+                'Conexión a bbdd MySQL
+                ds_club = New DataSet()
                 da_socios1 = New MySqlDataAdapter("Select * from " + tabla_socios_mysql, conn1)
                 da_socios1.Fill(ds_club, "socios")
                 cb_socios1 = New MySqlCommandBuilder(da_socios1)

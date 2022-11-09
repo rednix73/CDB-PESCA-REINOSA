@@ -25,51 +25,51 @@ Partial Class frm_busqueda
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_busqueda))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.btn_usar = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_cerrar = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(16, 94)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DataGridView1.Location = New System.Drawing.Point(13, 13)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(396, 196)
+        Me.DataGridView1.Size = New System.Drawing.Size(619, 273)
         Me.DataGridView1.TabIndex = 0
         '
         'btn_usar
         '
-        Me.btn_usar.Location = New System.Drawing.Point(116, 313)
-        Me.btn_usar.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_usar.Location = New System.Drawing.Point(13, 304)
+        Me.btn_usar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_usar.Name = "btn_usar"
         Me.btn_usar.Size = New System.Drawing.Size(179, 28)
         Me.btn_usar.TabIndex = 1
         Me.btn_usar.Text = "Usar seleccionado"
         Me.btn_usar.UseVisualStyleBackColor = True
         '
-        'Button1
+        'btn_cerrar
         '
-        Me.Button1.Location = New System.Drawing.Point(116, 374)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(179, 28)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Cerrar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_cerrar.Location = New System.Drawing.Point(453, 304)
+        Me.btn_cerrar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_cerrar.Name = "btn_cerrar"
+        Me.btn_cerrar.Size = New System.Drawing.Size(179, 28)
+        Me.btn_cerrar.TabIndex = 2
+        Me.btn_cerrar.Text = "Cerrar"
+        Me.btn_cerrar.UseVisualStyleBackColor = True
         '
         'frm_busqueda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(428, 434)
-        Me.Controls.Add(Me.Button1)
+        Me.ClientSize = New System.Drawing.Size(645, 345)
+        Me.Controls.Add(Me.btn_cerrar)
         Me.Controls.Add(Me.btn_usar)
         Me.Controls.Add(Me.DataGridView1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_busqueda"
         Me.Text = " C.D.B. pesca Reinosa - Búsqueda"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -79,5 +79,5 @@ Partial Class frm_busqueda
 
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents btn_usar As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_cerrar As Button
 End Class
