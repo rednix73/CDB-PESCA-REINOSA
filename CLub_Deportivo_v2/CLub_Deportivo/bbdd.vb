@@ -464,7 +464,7 @@ Module bbdd
 
     End Sub
     ''' <summary>
-    ''' Inserta un registro en la tabla socios.
+    ''' Inserta un socio en la tabla socios de la base de datos.
     ''' </summary>
     ''' <param name="nsocio"></param>
     ''' <param name="nombre"></param>
@@ -480,6 +480,7 @@ Module bbdd
     ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
     ''' <param name="pago"></param>
+    ''' <param name="import"></param>
     ''' <param name="comentarios"></param>
     Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, import As String, comentarios As String)
         Try
@@ -598,69 +599,137 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     ''' <param name="tipo_socio"></param>
     ''' <param name="pago"></param>
     ''' <param name="comentarios"></param>
-    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
+    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, import As String, comentarios As String)
 
         Try
-            consulta1 = New MySqlCommand()
-            consulta1.Connection = conn1
-            If (Not conn1.State = ConnectionState.Open) Then
-                conectar()
-            End If
-            'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
-            'Se muestran los socios con el mismo número.
-            Dim sql_txt As String
-            sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
-            consulta1.CommandText = sql_txt
-            dr1 = consulta1.ExecuteReader
-            Dim n_reg As Integer = 0
-            Dim socios As String = ""
-            If (dr1.HasRows) Then
-                While (dr1.Read())
-                    n_reg += 1
-                    socios += dr1(0).ToString + vbCrLf
-                End While
-                dr1.Close()
-                If (n_reg > 1) Then
-                    MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
-                End If
-            Else
-                dr1.Close()
-            End If
+            conectar()
+            Select Case tp
+                Case tipobd.MySQL
+                    consulta1 = New MySqlCommand()
+                    consulta1.Connection = conn1
+                    If (Not conn1.State = ConnectionState.Open) Then
+                        conectar()
+                    End If
+                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
+                    'Se muestran los socios con el mismo número.
+                    Dim sql_txt As String
+                    sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
+                    consulta1.CommandText = sql_txt
+                    dr1 = consulta1.ExecuteReader
+                    Dim n_reg As Integer = 0
+                    Dim socios As String = ""
+                    If (dr1.HasRows) Then
+                        While (dr1.Read())
+                            n_reg += 1
+                            socios += dr1(0).ToString + vbCrLf
+                        End While
+                        dr1.Close()
+                        If (n_reg > 1) Then
+                            MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+                        End If
+                    Else
+                        dr1.Close()
+                    End If
 
-            'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
-            Dim sql_txt2 As String
-            sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
-            consulta1.CommandText = sql_txt2
-            dr2 = consulta1.ExecuteReader
-            n_reg = 0
-            socios = ""
-            If (dr2.HasRows) Then
-                While (dr1.Read())
-                    n_reg += 1
-                    socios += dr1(0) + vbCrLf
-                End While
-                If (n_reg > 1) Then
-                    MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
-                End If
-                MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
-                dr2.Close()
-            Else
-                dr2.Close()
-            End If
+                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
+                    Dim sql_txt2 As String
+                    sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
+                    consulta1.CommandText = sql_txt2
+                    dr2 = consulta1.ExecuteReader
+                    n_reg = 0
+                    socios = ""
+                    If (dr2.HasRows) Then
+                        While (dr1.Read())
+                            n_reg += 1
+                            socios += dr1(0) + vbCrLf
+                        End While
+                        If (n_reg > 1) Then
+                            MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+                        End If
+                        MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+                        dr2.Close()
+                    Else
+                        dr2.Close()
+                    End If
 
-            'Consulta de modificacion.
-            Dim sql_txt3 As String = "UPDATE socios SET n_socio=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
-                    "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
-                    "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago" + pago + ", comentarios='" + comentarios + "'" +
-                "WHERE dni=" + dni
+                    'Consulta de modificacion.
+                    Dim sql_txt3 As String = "UPDATE socios SET n_socio=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
+                            "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
+                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago" + pago + ", comentarios='" + comentarios + "'" +
+                        "WHERE dni=" + dni
 
-            consulta1.CommandText = sql_txt3
+                    consulta1.CommandText = sql_txt3
+
+                    Dim salida3 As Integer = consulta1.ExecuteNonQuery
+                    If (salida3 > 0) Then
+                        MsgBox("Socio modificado correctamente")
+                    End If
+
+                Case tipobd.Excel_ODBC
+
+                    consulta2 = New OdbcCommand()
+                    consulta2.Connection = conn2
+                    If (Not conn1.State = ConnectionState.Open) Then
+                        conectar()
+                    End If
+                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
+                    'Se muestran los socios con el mismo número.
+                    Dim sql_txt As String
+                    sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
+                    consulta2.CommandText = sql_txt
+                    dr3 = consulta2.ExecuteReader
+                    Dim n_reg As Integer = 0
+                    Dim socios As String = ""
+                    If (dr3.HasRows) Then
+                        While (dr3.Read())
+                            n_reg += 1
+                            socios += dr3(0).ToString + vbCrLf
+                        End While
+                        dr3.Close()
+                        If (n_reg > 1) Then
+                            MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+                        End If
+                    Else
+                        dr3.Close()
+                    End If
+
+                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
+                    Dim sql_txt2 As String
+                    sql_txt2 = "SELECT * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+                    consulta2.CommandText = sql_txt2
+                    dr4 = consulta2.ExecuteReader
+                    n_reg = 0
+                    socios = ""
+                    If (dr4.HasRows) Then
+                        While (dr4.Read())
+                            n_reg += 1
+                            socios += dr4(0).ToString + vbCrLf
+                        End While
+                        If (n_reg > 1) Then
+                            MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+                        End If
+                        MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+                        dr4.Close()
+                    Else
+                        dr4.Close()
+                    End If
+
+                    'Consulta de modificacion.
+                    Dim sql_txt3 As String = "UPDATE " + tabla_socios_xls + " SET numero=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
+                            "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
+                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago='" + pago + "',importe=" + import + ", comentarios='" + comentarios + "'" +
+                        " WHERE dni='" + dni + "'"
+
+                    consulta2.CommandText = sql_txt3
 
 
-            Dim salida3 As Integer = consulta1.ExecuteNonQuery
-            If (salida3 > 0) Then
-                MsgBox("Socio modificado correctamente")
-            End If
+                    Dim salida3 As Integer = consulta2.ExecuteNonQuery
+                    If (salida3 > 0) Then
+                        MsgBox("Socio modificado correctamente")
+                    End If
+                Case Else
+            End Select
+
             desconectar()
 
         Catch ex As Exception

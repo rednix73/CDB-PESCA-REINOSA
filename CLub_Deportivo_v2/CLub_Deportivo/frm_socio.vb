@@ -120,7 +120,7 @@ Public Class frm_socio
 
 
             If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, calcula_importe(), txt_coment.Text)
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, calcula_importe(), txt_coment.Text)
                 bbdd.cargar()
             End If
         Catch ex As Exception
@@ -166,7 +166,25 @@ Public Class frm_socio
 
 
     End Sub
-
+    ''' <summary>
+    ''' Método que valida los campos de la tabla de socios que se reciben como parámentros, para que no queden campos vacíos y evitar errores posteriores en las consultas. EN caso de que haya algún campo vacío muestra un mensaje informando del campo vacío.
+    ''' </summary>
+    ''' <param name="nsocio">numero de socio (texto)</param>
+    ''' <param name="nombre">nombre de socio (texto)</param>
+    ''' <param name="apellidos">apellidos de socio (texto)</param>
+    ''' <param name="dni">DNI del socio (texto)</param>
+    ''' <param name="direcc">dirección postal de socio (texto)</param>
+    ''' <param name="cp">codigo postal del socio (texto)</param>
+    ''' <param name="localidad"></param>
+    ''' <param name="provincia"></param>
+    ''' <param name="pais"></param>
+    ''' <param name="fechanac"></param>
+    ''' <param name="email"></param>
+    ''' <param name="tarjeta"></param>
+    ''' <param name="tipo_socio"></param>
+    ''' <param name="pago"></param>
+    ''' <param name="comentarios"></param>
+    ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
     Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String) As Boolean
 
         Dim msg As String = "Debe completar obligatoriamente, al menos los siguientes datos: "
@@ -231,10 +249,6 @@ Public Class frm_socio
             Return True
 
         End If
-
-
-
-
 
     End Function
 
@@ -372,7 +386,8 @@ Public Class frm_socio
         End If
 
         If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
-            modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
+            modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, calcula_importe(), txt_coment.Text)
+            bbdd.cargar()
         End If
 
     End Sub
@@ -409,5 +424,13 @@ Public Class frm_socio
     Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
         rdo_pagado.Checked = True
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+    End Sub
+
+    Private Sub rdo_pagado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_pagado.CheckedChanged
+
+    End Sub
+
+    Private Sub rdo_nopagado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_nopagado.CheckedChanged
+
     End Sub
 End Class
