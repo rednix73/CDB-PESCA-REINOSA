@@ -737,9 +737,6 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
         End Try
 
     End Sub
-
-
-
     ''' <summary>
     ''' Elimina un registro existente en la tabla socios.
     ''' </summary>
@@ -761,17 +758,35 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
 
         Try
-            consulta1 = New MySqlCommand()
-            consulta1.Connection = conn1
-            If (Not conn1.State = ConnectionState.Open) Then
-                conectar()
-            End If
+            conectar()
 
-            'Consulta de eliminacion.
-            Dim sql_txt3 As String = "DELETE FROM socios WHERE dni='" + dni + "'"
+            Select Case tp
+                Case tipobd.Excel_ODBC
+                    consulta2 = New OdbcCommand()
+                    consulta2.Connection = conn2
+                    If (Not conn2.State = ConnectionState.Open) Then
+                        conectar()
+                    End If
 
-            consulta1.CommandText = sql_txt3
-            MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta1.ExecuteNonQuery.ToString + " registros.")
+                    'Consulta de eliminacion.
+                    Dim sql_txt3 As String = "DELETE * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+
+                    consulta2.CommandText = sql_txt3
+                    MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta2.ExecuteNonQuery.ToString + " registros.")
+
+                Case tipobd.MySQL
+                    consulta1 = New MySqlCommand()
+                    consulta1.Connection = conn1
+                    If (Not conn1.State = ConnectionState.Open) Then
+                        conectar()
+                    End If
+
+                    'Consulta de eliminacion.
+                    Dim sql_txt3 As String = "DELETE FROM socios WHERE dni='" + dni + "'"
+
+                    consulta1.CommandText = sql_txt3
+                    MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta1.ExecuteNonQuery.ToString + " registros.")
+            End Select
 
             desconectar()
         Catch ex As Exception

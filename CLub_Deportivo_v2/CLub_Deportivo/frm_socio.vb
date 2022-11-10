@@ -363,7 +363,7 @@ Public Class frm_socio
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
         eliminar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
-
+        bbdd.cargar()
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btn_modificar.Click

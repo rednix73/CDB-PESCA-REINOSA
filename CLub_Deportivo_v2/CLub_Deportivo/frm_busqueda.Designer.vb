@@ -32,17 +32,18 @@ Partial Class frm_busqueda
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(13, 13)
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(619, 273)
+        Me.DataGridView1.Size = New System.Drawing.Size(1197, 395)
         Me.DataGridView1.TabIndex = 0
         '
         'btn_usar
         '
-        Me.btn_usar.Location = New System.Drawing.Point(13, 304)
+        Me.btn_usar.Location = New System.Drawing.Point(25, 330)
         Me.btn_usar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_usar.Name = "btn_usar"
         Me.btn_usar.Size = New System.Drawing.Size(179, 28)
@@ -52,7 +53,7 @@ Partial Class frm_busqueda
         '
         'btn_cerrar
         '
-        Me.btn_cerrar.Location = New System.Drawing.Point(453, 304)
+        Me.btn_cerrar.Location = New System.Drawing.Point(994, 330)
         Me.btn_cerrar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_cerrar.Name = "btn_cerrar"
         Me.btn_cerrar.Size = New System.Drawing.Size(179, 28)
@@ -64,7 +65,7 @@ Partial Class frm_busqueda
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(645, 345)
+        Me.ClientSize = New System.Drawing.Size(1197, 395)
         Me.Controls.Add(Me.btn_cerrar)
         Me.Controls.Add(Me.btn_usar)
         Me.Controls.Add(Me.DataGridView1)
