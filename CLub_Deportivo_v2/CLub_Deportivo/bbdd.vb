@@ -482,7 +482,7 @@ Module bbdd
     ''' <param name="pago"></param>
     ''' <param name="import"></param>
     ''' <param name="comentarios"></param>
-    Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, import As String, comentarios As String)
+    Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
         Try
             conectar()
             Select Case tp
@@ -522,8 +522,8 @@ Module bbdd
                         Else
                             dr4.Close()
                             'Consulta de insercion.
-                            Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,pago,importe,comentarios) 
-VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + pago + "," + import + ",'" + comentarios + "')"
+                            Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,importe,comentarios) 
+VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
                             consulta2.CommandText = sql_txt3
                             Dim salida3 As Integer = consulta2.ExecuteNonQuery
                             If (salida3 > 0) Then
@@ -561,8 +561,8 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                         Else
                             dr2.Close()
                             'Consulta de insercion.
-                            Dim sql_txt3 As String = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,pago,comentarios) 
-VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + pago + ",'" + comentarios + "')"
+                            Dim sql_txt3 As String = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,comentarios) 
+VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "','" + comentarios + "')"
                             consulta1.CommandText = sql_txt3
                             Dim salida3 As Integer = consulta1.ExecuteNonQuery
                             If (salida3 > 0) Then
@@ -599,7 +599,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     ''' <param name="tipo_socio"></param>
     ''' <param name="pago"></param>
     ''' <param name="comentarios"></param>
-    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, import As String, comentarios As String)
+    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
 
         Try
             conectar()
@@ -655,7 +655,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                     'Consulta de modificacion.
                     Dim sql_txt3 As String = "UPDATE socios SET n_socio=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
                             "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
-                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago" + pago + ", comentarios='" + comentarios + "'" +
+                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', comentarios='" + comentarios + "'" +
                         "WHERE dni=" + dni
 
                     consulta1.CommandText = sql_txt3
@@ -717,11 +717,10 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                     'Consulta de modificacion.
                     Dim sql_txt3 As String = "UPDATE " + tabla_socios_xls + " SET numero=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
                             "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
-                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', pago='" + pago + "',importe=" + import + ", comentarios='" + comentarios + "'" +
+                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', importe=" + import + ", comentarios='" + comentarios + "'" +
                         " WHERE dni='" + dni + "'"
 
                     consulta2.CommandText = sql_txt3
-
 
                     Dim salida3 As Integer = consulta2.ExecuteNonQuery
                     If (salida3 > 0) Then

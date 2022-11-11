@@ -94,7 +94,7 @@ Public Class frm_socio
     End Sub
 
     Private Sub rdo_otros_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_otros.CheckedChanged
-        rdo_nopagado.Checked = True
+
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
@@ -107,20 +107,11 @@ Public Class frm_socio
                 tipo = "JUBILADO"
             End If
             If rdo_otros.Checked Then
-                tipo = "MENOR, FEMINA, OTROS"
+                tipo = "OTROS"
             End If
 
-
-            If rdo_pagado.Checked Then
-                pago = 1
-            End If
-            If rdo_nopagado.Checked Then
-                pago = 2
-            End If
-
-
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, calcula_importe(), txt_coment.Text)
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe(), txt_coment.Text)
                 bbdd.cargar()
             End If
         Catch ex As Exception
@@ -182,10 +173,9 @@ Public Class frm_socio
     ''' <param name="email"></param>
     ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
-    ''' <param name="pago"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
-    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String) As Boolean
+    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, comentarios As String) As Boolean
 
         Dim msg As String = "Debe completar obligatoriamente, al menos los siguientes datos: "
         Dim contador As Integer = 0
@@ -231,10 +221,6 @@ Public Class frm_socio
         End If
         If (tipo_socio = "") Then
             msg += "Tipo socio, "
-            contador += 1
-        End If
-        If (pago = "") Then
-            msg += "Estado(pago), "
             contador += 1
         End If
         If (comentarios = "") Then
@@ -374,19 +360,11 @@ Public Class frm_socio
             tipo = "JUBILADO"
         End If
         If rdo_otros.Checked Then
-            tipo = "MENOR, FEMINA, OTROS"
+            tipo = "OTROS"
         End If
 
-
-        If rdo_pagado.Checked Then
-            pago = 1
-        End If
-        If rdo_nopagado.Checked Then
-            pago = 2
-        End If
-
-        If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)) Then
-            modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, calcula_importe(), txt_coment.Text)
+        If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
+            modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe(), txt_coment.Text)
             bbdd.cargar()
         End If
 
@@ -401,7 +379,7 @@ Public Class frm_socio
     End Sub
 
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
-        rdo_pagado.Checked = True
+
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
@@ -422,15 +400,15 @@ Public Class frm_socio
     End Sub
 
     Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
-        rdo_pagado.Checked = True
+
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
-    Private Sub rdo_pagado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_pagado.CheckedChanged
+    Private Sub rdo_pagado_CheckedChanged(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub rdo_nopagado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_nopagado.CheckedChanged
+    Private Sub rdo_nopagado_CheckedChanged(sender As Object, e As EventArgs)
 
     End Sub
 End Class
