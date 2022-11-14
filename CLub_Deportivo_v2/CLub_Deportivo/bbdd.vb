@@ -263,46 +263,49 @@ Module bbdd
     ''' Devuelve una lista de enteros, con los números de socio no usados.
     ''' </returns>
     Public Function numeros_libres() As List(Of Integer)
-
+        Dim libres As New List(Of Integer)
+        Dim libres1 As New List(Of Integer)
+        Dim libres2 As New List(Of Integer)
+        Dim libre As Boolean = True
+        Dim ultimo_bd As Integer
+        Dim ultimo_soc As Integer
         Try
             conectar()
-            Dim libres As New List(Of Integer)
-            Dim libres1 As New List(Of Integer)
-            Dim libres2 As New List(Of Integer)
-            Dim libre As Boolean = True
             libres.Clear()
             libres1.Clear()
             libres2.Clear()
-            Dim ultimo_bd As Integer
+
             Select Case tp
                 Case tipobd.Excel_ODBC
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    'Obtenemos el último número usado en la base de datos de socios.
-                    consulta2.CommandText = "Select MAX(numero) from " + tabla_bdsocios_xls
-                    ultimo_bd = consulta2.ExecuteScalar()
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    'Obtenemos el último número usado en la tabla de socios actual.
-                    consulta2.CommandText = "Select MAX(numero) from " + tabla_socios_xls
-                    Dim ultimo_soc As Integer = consulta2.ExecuteScalar()
+                    ultimo_bd = ultimo(tabla_bdsocios_xls)
+                    ultimo_soc = ultimo(tabla_socios_xls)
+                    'consulta2 = New OdbcCommand()
+                    'consulta2.Connection = conn2
+                    ''Obtenemos el último número usado en la base de datos de socios.
+                    'consulta2.CommandText = "Select MAX(numero) from " + tabla_bdsocios_xls
+                    'ultimo_bd = consulta2.ExecuteScalar()
+                    'consulta2 = New OdbcCommand()
+                    'consulta2.Connection = conn2
+                    ''Obtenemos el último número usado en la tabla de socios actual.
+                    'consulta2.CommandText = "Select MAX(numero) from " + tabla_socios_xls
+                    'ultimo_soc = consulta2.ExecuteScalar()
                     consulta2 = New OdbcCommand()
                     consulta2.Connection = conn2
                     'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-                    consulta2.CommandText = "SELECT NUMERO FROM " + tabla_bdsocios_xls
+                    consulta2.CommandText = "select numero from " + tabla_bdsocios_xls
+
 
                     'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
                     For index = 1 To ultimo_bd
-
                         dr3 = consulta2.ExecuteReader()
-
-
                         While dr3.Read
-                            Dim n As Integer = CInt(dr3.Item("numero"))
 
-                            If index = n Then
-                                libre = False
+                            If (Not IsDBNull(dr3(0))) Then
+                                If index = CInt(dr3(0)) Then
+                                    libre = False
+                                End If
                             End If
+
                         End While
                         dr3.Close()
 
@@ -333,12 +336,12 @@ Module bbdd
                     consulta1.Connection = conn1
                     'Obtenemos el último número usado en la tabla de socios actual.
                     consulta1.CommandText = "Select MAX(n_socio) from " + tabla_socios_mysql
-                    Dim ultimo_soc As Integer = consulta1.ExecuteScalar
+                    ultimo_soc = consulta1.ExecuteScalar
                     consulta1 = New MySqlCommand()
                     consulta1.Connection = conn1
                     'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-                    consulta1.CommandText = "Select n_socio from " + tabla_socios_mysql
-                    'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
+                    consulta1.CommandText = "Select n_socio from " + tabla_bdsocios_mysql
+                    'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios (base de datos con todos los socios).
                     For index = 1 To ultimo_bd
                         dr1 = consulta1.ExecuteReader()
                         While dr1.Read
@@ -373,10 +376,11 @@ Module bbdd
             Next
             'Devolvemos la lista de numeros libres de la tabla bdsocios, eliminados los usados en la tabla socios.
             libres = libres1
-            Return libres
             desconectar()
+            Return libres
         Catch ex As Exception
             MsgBox(ex.ToString())
+            Return libres
         End Try
     End Function
 
@@ -385,16 +389,16 @@ Module bbdd
     ''' </summary>
     ''' <returns>Develve un entero con el último número de socio en uso.</returns>
     Public Function ultimo(tabla As String) As Integer
+        Dim ult As Integer
         Try
-            Dim ult As Integer
+            conectar()
             Select Case tp
                 Case tipobd.Excel_ODBC
                     consulta2 = New OdbcCommand()
                     consulta2.Connection = conn2
                     'Obtenemos el último número usado.
-                    consulta2.CommandText = "Select MAX(n_socio) from " + tabla
+                    consulta2.CommandText = "Select MAX(numero) from " + tabla
                     ult = consulta2.ExecuteScalar()
-
                 Case tipobd.MySQL
                     consulta1 = New MySqlCommand()
                     consulta1.Connection = conn1
@@ -403,8 +407,10 @@ Module bbdd
                     ult = consulta1.ExecuteScalar()
             End Select
             Return ult
+            desconectar()
         Catch ex As Exception
             MsgBox(ex.ToString())
+            Return ult
         End Try
     End Function
     ''' <summary>
@@ -479,7 +485,6 @@ Module bbdd
     ''' <param name="email"></param>
     ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
-    ''' <param name="pago"></param>
     ''' <param name="import"></param>
     ''' <param name="comentarios"></param>
     Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
@@ -597,7 +602,6 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
     ''' <param name="email"></param>
     ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
-    ''' <param name="pago"></param>
     ''' <param name="comentarios"></param>
     Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
 

@@ -18,39 +18,36 @@ Public Class frm_socio
         cmb_pais.SelectedItem = "ESPAÑA"
     End Sub
     Private Function calcula_importe() As Integer
+
         Try
             Select Case cmb_tarjeta.SelectedIndex
                 Case 1
                     If (rdo_normal.Checked) Then
                         importe = precio_trucha
-                        Return importe
                     End If
                     If (rdo_jubilado.Checked) Then
                         importe = precio_trucha / 2
-                        Return importe
                     End If
                     If (rdo_otros.Checked) Then
                         importe = 0
-                        Return importe
                     End If
                 Case 0
                     If (rdo_normal.Checked) Then
                         importe = precio_salmon
-                        Return importe
                     End If
                     If (rdo_jubilado.Checked) Then
                         importe = precio_salmon / 2
-                        Return importe
                     End If
                     If (rdo_otros.Checked) Then
                         importe = 0
-                        Return importe
                     End If
                 Case Else
-                    Return 0
+                    importe = 0
             End Select
+            Return importe
         Catch ex As Exception
             MsgBox(ex.ToString())
+            Return importe
         End Try
     End Function
 
@@ -111,7 +108,7 @@ Public Class frm_socio
             End If
 
             If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe(), txt_coment.Text)
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
                 bbdd.cargar()
             End If
         Catch ex As Exception
