@@ -254,8 +254,6 @@ Module bbdd
         End Try
 
     End Sub
-
-
     ''' <summary>
     ''' Método que busca en la base de datos los números de socios no utilizados y devuelve una lista con los mismos.
     ''' </summary>
@@ -383,7 +381,6 @@ Module bbdd
             Return libres
         End Try
     End Function
-
     ''' <summary>
     ''' Método que devuelve el último número de socio usado.
     ''' </summary>
@@ -433,11 +430,34 @@ Module bbdd
     Public Sub buscar_nsocio(valor As String)
         Try
             If (valor <> "") Then
+                dw_socios.RowFilter = "numero=" + valor
                 dw_bdsocios.RowFilter = "numero=" + valor
+                frm_busqueda.DataGridView1.DataSource = dw_socios
+                frm_busqueda.Show()
+                If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
+                    frm_busqueda.Close()
+                    MsgBox("Número de socio no encontrado en temporada actual. Buscando en Base de datos...")
+                    frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+                    frm_busqueda.Show()
+                    If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
+                        frm_busqueda.Close()
+                        MsgBox("Número de socio no encontrado. A continuacion se muestran todos los socios en la base de datos.")
+                        dw_bdsocios.RowFilter = ""
+                        frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+                        frm_busqueda.ShowDialog()
+                    End If
+                End If
+
+            Else
+                dw_bdsocios.RowFilter = ""
+                dw_socios.RowFilter = ""
+                frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+                frm_busqueda.ShowDialog()
+
             End If
 
-            frm_busqueda.Show()
-            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+
+
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try

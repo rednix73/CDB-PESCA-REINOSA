@@ -106,10 +106,11 @@ Partial Class frm_socio
         '
         'txt_email
         '
+        Me.txt_email.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_email.Location = New System.Drawing.Point(12, 170)
         Me.txt_email.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_email.Name = "txt_email"
-        Me.txt_email.Size = New System.Drawing.Size(271, 24)
+        Me.txt_email.Size = New System.Drawing.Size(271, 27)
         Me.txt_email.TabIndex = 28
         '
         'grp_socio
@@ -207,6 +208,7 @@ Partial Class frm_socio
         '
         'txt_coment
         '
+        Me.txt_coment.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_coment.Location = New System.Drawing.Point(8, 25)
         Me.txt_coment.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_coment.Multiline = True
@@ -222,7 +224,7 @@ Partial Class frm_socio
         Me.btn_insertar.Name = "btn_insertar"
         Me.btn_insertar.Size = New System.Drawing.Size(181, 32)
         Me.btn_insertar.TabIndex = 38
-        Me.btn_insertar.Text = "Insertar"
+        Me.btn_insertar.Text = "INSERTAR"
         Me.btn_insertar.UseVisualStyleBackColor = True
         '
         'Button2
@@ -238,10 +240,11 @@ Partial Class frm_socio
         '
         'txt_nsocio
         '
+        Me.txt_nsocio.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_nsocio.Location = New System.Drawing.Point(8, 44)
         Me.txt_nsocio.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_nsocio.Name = "txt_nsocio"
-        Me.txt_nsocio.Size = New System.Drawing.Size(65, 24)
+        Me.txt_nsocio.Size = New System.Drawing.Size(65, 27)
         Me.txt_nsocio.TabIndex = 13
         '
         'Label4
@@ -261,7 +264,7 @@ Partial Class frm_socio
         Me.btn_buscar_dni.Name = "btn_buscar_dni"
         Me.btn_buscar_dni.Size = New System.Drawing.Size(148, 32)
         Me.btn_buscar_dni.TabIndex = 41
-        Me.btn_buscar_dni.Text = "Buscar"
+        Me.btn_buscar_dni.Text = "BUSCAR"
         Me.btn_buscar_dni.UseVisualStyleBackColor = True
         '
         'btn_letranif
@@ -271,7 +274,7 @@ Partial Class frm_socio
         Me.btn_letranif.Name = "btn_letranif"
         Me.btn_letranif.Size = New System.Drawing.Size(105, 57)
         Me.btn_letranif.TabIndex = 42
-        Me.btn_letranif.Text = "Calcular letra"
+        Me.btn_letranif.Text = "CALCULA LETRA"
         Me.btn_letranif.UseVisualStyleBackColor = True
         '
         'btn_num_libres
@@ -281,7 +284,7 @@ Partial Class frm_socio
         Me.btn_num_libres.Name = "btn_num_libres"
         Me.btn_num_libres.Size = New System.Drawing.Size(172, 29)
         Me.btn_num_libres.TabIndex = 44
-        Me.btn_num_libres.Text = "Ver Números Libres"
+        Me.btn_num_libres.Text = "NUMEROS LIBRES"
         Me.btn_num_libres.UseVisualStyleBackColor = True
         '
         'btn_buscar_nsocio
@@ -291,7 +294,7 @@ Partial Class frm_socio
         Me.btn_buscar_nsocio.Name = "btn_buscar_nsocio"
         Me.btn_buscar_nsocio.Size = New System.Drawing.Size(172, 25)
         Me.btn_buscar_nsocio.TabIndex = 47
-        Me.btn_buscar_nsocio.Text = "Buscar"
+        Me.btn_buscar_nsocio.Text = "BUSCAR"
         Me.btn_buscar_nsocio.UseVisualStyleBackColor = True
         '
         'btn_modificar
@@ -302,7 +305,7 @@ Partial Class frm_socio
         Me.btn_modificar.Name = "btn_modificar"
         Me.btn_modificar.Size = New System.Drawing.Size(165, 32)
         Me.btn_modificar.TabIndex = 48
-        Me.btn_modificar.Text = "Modificar"
+        Me.btn_modificar.Text = "MODIFICAR"
         Me.btn_modificar.UseVisualStyleBackColor = True
         '
         'btn_eliminar
@@ -313,7 +316,7 @@ Partial Class frm_socio
         Me.btn_eliminar.Name = "btn_eliminar"
         Me.btn_eliminar.Size = New System.Drawing.Size(165, 32)
         Me.btn_eliminar.TabIndex = 49
-        Me.btn_eliminar.Text = "Eliminar"
+        Me.btn_eliminar.Text = "ELIMINAR"
         Me.btn_eliminar.UseVisualStyleBackColor = True
         '
         'Button6
@@ -385,18 +388,20 @@ Partial Class frm_socio
         '
         'txt_nombre
         '
+        Me.txt_nombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_nombre.Location = New System.Drawing.Point(81, 33)
         Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_nombre.Name = "txt_nombre"
-        Me.txt_nombre.Size = New System.Drawing.Size(208, 24)
+        Me.txt_nombre.Size = New System.Drawing.Size(208, 27)
         Me.txt_nombre.TabIndex = 56
         '
         'txt_apellido
         '
+        Me.txt_apellido.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_apellido.Location = New System.Drawing.Point(81, 73)
         Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_apellido.Name = "txt_apellido"
-        Me.txt_apellido.Size = New System.Drawing.Size(208, 24)
+        Me.txt_apellido.Size = New System.Drawing.Size(208, 27)
         Me.txt_apellido.TabIndex = 57
         '
         'Label5
@@ -426,14 +431,14 @@ Partial Class frm_socio
         Me.btn_buscar_apell.Name = "btn_buscar_apell"
         Me.btn_buscar_apell.Size = New System.Drawing.Size(208, 25)
         Me.btn_buscar_apell.TabIndex = 55
-        Me.btn_buscar_apell.Text = "Buscar"
+        Me.btn_buscar_apell.Text = "BUSCAR"
         Me.btn_buscar_apell.UseVisualStyleBackColor = True
         '
         'txt_dni
         '
         Me.txt_dni.BackColor = System.Drawing.Color.White
         Me.txt_dni.Foco = System.Drawing.Color.Empty
-        Me.txt_dni.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.txt_dni.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_dni.Location = New System.Drawing.Point(341, 33)
         Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_dni.Name = "txt_dni"
@@ -482,10 +487,11 @@ Partial Class frm_socio
         '
         'txt_cp
         '
+        Me.txt_cp.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_cp.Location = New System.Drawing.Point(12, 111)
         Me.txt_cp.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_cp.Name = "txt_cp"
-        Me.txt_cp.Size = New System.Drawing.Size(148, 24)
+        Me.txt_cp.Size = New System.Drawing.Size(148, 27)
         Me.txt_cp.TabIndex = 56
         '
         'Label1
@@ -540,10 +546,11 @@ Partial Class frm_socio
         '
         'txt_direcc
         '
+        Me.txt_direcc.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_direcc.Location = New System.Drawing.Point(10, 52)
         Me.txt_direcc.Margin = New System.Windows.Forms.Padding(4)
         Me.txt_direcc.Name = "txt_direcc"
-        Me.txt_direcc.Size = New System.Drawing.Size(403, 24)
+        Me.txt_direcc.Size = New System.Drawing.Size(403, 27)
         Me.txt_direcc.TabIndex = 61
         '
         'Label3

@@ -39,6 +39,7 @@ Partial Class frm_principal
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -46,7 +47,7 @@ Partial Class frm_principal
         'StatusStrip1
         '
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 999)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 26, 0)
@@ -58,8 +59,8 @@ Partial Class frm_principal
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(274, 20)
-        Me.ToolStripStatusLabel1.Text = "Club Deportivo Básico de Pesca Reinosa"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(376, 20)
+        Me.ToolStripStatusLabel1.Text = "Club Deportivo Básico de Pesca Reinosa.  C.I.F. G301843"
         '
         'MenuStrip1
         '
@@ -116,7 +117,7 @@ Partial Class frm_principal
         '
         Me.SociosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoSocioToolStripMenuItem, Me.ModificarSocioToolStripMenuItem, Me.EliminarSocioToolStripMenuItem})
         Me.SociosToolStripMenuItem.Name = "SociosToolStripMenuItem"
-        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
+        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.SociosToolStripMenuItem.Text = "Socios"
         '
         'NuevoSocioToolStripMenuItem
@@ -140,7 +141,7 @@ Partial Class frm_principal
         'ListadosToolStripMenuItem
         '
         Me.ListadosToolStripMenuItem.Name = "ListadosToolStripMenuItem"
-        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
+        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.ListadosToolStripMenuItem.Text = "Listados"
         '
         'AyudaToolStripMenuItem
@@ -156,6 +157,14 @@ Partial Class frm_principal
         Me.AcercaDeToolStripMenuItem.Name = "AcercaDeToolStripMenuItem"
         Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
+        '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Padding = New System.Windows.Forms.Padding(1000, 0, 0, 0)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(1252, 20)
+        Me.ToolStripStatusLabel2.Text = "Copyright: Roberto Macho González."
+        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frm_principal
         '
@@ -196,4 +205,5 @@ Partial Class frm_principal
     Friend WithEvents EliminarSocioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExportarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConfiguraciónToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
 End Class

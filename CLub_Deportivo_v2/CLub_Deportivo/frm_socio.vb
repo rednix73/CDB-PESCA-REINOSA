@@ -119,7 +119,7 @@ Public Class frm_socio
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles btn_num_libres.Click
-        frm_numeros_libres.Show()
+        frm_numeros_libres.ShowDialog()
 
 
     End Sub
@@ -252,6 +252,8 @@ Public Class frm_socio
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+
         frm_imprimir.Show()
 
     End Sub
@@ -406,6 +408,42 @@ Public Class frm_socio
     End Sub
 
     Private Sub rdo_nopagado_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub cmb_prov_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_prov.SelectedIndexChanged
+        Try
+            Select Case cmb_prov.SelectedItem
+                Case "CANTABRIA"
+                    cmb_localidad.Items.Clear()
+                    For i = 0 To lista_localidades.Count - 1
+                        cmb_localidad.Items.Add(lista_localidades(i).Nombre)
+                    Next
+                Case Else
+                    cmb_localidad.Items.Clear()
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
+    End Sub
+
+    Private Sub cmb_localidad_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmb_localidad.SelectedIndexChanged
+        Try
+            Dim localidad_selected As String = cmb_localidad.SelectedItem
+            For i = 0 To lista_localidades.Count - 1
+                If (lista_localidades(i).Nombre = localidad_selected) Then
+                    txt_cp.Text = lista_localidades(i).CP
+                End If
+            Next
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
+
+    End Sub
+
+    Private Sub txt_cp_TextChanged_1(sender As Object, e As EventArgs) Handles txt_cp.TextChanged
 
     End Sub
 End Class

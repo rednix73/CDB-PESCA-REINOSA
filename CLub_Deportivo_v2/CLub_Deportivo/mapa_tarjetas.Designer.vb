@@ -38,7 +38,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t1.Location = New System.Drawing.Point(33, 32)
+        Me.lbl_t1.Location = New System.Drawing.Point(14, 16)
         Me.lbl_t1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t1.Name = "lbl_t1"
         Me.lbl_t1.Size = New System.Drawing.Size(160, 81)
@@ -50,7 +50,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t2.Location = New System.Drawing.Point(210, 32)
+        Me.lbl_t2.Location = New System.Drawing.Point(191, 16)
         Me.lbl_t2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t2.Name = "lbl_t2"
         Me.lbl_t2.Size = New System.Drawing.Size(160, 81)
@@ -62,7 +62,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t4.Location = New System.Drawing.Point(210, 131)
+        Me.lbl_t4.Location = New System.Drawing.Point(191, 115)
         Me.lbl_t4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t4.Name = "lbl_t4"
         Me.lbl_t4.Size = New System.Drawing.Size(160, 81)
@@ -74,7 +74,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t3.Location = New System.Drawing.Point(33, 131)
+        Me.lbl_t3.Location = New System.Drawing.Point(14, 115)
         Me.lbl_t3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t3.Name = "lbl_t3"
         Me.lbl_t3.Size = New System.Drawing.Size(160, 81)
@@ -86,7 +86,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t6.Location = New System.Drawing.Point(210, 227)
+        Me.lbl_t6.Location = New System.Drawing.Point(191, 211)
         Me.lbl_t6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t6.Name = "lbl_t6"
         Me.lbl_t6.Size = New System.Drawing.Size(160, 81)
@@ -98,7 +98,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t5.Location = New System.Drawing.Point(33, 227)
+        Me.lbl_t5.Location = New System.Drawing.Point(14, 211)
         Me.lbl_t5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t5.Name = "lbl_t5"
         Me.lbl_t5.Size = New System.Drawing.Size(160, 81)
@@ -110,7 +110,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t8.Location = New System.Drawing.Point(210, 324)
+        Me.lbl_t8.Location = New System.Drawing.Point(191, 308)
         Me.lbl_t8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t8.Name = "lbl_t8"
         Me.lbl_t8.Size = New System.Drawing.Size(160, 81)
@@ -122,7 +122,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t7.Location = New System.Drawing.Point(33, 324)
+        Me.lbl_t7.Location = New System.Drawing.Point(14, 308)
         Me.lbl_t7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t7.Name = "lbl_t7"
         Me.lbl_t7.Size = New System.Drawing.Size(160, 81)
@@ -134,7 +134,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t10.Location = New System.Drawing.Point(210, 421)
+        Me.lbl_t10.Location = New System.Drawing.Point(191, 405)
         Me.lbl_t10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t10.Name = "lbl_t10"
         Me.lbl_t10.Size = New System.Drawing.Size(160, 81)
@@ -146,7 +146,7 @@ Partial Class mapa_tarjetas
         '
         Me.lbl_t9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lbl_t9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_t9.Location = New System.Drawing.Point(33, 421)
+        Me.lbl_t9.Location = New System.Drawing.Point(14, 405)
         Me.lbl_t9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lbl_t9.Name = "lbl_t9"
         Me.lbl_t9.Size = New System.Drawing.Size(160, 81)
@@ -158,6 +158,8 @@ Partial Class mapa_tarjetas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
+        Me.BackColor = System.Drawing.Color.White
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Controls.Add(Me.lbl_t10)
         Me.Controls.Add(Me.lbl_t9)
@@ -170,7 +172,7 @@ Partial Class mapa_tarjetas
         Me.Controls.Add(Me.lbl_t2)
         Me.Controls.Add(Me.lbl_t1)
         Me.Name = "mapa_tarjetas"
-        Me.Size = New System.Drawing.Size(412, 537)
+        Me.Size = New System.Drawing.Size(366, 500)
         Me.ResumeLayout(False)
 
     End Sub

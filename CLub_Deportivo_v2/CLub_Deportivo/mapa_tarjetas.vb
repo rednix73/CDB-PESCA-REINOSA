@@ -19,7 +19,7 @@
                     num = CInt(Strings.Mid(l1.Name, 6))
                     If (_tarjeta = num) Then
                         Dim color1 As New Color
-                        color1 = SystemColors.Control
+                        color1 = Color.White
                         Dim color2 As New Color
                         color2 = Color.Green
                         If l1.BackColor = color1 Then
@@ -36,6 +36,33 @@
             End Try
         End Set
     End Property
+    Private _fondo_tarjeta As String
+    ''' <summary>
+    ''' Propiedad que contiene la ruta del archivo de imagen que se mostrará como fondo en las tarjetas.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Imagen_Fondo_tarjeta() As String
+        Get
+            Return _fondo_tarjeta
+        End Get
+        Set(ByVal value As String)
+            _fondo_tarjeta = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' Método que establece como imagen de fondo de los labels que representan las tarjetas el archivo de imagen en la ruta contenida en la propiedad: Imagen_Fondo_tarjeta.
+    ''' </summary>
+    Public Sub Establece_fondo()
+        Try
+            For Each l1 As Control In Me.Controls
+                CType(l1, Label).Image = Image.FromFile(Imagen_Fondo_tarjeta)
+            Next
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
+    End Sub
+
 
     Private Sub Label2_Click(sender As Object, e As EventArgs)
 
@@ -114,7 +141,7 @@
         Try
             For Each l1 As Label In Me.Controls
                 If l1.BackColor = Color.Green Then
-                    l1.BackColor = SystemColors.Control
+                    l1.BackColor = Color.White
                 End If
             Next
         Catch ex As Exception

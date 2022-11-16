@@ -36,6 +36,7 @@
                         frm_socio.rdo_otros.Checked = True
                 End Select
             End If
+            Me.Close()
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
