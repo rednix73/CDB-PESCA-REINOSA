@@ -13,21 +13,23 @@
             Try
                 restablecer()
                 Dim contador As Integer = 0
-                For Each l1 As Label In Me.Controls
-                    contador += 1
-                    Dim num As Integer
-                    num = CInt(Strings.Mid(l1.Name, 6))
-                    If (_tarjeta = num) Then
-                        Dim color1 As New Color
-                        color1 = Color.White
-                        Dim color2 As New Color
-                        color2 = Color.Green
-                        If l1.BackColor = color1 Then
-                            l1.BackColor = color2
-                        Else
-                            l1.BackColor = color1
+                For Each l1 As Control In Me.Controls
+                    If TypeOf (l1) Is Label Then
+                        contador += 1
+                        Dim num As Integer
+                        num = CInt(Strings.Mid(l1.Name, 6))
+                        If (_tarjeta = num) Then
+                            Dim color1 As New Color
+                            color1 = Color.White
+                            Dim color2 As New Color
+                            color2 = Color.Green
+                            If l1.BackColor = color1 Then
+                                l1.BackColor = color2
+                            Else
+                                l1.BackColor = color1
+                            End If
+                            comprobar_tarjeta()
                         End If
-                        comprobar_tarjeta()
                     End If
                 Next
 
@@ -55,15 +57,17 @@
     Public Sub Establece_fondo()
         Try
             For Each l1 As Control In Me.Controls
-                CType(l1, Label).Image = Image.FromFile(Imagen_Fondo_tarjeta)
+                If TypeOf (l1) Is PictureBox Then
+                    CType(l1, PictureBox).Image = Image.FromFile(Imagen_Fondo_tarjeta)
+                End If
+                If TypeOf (l1) Is Label Then
+                    CType(l1, Label).Visible = False
+                End If
             Next
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
-
     End Sub
-
-
     Private Sub Label2_Click(sender As Object, e As EventArgs)
 
     End Sub
@@ -139,9 +143,11 @@
     ''' </summary>
     Public Sub restablecer()
         Try
-            For Each l1 As Label In Me.Controls
-                If l1.BackColor = Color.Green Then
-                    l1.BackColor = Color.White
+            For Each l1 As Control In Me.Controls
+                If TypeOf (l1) Is Label Then
+                    If l1.BackColor = Color.Green Then
+                        l1.BackColor = Color.White
+                    End If
                 End If
             Next
         Catch ex As Exception
@@ -151,10 +157,13 @@
     End Sub
     Public Function comprobar_tarjeta() As Boolean
         Dim contador As Integer = 0
-        For Each l1 As Label In Me.Controls
-            If l1.BackColor = Color.Green Then
-                contador += 1
+        For Each l1 As Control In Me.Controls
+            If TypeOf (l1) Is Label Then
+                If l1.BackColor = Color.Green Then
+                    contador += 1
+                End If
             End If
+
         Next
         Select Case contador
             Case 0
