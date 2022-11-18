@@ -373,7 +373,7 @@ Public Class frm_socio
         frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(0)
 
         frm_busqueda.Show()
-        frm_busqueda.btn_usar.Visible = False
+        'frm_busqueda.btn_usar.Visible = False
 
     End Sub
 
