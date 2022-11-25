@@ -98,11 +98,13 @@ Partial Class frm_imprimir
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Location = New System.Drawing.Point(7, 6)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(476, 726)
+        Me.TabControl1.Size = New System.Drawing.Size(487, 712)
+        Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TabControl1.TabIndex = 15
         '
         'TabPage1
@@ -121,6 +123,7 @@ Partial Class frm_imprimir
         '
         'Mapa_tarjetas1
         '
+        Me.Mapa_tarjetas1.AutoSize = True
         Me.Mapa_tarjetas1.BackColor = System.Drawing.Color.White
         Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Mapa_tarjetas1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -142,12 +145,13 @@ Partial Class frm_imprimir
         Me.TabPage2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage2.Size = New System.Drawing.Size(468, 693)
+        Me.TabPage2.Size = New System.Drawing.Size(479, 679)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Fondo"
         '
         'Mapa_tarjetas2
         '
+        Me.Mapa_tarjetas2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Mapa_tarjetas2.BackColor = System.Drawing.Color.White
         Me.Mapa_tarjetas2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Mapa_tarjetas2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -155,7 +159,7 @@ Partial Class frm_imprimir
         Me.Mapa_tarjetas2.Location = New System.Drawing.Point(23, 53)
         Me.Mapa_tarjetas2.Margin = New System.Windows.Forms.Padding(4)
         Me.Mapa_tarjetas2.Name = "Mapa_tarjetas2"
-        Me.Mapa_tarjetas2.Size = New System.Drawing.Size(417, 564)
+        Me.Mapa_tarjetas2.Size = New System.Drawing.Size(417, 563)
         Me.Mapa_tarjetas2.TabIndex = 16
         Me.Mapa_tarjetas2.tarjeta = 0
         '
