@@ -1,0 +1,12 @@
+﻿------ Starting pre-build validation for project 'Setup-cdb_pesca_reinosa' ------ 
+------ Starting pre-build validation for project 'Setup-cdb_pesca_reinosa' ------ 
+------ Starting pre-build validation for project 'Setup-cdb_pesca_reinosa' ------ 
+ERROR: Invalid or unspecified target for shortcut 'CDB pesca Reinosa-Gestión de socios'
+ERROR: Invalid or unspecified target for shortcut 'CDB pesca Reinosa-Gestión de socios'
+ERROR: Invalid or unspecified target for shortcut 'CDB pesca Reinosa-Gestión de socios'
+------ Pre-build validation for project 'Setup-cdb_pesca_reinosa' completed ------
+------ Pre-build validation for project 'Setup-cdb_pesca_reinosa' completed ------
+------ Pre-build validation for project 'Setup-cdb_pesca_reinosa' completed ------
+1>------ Operación Compilar iniciada: proyecto: Setup-cdb_pesca_reinosa, configuración: Debug ------
+1>------ Operación Compilar iniciada: proyecto: Setup-cdb_pesca_reinosa, configuración: Debug ------
+========== Compilar: 0 correctos, 1 incorrectos, 1 actualizados, 0 omitidos ==========

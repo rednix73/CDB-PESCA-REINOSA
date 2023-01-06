@@ -14,6 +14,8 @@ Module bbdd
     Public precio_trucha As Integer '= 10
     Public tarjeta_socio_anverso As String = "tarjeta_socio_anverso.gif"
     Public tarjeta_socio_reverso As String = "tarjeta_socio_reverso.jpg"
+    Public ruta_recursos As String = My.Settings.ruta_recursos
+
     'Base de datos:
     'Tipo de origen de datos
     Public Enum tipobd
@@ -97,7 +99,9 @@ Module bbdd
     ''' </summary>
     Public Sub conectar()
         Try
+
             'tp = tipobd.Excel_ODBC
+
             Select Case tp
                 Case tipobd.Excel_ODBC
                     cadena2 = "DSN=" + DSN
@@ -204,7 +208,8 @@ Module bbdd
     ''' </summary>
     Public Sub leer_configuracion()
         Try
-            Dim sr As New StreamReader("../../Resources/configuracion.txt")
+
+            Dim sr As New StreamReader(ruta_recursos + "/configuracion.txt")
             Dim linea As String = ""
             linea = sr.ReadLine()
             linea = sr.ReadLine()

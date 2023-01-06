@@ -119,4 +119,13 @@ Public Class frm_configuracion
         File.Copy(f.FullName, "../../Resources/" & bbdd.tarjeta_socio_reverso, True)
         pctbox_tsocio_reverso.Image = Image.FromFile(bbdd.tarjeta_socio_reverso)
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        OpenFile_bbdd.Filter = "Archivos excel|*.xls;*.xlsx|Todos los archivos|*.*"
+        OpenFile_bbdd.ShowDialog()
+    End Sub
+
+    Private Sub OpenFile_bbdd_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_bbdd.FileOk
+        txt_archivo_excel.Text = OpenFile_bbdd.FileName
+    End Sub
 End Class

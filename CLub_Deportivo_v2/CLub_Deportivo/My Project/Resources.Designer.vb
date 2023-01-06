@@ -315,7 +315,35 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Busca una cadena traducida similar a .
+        '''  Busca una cadena traducida similar a ------ConfiguraciÃ³n - General------
+        '''Temporada:
+        '''2023
+        '''Precio tarjeta  de Salmon(â‚¬):
+        '''17
+        '''Precio tarjeta  de Trucha(â‚¬):
+        '''11
+        '''------ConfiguraciÃ³n - Bases de datos------
+        '''Tipo de base de datos:
+        '''Excel_ODBC
+        '''
+        '''----Excel-ODBC----
+        '''Archivo de base de datos:
+        '''C:\Users\roberto\Documents\tarjetas_socio_2023.xls
+        '''DSN:
+        '''cdb-pesca-xls
+        '''Tabla de socios:
+        '''[socios_2022_23$]
+        '''Tabla de base de datos de socios:
+        '''[bdsocios$]
+        '''
+        '''----MySQL----
+        '''Servidor:
+        '''153.92.7.1
+        '''Puerto:
+        '''3306
+        '''Base de datos:
+        '''u127917223_socio
+        '''Usuar [resto de la cadena truncado]&quot;;.
         '''</summary>
         Friend ReadOnly Property configuracion() As String
             Get

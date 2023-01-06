@@ -73,6 +73,7 @@ Partial Class frm_configuracion
         Me.Button5 = New System.Windows.Forms.Button()
         Me.OpenFile_anverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_reverso = New System.Windows.Forms.OpenFileDialog()
+        Me.OpenFile_bbdd = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.pctbox_tsocio_reverso, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -569,6 +570,10 @@ Partial Class frm_configuracion
         '
         Me.OpenFile_reverso.FileName = "OpenFileDialog1"
         '
+        'OpenFile_bbdd
+        '
+        Me.OpenFile_bbdd.FileName = "OpenFileDialog1"
+        '
         'frm_configuracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -645,4 +650,5 @@ Partial Class frm_configuracion
     Friend WithEvents Label20 As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents OpenFile_reverso As OpenFileDialog
+    Friend WithEvents OpenFile_bbdd As OpenFileDialog
 End Class

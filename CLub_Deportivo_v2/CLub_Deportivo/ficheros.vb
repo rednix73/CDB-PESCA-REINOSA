@@ -9,9 +9,9 @@ Module ficheros
     Public lista_provincias As New List(Of String)
     Public Sub leer()
         Try
-            sr1 = New StreamReader("../../Resources/cantabria_localidades.txt")
-            sr2 = New StreamReader("../../Resources/cantabria_cp.txt")
-            sr3 = New StreamReader("../../Resources/provincias.txt")
+            sr1 = New StreamReader(My.Settings.ruta_recursos + "/cantabria_localidades.txt")
+            sr2 = New StreamReader(My.Settings.ruta_recursos + "/cantabria_cp.txt")
+            sr3 = New StreamReader(My.Settings.ruta_recursos + "/provincias.txt")
 
 
             While Not sr1.EndOfStream
