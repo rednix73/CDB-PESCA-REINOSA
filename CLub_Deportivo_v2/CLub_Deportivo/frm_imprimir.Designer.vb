@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frm_imprimir
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,25 +20,26 @@ Partial Class frm_imprimir
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_imprimir))
-        Me.btn_imprimir = New System.Windows.Forms.Button()
-        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
-        Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
-        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
-        Me.lbl_tarjeta = New System.Windows.Forms.Label()
+        Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
+        Me.btn_imprimir_tarjeta = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.btn_imprimir_fondo = New System.Windows.Forms.Button()
         Me.Mapa_tarjetas2 = New CLub_Deportivo.mapa_tarjetas()
         Me.grp_box_tarjeta = New System.Windows.Forms.GroupBox()
         Me.rdo_reverso = New System.Windows.Forms.RadioButton()
         Me.rdo_anverso = New System.Windows.Forms.RadioButton()
-        Me.btn_imprime_fondo = New System.Windows.Forms.Button()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.PrintForm1 = New Microsoft.VisualBasic.PowerPacks.Printing.PrintForm(Me.components)
+        Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
+        Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.PrintDocument2 = New System.Drawing.Printing.PrintDocument()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -46,15 +47,142 @@ Partial Class frm_imprimir
         Me.grp_box_tarjeta.SuspendLayout()
         Me.SuspendLayout()
         '
-        'btn_imprimir
+        'Mapa_tarjetas1
         '
-        Me.btn_imprimir.Location = New System.Drawing.Point(23, 600)
-        Me.btn_imprimir.Margin = New System.Windows.Forms.Padding(5)
-        Me.btn_imprimir.Name = "btn_imprimir"
-        Me.btn_imprimir.Size = New System.Drawing.Size(414, 42)
-        Me.btn_imprimir.TabIndex = 11
-        Me.btn_imprimir.Text = "Imprimir"
-        Me.btn_imprimir.UseVisualStyleBackColor = True
+        Me.Mapa_tarjetas1.AutoSize = True
+        Me.Mapa_tarjetas1.BackColor = System.Drawing.Color.White
+        Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Mapa_tarjetas1.Imagen_Fondo_tarjeta = Nothing
+        Me.Mapa_tarjetas1.Location = New System.Drawing.Point(20, 8)
+        Me.Mapa_tarjetas1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
+        Me.Mapa_tarjetas1.Size = New System.Drawing.Size(406, 625)
+        Me.Mapa_tarjetas1.TabIndex = 17
+        Me.Mapa_tarjetas1.tarjeta = 0
+        '
+        'btn_imprimir_tarjeta
+        '
+        Me.btn_imprimir_tarjeta.Location = New System.Drawing.Point(20, 642)
+        Me.btn_imprimir_tarjeta.Margin = New System.Windows.Forms.Padding(5)
+        Me.btn_imprimir_tarjeta.Name = "btn_imprimir_tarjeta"
+        Me.btn_imprimir_tarjeta.Size = New System.Drawing.Size(186, 42)
+        Me.btn_imprimir_tarjeta.TabIndex = 18
+        Me.btn_imprimir_tarjeta.Text = "Imprimir"
+        Me.btn_imprimir_tarjeta.UseVisualStyleBackColor = True
+        '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Location = New System.Drawing.Point(12, 12)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(467, 785)
+        Me.TabControl1.TabIndex = 19
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.Button2)
+        Me.TabPage1.Controls.Add(Me.Mapa_tarjetas1)
+        Me.TabPage1.Controls.Add(Me.btn_imprimir_tarjeta)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(459, 752)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Tarjeta"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(233, 643)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(5)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(193, 42)
+        Me.Button2.TabIndex = 20
+        Me.Button2.Text = "Cerrar"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.Button3)
+        Me.TabPage2.Controls.Add(Me.btn_imprimir_fondo)
+        Me.TabPage2.Controls.Add(Me.Mapa_tarjetas2)
+        Me.TabPage2.Controls.Add(Me.grp_box_tarjeta)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(459, 752)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Fondo"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(229, 700)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(5)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(196, 42)
+        Me.Button3.TabIndex = 21
+        Me.Button3.Text = "Cerrar"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'btn_imprimir_fondo
+        '
+        Me.btn_imprimir_fondo.Location = New System.Drawing.Point(17, 700)
+        Me.btn_imprimir_fondo.Margin = New System.Windows.Forms.Padding(5)
+        Me.btn_imprimir_fondo.Name = "btn_imprimir_fondo"
+        Me.btn_imprimir_fondo.Size = New System.Drawing.Size(187, 42)
+        Me.btn_imprimir_fondo.TabIndex = 20
+        Me.btn_imprimir_fondo.Text = "Imprimir"
+        Me.btn_imprimir_fondo.UseVisualStyleBackColor = True
+        '
+        'Mapa_tarjetas2
+        '
+        Me.Mapa_tarjetas2.AutoSize = True
+        Me.Mapa_tarjetas2.BackColor = System.Drawing.Color.White
+        Me.Mapa_tarjetas2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Mapa_tarjetas2.Imagen_Fondo_tarjeta = Nothing
+        Me.Mapa_tarjetas2.Location = New System.Drawing.Point(18, 67)
+        Me.Mapa_tarjetas2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Mapa_tarjetas2.Name = "Mapa_tarjetas2"
+        Me.Mapa_tarjetas2.Size = New System.Drawing.Size(407, 625)
+        Me.Mapa_tarjetas2.TabIndex = 18
+        Me.Mapa_tarjetas2.tarjeta = 0
+        '
+        'grp_box_tarjeta
+        '
+        Me.grp_box_tarjeta.Controls.Add(Me.rdo_reverso)
+        Me.grp_box_tarjeta.Controls.Add(Me.rdo_anverso)
+        Me.grp_box_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grp_box_tarjeta.Location = New System.Drawing.Point(17, 6)
+        Me.grp_box_tarjeta.Name = "grp_box_tarjeta"
+        Me.grp_box_tarjeta.Size = New System.Drawing.Size(408, 58)
+        Me.grp_box_tarjeta.TabIndex = 16
+        Me.grp_box_tarjeta.TabStop = False
+        Me.grp_box_tarjeta.Text = "Seleccione el fondo:"
+        '
+        'rdo_reverso
+        '
+        Me.rdo_reverso.AutoSize = True
+        Me.rdo_reverso.Location = New System.Drawing.Point(301, 19)
+        Me.rdo_reverso.Name = "rdo_reverso"
+        Me.rdo_reverso.Size = New System.Drawing.Size(107, 26)
+        Me.rdo_reverso.TabIndex = 1
+        Me.rdo_reverso.Text = "Reverso."
+        Me.rdo_reverso.UseVisualStyleBackColor = True
+        '
+        'rdo_anverso
+        '
+        Me.rdo_anverso.AutoSize = True
+        Me.rdo_anverso.Checked = True
+        Me.rdo_anverso.Location = New System.Drawing.Point(40, 19)
+        Me.rdo_anverso.Name = "rdo_anverso"
+        Me.rdo_anverso.Size = New System.Drawing.Size(106, 26)
+        Me.rdo_anverso.TabIndex = 0
+        Me.rdo_anverso.TabStop = True
+        Me.rdo_anverso.Text = "Anverso."
+        Me.rdo_anverso.UseVisualStyleBackColor = True
         '
         'PrintDocument1
         '
@@ -83,144 +211,21 @@ Partial Class frm_imprimir
         Me.PrintPreviewDialog1.Name = "PrintPreviewDialog1"
         Me.PrintPreviewDialog1.Visible = False
         '
-        'lbl_tarjeta
-        '
-        Me.lbl_tarjeta.AutoSize = True
-        Me.lbl_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbl_tarjeta.Location = New System.Drawing.Point(41, -49)
-        Me.lbl_tarjeta.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lbl_tarjeta.Name = "lbl_tarjeta"
-        Me.lbl_tarjeta.Size = New System.Drawing.Size(392, 24)
-        Me.lbl_tarjeta.TabIndex = 14
-        Me.lbl_tarjeta.Text = "Seleccione la posición de la tarjeta a imprimir:"
-        '
-        'TabControl1
-        '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(487, 712)
-        Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
-        Me.TabControl1.TabIndex = 15
-        '
-        'TabPage1
-        '
-        Me.TabPage1.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPage1.Controls.Add(Me.Mapa_tarjetas1)
-        Me.TabPage1.Controls.Add(Me.lbl_tarjeta)
-        Me.TabPage1.Controls.Add(Me.btn_imprimir)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 29)
-        Me.TabPage1.Margin = New System.Windows.Forms.Padding(4)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage1.Size = New System.Drawing.Size(468, 693)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Tarjeta"
-        '
-        'Mapa_tarjetas1
-        '
-        Me.Mapa_tarjetas1.AutoSize = True
-        Me.Mapa_tarjetas1.BackColor = System.Drawing.Color.White
-        Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Mapa_tarjetas1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Mapa_tarjetas1.Imagen_Fondo_tarjeta = Nothing
-        Me.Mapa_tarjetas1.Location = New System.Drawing.Point(23, 23)
-        Me.Mapa_tarjetas1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
-        Me.Mapa_tarjetas1.Size = New System.Drawing.Size(414, 563)
-        Me.Mapa_tarjetas1.TabIndex = 15
-        Me.Mapa_tarjetas1.tarjeta = 0
-        '
-        'TabPage2
-        '
-        Me.TabPage2.BackColor = System.Drawing.SystemColors.Control
-        Me.TabPage2.Controls.Add(Me.Mapa_tarjetas2)
-        Me.TabPage2.Controls.Add(Me.grp_box_tarjeta)
-        Me.TabPage2.Controls.Add(Me.btn_imprime_fondo)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 29)
-        Me.TabPage2.Margin = New System.Windows.Forms.Padding(4)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(4)
-        Me.TabPage2.Size = New System.Drawing.Size(479, 679)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Fondo"
-        '
-        'Mapa_tarjetas2
-        '
-        Me.Mapa_tarjetas2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Mapa_tarjetas2.BackColor = System.Drawing.Color.White
-        Me.Mapa_tarjetas2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Mapa_tarjetas2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Mapa_tarjetas2.Imagen_Fondo_tarjeta = Nothing
-        Me.Mapa_tarjetas2.Location = New System.Drawing.Point(23, 53)
-        Me.Mapa_tarjetas2.Margin = New System.Windows.Forms.Padding(4)
-        Me.Mapa_tarjetas2.Name = "Mapa_tarjetas2"
-        Me.Mapa_tarjetas2.Size = New System.Drawing.Size(417, 563)
-        Me.Mapa_tarjetas2.TabIndex = 16
-        Me.Mapa_tarjetas2.tarjeta = 0
-        '
-        'grp_box_tarjeta
-        '
-        Me.grp_box_tarjeta.Controls.Add(Me.rdo_reverso)
-        Me.grp_box_tarjeta.Controls.Add(Me.rdo_anverso)
-        Me.grp_box_tarjeta.Location = New System.Drawing.Point(23, 2)
-        Me.grp_box_tarjeta.Name = "grp_box_tarjeta"
-        Me.grp_box_tarjeta.Size = New System.Drawing.Size(417, 45)
-        Me.grp_box_tarjeta.TabIndex = 15
-        Me.grp_box_tarjeta.TabStop = False
-        Me.grp_box_tarjeta.Text = "Seleccione el fondo:"
-        '
-        'rdo_reverso
-        '
-        Me.rdo_reverso.AutoSize = True
-        Me.rdo_reverso.Location = New System.Drawing.Point(301, 19)
-        Me.rdo_reverso.Name = "rdo_reverso"
-        Me.rdo_reverso.Size = New System.Drawing.Size(96, 24)
-        Me.rdo_reverso.TabIndex = 1
-        Me.rdo_reverso.Text = "Reverso."
-        Me.rdo_reverso.UseVisualStyleBackColor = True
-        '
-        'rdo_anverso
-        '
-        Me.rdo_anverso.AutoSize = True
-        Me.rdo_anverso.Checked = True
-        Me.rdo_anverso.Location = New System.Drawing.Point(40, 19)
-        Me.rdo_anverso.Name = "rdo_anverso"
-        Me.rdo_anverso.Size = New System.Drawing.Size(95, 24)
-        Me.rdo_anverso.TabIndex = 0
-        Me.rdo_anverso.TabStop = True
-        Me.rdo_anverso.Text = "Anverso."
-        Me.rdo_anverso.UseVisualStyleBackColor = True
-        '
-        'btn_imprime_fondo
-        '
-        Me.btn_imprime_fondo.AutoSize = True
-        Me.btn_imprime_fondo.Location = New System.Drawing.Point(23, 625)
-        Me.btn_imprime_fondo.Margin = New System.Windows.Forms.Padding(5)
-        Me.btn_imprime_fondo.Name = "btn_imprime_fondo"
-        Me.btn_imprime_fondo.Size = New System.Drawing.Size(417, 44)
-        Me.btn_imprime_fondo.TabIndex = 13
-        Me.btn_imprime_fondo.Text = "Imprimir"
-        Me.btn_imprime_fondo.UseVisualStyleBackColor = True
-        '
         'PrintDocument2
         '
         '
-        'frm_imprimir
+        'frm_imprimir2
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(487, 712)
+        Me.AutoSize = True
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ClientSize = New System.Drawing.Size(496, 800)
         Me.Controls.Add(Me.TabControl1)
-        Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
-        Me.Name = "frm_imprimir"
-        Me.Text = " C.D.B. pesca Reinosa - Imprimir"
+        Me.Name = "frm_imprimir2"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "C.D.B. pesca Reinosa - Imprimir"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -231,20 +236,22 @@ Partial Class frm_imprimir
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents btn_imprimir As Button
+
+    Friend WithEvents Mapa_tarjetas1 As mapa_tarjetas
+    Friend WithEvents btn_imprimir_tarjeta As Button
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents btn_imprimir_fondo As Button
+    Friend WithEvents Mapa_tarjetas2 As mapa_tarjetas
+    Friend WithEvents grp_box_tarjeta As GroupBox
+    Friend WithEvents rdo_reverso As RadioButton
+    Friend WithEvents rdo_anverso As RadioButton
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents PrintForm1 As PowerPacks.Printing.PrintForm
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintPreviewDialog1 As PrintPreviewDialog
-    Friend WithEvents lbl_tarjeta As Label
-    Friend WithEvents TabControl1 As TabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents btn_imprime_fondo As Button
-    Friend WithEvents grp_box_tarjeta As GroupBox
-    Friend WithEvents rdo_reverso As RadioButton
-    Friend WithEvents rdo_anverso As RadioButton
-    Friend WithEvents Mapa_tarjetas2 As mapa_tarjetas
-    Friend WithEvents Mapa_tarjetas1 As mapa_tarjetas
     Friend WithEvents PrintDocument2 As Printing.PrintDocument
 End Class

@@ -2,19 +2,27 @@
 Imports System.Drawing.Printing
 Imports System.Drawing
 
-
-
 Public Class frm_imprimir
 
     Private printFont As Font
     Private streamToPrint As StreamReader
 
 
-
-    Private Sub frm_imprimir_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Me.MdiParent = frm_principal
-
-        establece_fondo()
+    ''' Método que establece el fondo de la tarjeta de socio (anverso o reverso) en función del radio button que esté seleccionado.
+    ''' </summary>
+    Private Sub establece_fondo()
+        Try
+            If rdo_anverso.Checked Then
+                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_anverso
+                Mapa_tarjetas2.Establece_fondo()
+            End If
+            If rdo_reverso.Checked Then
+                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_reverso
+                Mapa_tarjetas2.Establece_fondo()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Sub
     Private Sub dibuja_tarjeta(ntar As Integer, ep As PrintPageEventArgs)
         Try
@@ -105,28 +113,8 @@ Public Class frm_imprimir
         End Try
     End Sub
 
-
-    Private Sub PrintDocument1_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument1.PrintPage
-
-        dibuja_tarjeta(Mapa_tarjetas1.tarjeta, e)
-
-
-
-
-
-    End Sub
-
-    Private Sub PrintPreviewControl1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub PrintPreviewDialog1_Load(sender As Object, e As EventArgs) Handles PrintPreviewDialog1.Load
-
-    End Sub
-
-
-    Private Sub Mapa_tarjetas1_Load(sender As Object, e As EventArgs)
-
+    Private Sub frm_imprimir2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        establece_fondo()
     End Sub
 
     Private Sub rdo_anverso_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_anverso.CheckedChanged
@@ -136,36 +124,33 @@ Public Class frm_imprimir
     Private Sub rdo_reverso_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_reverso.CheckedChanged
         establece_fondo()
     End Sub
-    ''' <summary>
-    ''' Método que establece el fondo de la tarjeta de socio (anverso o reverso) en función del radio button que esté seleccionado.
-    ''' </summary>
-    Private Sub establece_fondo()
-        Try
-            If rdo_anverso.Checked Then
-                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_anverso
-                Mapa_tarjetas2.Establece_fondo()
-            End If
-            If rdo_reverso.Checked Then
-                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_reverso
-                Mapa_tarjetas2.Establece_fondo()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-        End Try
+
+    Private Sub PrintDocument1_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument1.PrintPage
+        dibuja_tarjeta(Mapa_tarjetas1.tarjeta, e)
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
-        establece_fondo()
+    Private Sub PrintDocument2_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument2.PrintPage
+        dibuja_fondo_tarjeta(e)
+    End Sub
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Me.Close()
     End Sub
 
+    Private Sub btn_imprimir_fondo_Click(sender As Object, e As EventArgs) Handles btn_imprimir_fondo.Click
+        If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
+            PrintPreviewDialog1.Document = PrintDocument2
+            PrintPreviewDialog1.WindowState = FormWindowState.Maximized
+            PrintPreviewDialog1.ShowDialog()
+        End If
 
-
-    Private Sub TabPage1_Click(sender As Object, e As EventArgs) Handles TabPage1.Click
-
+        'If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
+        '    PrintForm1.PrintAction = PrintAction.PrintToPreview
+        '    Mapa_tarjetas2.Enabled = True
+        '    PrintForm1.Print()
+        'End If
     End Sub
 
-
-    Private Sub btn_imprimir_Click(sender As Object, e As EventArgs) Handles btn_imprimir.Click
+    Private Sub btn_imprimir_tarjeta_Click(sender As Object, e As EventArgs) Handles btn_imprimir_tarjeta.Click
         If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
             PrintPreviewDialog1.Document = PrintDocument1
             PrintPreviewDialog1.WindowState = FormWindowState.Maximized
@@ -196,25 +181,11 @@ Public Class frm_imprimir
         'End Try
     End Sub
 
-    Private Sub PrintDocument2_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument2.PrintPage
-
-
-        dibuja_fondo_tarjeta(e)
-
-
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.Close()
     End Sub
 
-    Private Sub btn_imprime_fondo_Click(sender As Object, e As EventArgs) Handles btn_imprime_fondo.Click
-        If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
-            PrintPreviewDialog1.Document = PrintDocument2
-            PrintPreviewDialog1.WindowState = FormWindowState.Maximized
-            PrintPreviewDialog1.ShowDialog()
-        End If
-
-        'If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
-        '    PrintForm1.PrintAction = PrintAction.PrintToPreview
-        '    Mapa_tarjetas2.Enabled = True
-        '    PrintForm1.Print()
-        'End If
+    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
+        establece_fondo()
     End Sub
 End Class

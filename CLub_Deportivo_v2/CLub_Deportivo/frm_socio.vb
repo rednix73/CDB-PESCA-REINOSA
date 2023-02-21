@@ -446,4 +446,8 @@ Public Class frm_socio
     Private Sub txt_cp_TextChanged_1(sender As Object, e As EventArgs) Handles txt_cp.TextChanged
 
     End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.Close()
+    End Sub
 End Class
