@@ -519,7 +519,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gestion Socios CDB pesca Reinosa"
         "ProductCode" = "8:{9AE02787-AB1F-4C97-ACDE-B2965A696EB6}"
-        "PackageCode" = "8:{FDD0AD8B-FCD7-4DFC-8A85-8398F4F8158E}"
+        "PackageCode" = "8:{21FBEF81-337D-4C2A-94A8-B1EC951A1899}"
         "UpgradeCode" = "8:{273E556F-9666-42D4-B802-F4BF86A2DAD7}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"

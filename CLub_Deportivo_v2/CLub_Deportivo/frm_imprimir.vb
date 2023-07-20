@@ -13,11 +13,11 @@ Public Class frm_imprimir
     Private Sub establece_fondo()
         Try
             If rdo_anverso.Checked Then
-                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_anverso
+                Mapa_tarjetas2.Imagen_Fondo_tarjeta = My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso
                 Mapa_tarjetas2.Establece_fondo()
             End If
             If rdo_reverso.Checked Then
-                Mapa_tarjetas2.Imagen_Fondo_tarjeta = "../../Resources/" & bbdd.tarjeta_socio_reverso
+                Mapa_tarjetas2.Imagen_Fondo_tarjeta = My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso
                 Mapa_tarjetas2.Establece_fondo()
             End If
         Catch ex As Exception

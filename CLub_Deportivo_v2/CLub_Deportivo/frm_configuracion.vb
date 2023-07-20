@@ -10,7 +10,6 @@ Public Class frm_configuracion
         Else
             grpbox_mysql.Enabled = False
             grpbox_excel.Enabled = True
-
         End If
     End Sub
 
@@ -24,8 +23,8 @@ Public Class frm_configuracion
         cmb_temporada.SelectedItem = bbdd.temporada
         txt_tarjeta_salmon.Text = bbdd.precio_salmon.ToString()
         txt_tarjeta_trucha.Text = bbdd.precio_trucha.ToString()
-        pctbox_tsocio_anverso.Image = Image.FromFile("../../Resources/" & bbdd.tarjeta_socio_anverso)
-        pctbox_tsocio_reverso.Image = Image.FromFile("../../Resources/" & bbdd.tarjeta_socio_reverso)
+        pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso)
+        pctbox_tsocio_reverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso)
 
         ' Pestaña Base de datos
         'ODBC-excel
@@ -51,16 +50,6 @@ Public Class frm_configuracion
 
 
     End Sub
-
-    Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_anverso.FileOk
-        Dim f As FileInfo = New FileInfo(OpenFile_anverso.FileName)
-        pctbox_tsocio_anverso.Image.Dispose()
-        pctbox_tsocio_anverso.Image = Nothing
-        File.Copy(f.FullName, My.Settings.ruta_recursos & "/" & bbdd.tarjeta_socio_anverso, True)
-        pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "/" & bbdd.tarjeta_socio_anverso)
-
-    End Sub
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         OpenFile_reverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
         OpenFile_reverso.ShowDialog()
@@ -69,8 +58,8 @@ Public Class frm_configuracion
     Private Sub OpenFile_reverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_reverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_reverso.FileName)
         pctbox_tsocio_anverso.Image = Nothing
-        File.Copy(f.FullName, My.Settings.ruta_recursos & "/" & bbdd.tarjeta_socio_anverso, True)
-        pctbox_tsocio_reverso.Image = Image.FromFile(bbdd.tarjeta_socio_reverso)
+        File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso, True)
+        pctbox_tsocio_reverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso)
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -84,7 +73,7 @@ Public Class frm_configuracion
 
     Private Sub btn_guardar_Click(sender As Object, e As EventArgs) Handles btn_guardar.Click
         Try
-            Dim sw As New StreamWriter(My.Settings.ruta_recursos & "/" & "configuracion.txt", False)
+            Dim sw As New StreamWriter(My.Settings.ruta_recursos & "\" & "configuracion.txt", False)
             sw.WriteLine("------Configuración - General------")
             sw.WriteLine("Temporada:")
             sw.WriteLine(cmb_temporada.SelectedItem.ToString())
@@ -126,5 +115,13 @@ Public Class frm_configuracion
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
+    End Sub
+
+    Private Sub OpenFile_anverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_anverso.FileOk
+        Dim f As FileInfo = New FileInfo(OpenFile_anverso.FileName)
+        pctbox_tsocio_anverso.Image.Dispose()
+        pctbox_tsocio_anverso.Image = Nothing
+        File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso, True)
+        pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso)
     End Sub
 End Class
