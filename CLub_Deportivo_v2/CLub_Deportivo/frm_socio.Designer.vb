@@ -66,6 +66,7 @@ Partial Class frm_socio
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.txt_nombre = New CLub_Deportivo.textbox_club()
         Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.txt_dni = New CLub_Deportivo.textbox_dni()
@@ -75,6 +76,10 @@ Partial Class frm_socio
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'dtpk_fecha_nac
@@ -220,7 +225,7 @@ Partial Class frm_socio
         'btn_insertar
         '
         Me.btn_insertar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_insertar.Location = New System.Drawing.Point(909, 24)
+        Me.btn_insertar.Location = New System.Drawing.Point(11, 4)
         Me.btn_insertar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_insertar.Name = "btn_insertar"
         Me.btn_insertar.Size = New System.Drawing.Size(279, 32)
@@ -231,10 +236,10 @@ Partial Class frm_socio
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(909, 482)
+        Me.Button2.Location = New System.Drawing.Point(911, 370)
         Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(281, 48)
+        Me.Button2.Size = New System.Drawing.Size(279, 48)
         Me.Button2.TabIndex = 39
         Me.Button2.Text = "IMPRIMIR TARJETA"
         Me.Button2.UseVisualStyleBackColor = True
@@ -301,7 +306,7 @@ Partial Class frm_socio
         'btn_modificar
         '
         Me.btn_modificar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_modificar.Location = New System.Drawing.Point(909, 92)
+        Me.btn_modificar.Location = New System.Drawing.Point(11, 49)
         Me.btn_modificar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_modificar.Name = "btn_modificar"
         Me.btn_modificar.Size = New System.Drawing.Size(279, 32)
@@ -312,7 +317,7 @@ Partial Class frm_socio
         'btn_eliminar
         '
         Me.btn_eliminar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_eliminar.Location = New System.Drawing.Point(909, 164)
+        Me.btn_eliminar.Location = New System.Drawing.Point(11, 90)
         Me.btn_eliminar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_eliminar.Name = "btn_eliminar"
         Me.btn_eliminar.Size = New System.Drawing.Size(279, 32)
@@ -322,13 +327,13 @@ Partial Class frm_socio
         '
         'Button6
         '
-        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button6.Location = New System.Drawing.Point(909, 355)
+        Me.Button6.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button6.Location = New System.Drawing.Point(11, 26)
         Me.Button6.Margin = New System.Windows.Forms.Padding(4)
         Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(279, 48)
+        Me.Button6.Size = New System.Drawing.Size(279, 73)
         Me.Button6.TabIndex = 50
-        Me.Button6.Text = "TABLA SOCIOS"
+        Me.Button6.Text = "SOCIOS (TEMPORADA ACTUAL)"
         Me.Button6.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -538,13 +543,32 @@ Partial Class frm_socio
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(11, 549)
+        Me.Button1.Location = New System.Drawing.Point(911, 479)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(882, 32)
+        Me.Button1.Size = New System.Drawing.Size(279, 42)
         Me.Button1.TabIndex = 54
         Me.Button1.Text = "CERRAR"
         Me.Button1.UseVisualStyleBackColor = True
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Location = New System.Drawing.Point(900, 34)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btn_insertar)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btn_modificar)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btn_eliminar)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Button6)
+        Me.SplitContainer1.Size = New System.Drawing.Size(298, 303)
+        Me.SplitContainer1.SplitterDistance = 177
+        Me.SplitContainer1.TabIndex = 55
         '
         'txt_nombre
         '
@@ -580,19 +604,16 @@ Partial Class frm_socio
         Me.AutoScaleDimensions = New System.Drawing.SizeF(10.0!, 22.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(1203, 594)
+        Me.ClientSize = New System.Drawing.Size(1203, 551)
+        Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.btn_eliminar)
-        Me.Controls.Add(Me.btn_modificar)
         Me.Controls.Add(Me.grp_socio)
         Me.Controls.Add(Me.grp_estado)
         Me.Controls.Add(Me.grp_commnent)
         Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.btn_insertar)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
@@ -611,6 +632,10 @@ Partial Class frm_socio
         Me.GroupBox2.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -660,4 +685,5 @@ Partial Class frm_socio
     Friend WithEvents Label13 As Label
     Friend WithEvents lbl_importe As Label
     Friend WithEvents Button1 As Button
+    Friend WithEvents SplitContainer1 As SplitContainer
 End Class

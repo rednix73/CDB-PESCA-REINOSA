@@ -13,7 +13,6 @@ Module ficheros
             sr2 = New StreamReader(My.Settings.ruta_recursos + "/cantabria_cp.txt")
             sr3 = New StreamReader(My.Settings.ruta_recursos + "/provincias.txt")
 
-
             While Not sr1.EndOfStream
                 Dim Loc As New localidad
                 Loc.Nombre = sr1.ReadLine()

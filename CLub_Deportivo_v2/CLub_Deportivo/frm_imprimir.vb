@@ -7,7 +7,7 @@ Public Class frm_imprimir
     Private printFont As Font
     Private streamToPrint As StreamReader
 
-
+    ''' <summary>
     ''' Método que establece el fondo de la tarjeta de socio (anverso o reverso) en función del radio button que esté seleccionado.
     ''' </summary>
     Private Sub establece_fondo()

@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_76D0AC7FC4934C16B1C66761F51F00F5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8912BB7283FB49B2AFAF6DD5F45A26CD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -82,12 +88,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D5A882BF9F5F9E35A0DB70D43876A965"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_32618A229E1942EF8318067EB35087A5"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -95,6 +95,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_485319569E2F821AA7CEC4EC2855EEFB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D5A882BF9F5F9E35A0DB70D43876A965"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -115,6 +121,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -131,6 +153,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -257,6 +295,26 @@
             "TargetName" = "8:tarjeta_socio_anverso.gif"
             "Tag" = "8:"
             "Folder" = "8:_64CF422AB82E43F580BFDF214E6A1AF8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_76D0AC7FC4934C16B1C66761F51F00F5"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\MANUAL DE INSTALACIÓN.pdf"
+            "TargetName" = "8:MANUAL DE INSTALACIÓN.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_8B5AA18CBC1B42EC9DE68FCC0BDBBA61"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -459,9 +517,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:GestionSocios"
+        "ProductName" = "8:Gestion Socios CDB pesca Reinosa"
         "ProductCode" = "8:{9AE02787-AB1F-4C97-ACDE-B2965A696EB6}"
-        "PackageCode" = "8:{433AD28B-D4F8-434F-94FA-33D715F9C5DD}"
+        "PackageCode" = "8:{FDD0AD8B-FCD7-4DFC-8A85-8398F4F8158E}"
         "UpgradeCode" = "8:{273E556F-9666-42D4-B802-F4BF86A2DAD7}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -592,6 +650,20 @@
             "Target" = "8:_F9EDED61A96E492C8EB9D7077350AE7D"
             "Folder" = "8:_1C6568061AFB48B5AF8D68E28CC12E83"
             "WorkingFolder" = "8:_64CF422AB82E43F580BFDF214E6A1AF8"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4E9CCFC5C6F143C09EB2B57124E51DB4"
+            {
+            "Name" = "8:MANUAL DE INSTALACIÓN.pdf"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_76D0AC7FC4934C16B1C66761F51F00F5"
+            "Folder" = "8:_1C6568061AFB48B5AF8D68E28CC12E83"
+            "WorkingFolder" = "8:_8B5AA18CBC1B42EC9DE68FCC0BDBBA61"
             "Icon" = "8:"
             "Feature" = "8:"
             }
