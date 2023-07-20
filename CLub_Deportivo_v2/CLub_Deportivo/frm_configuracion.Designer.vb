@@ -69,7 +69,7 @@ Partial Class frm_configuracion
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmb_bd = New System.Windows.Forms.ComboBox()
         Me.lbl_bd = New System.Windows.Forms.Label()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.btn_guardar = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.OpenFile_anverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_reverso = New System.Windows.Forms.OpenFileDialog()
@@ -88,10 +88,11 @@ Partial Class frm_configuracion
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(12, 12)
+        Me.TabControl1.Location = New System.Drawing.Point(14, 15)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(776, 412)
+        Me.TabControl1.Size = New System.Drawing.Size(873, 515)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -109,10 +110,11 @@ Partial Class frm_configuracion
         Me.TabPage1.Controls.Add(Me.cmb_temporada)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabPage1.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(768, 379)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TabPage1.Size = New System.Drawing.Size(865, 477)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -120,26 +122,28 @@ Partial Class frm_configuracion
         'txt_tarjeta_trucha
         '
         Me.txt_tarjeta_trucha.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!)
-        Me.txt_tarjeta_trucha.Location = New System.Drawing.Point(677, 62)
+        Me.txt_tarjeta_trucha.Location = New System.Drawing.Point(762, 78)
+        Me.txt_tarjeta_trucha.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tarjeta_trucha.Name = "txt_tarjeta_trucha"
-        Me.txt_tarjeta_trucha.Size = New System.Drawing.Size(66, 25)
+        Me.txt_tarjeta_trucha.Size = New System.Drawing.Size(74, 29)
         Me.txt_tarjeta_trucha.TabIndex = 12
         '
         'txt_tarjeta_salmon
         '
         Me.txt_tarjeta_salmon.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!)
-        Me.txt_tarjeta_salmon.Location = New System.Drawing.Point(262, 62)
+        Me.txt_tarjeta_salmon.Location = New System.Drawing.Point(295, 78)
+        Me.txt_tarjeta_salmon.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tarjeta_salmon.Name = "txt_tarjeta_salmon"
-        Me.txt_tarjeta_salmon.Size = New System.Drawing.Size(67, 25)
+        Me.txt_tarjeta_salmon.Size = New System.Drawing.Size(75, 29)
         Me.txt_tarjeta_salmon.TabIndex = 11
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!)
-        Me.Label20.Location = New System.Drawing.Point(439, 65)
+        Me.Label20.Location = New System.Drawing.Point(494, 81)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(200, 20)
+        Me.Label20.Size = New System.Drawing.Size(234, 24)
         Me.Label20.TabIndex = 10
         Me.Label20.Text = "Precio tarjeta de trucha (€):"
         '
@@ -147,18 +151,19 @@ Partial Class frm_configuracion
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.5!)
-        Me.Label19.Location = New System.Drawing.Point(23, 65)
+        Me.Label19.Location = New System.Drawing.Point(26, 81)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(206, 20)
+        Me.Label19.Size = New System.Drawing.Size(243, 24)
         Me.Label19.TabIndex = 9
         Me.Label19.Text = "Precio tarjeta de salmón (€):"
         '
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(443, 322)
+        Me.Button2.Location = New System.Drawing.Point(498, 402)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(300, 36)
+        Me.Button2.Size = New System.Drawing.Size(338, 45)
         Me.Button2.TabIndex = 8
         Me.Button2.Text = "Seleccionar Imagen"
         Me.Button2.UseVisualStyleBackColor = True
@@ -167,17 +172,18 @@ Partial Class frm_configuracion
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(439, 119)
+        Me.Label3.Location = New System.Drawing.Point(494, 149)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(202, 20)
+        Me.Label3.Size = New System.Drawing.Size(258, 25)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Tarjeta de socio (reverso)"
         '
         'pctbox_tsocio_reverso
         '
-        Me.pctbox_tsocio_reverso.Location = New System.Drawing.Point(443, 142)
+        Me.pctbox_tsocio_reverso.Location = New System.Drawing.Point(498, 178)
+        Me.pctbox_tsocio_reverso.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pctbox_tsocio_reverso.Name = "pctbox_tsocio_reverso"
-        Me.pctbox_tsocio_reverso.Size = New System.Drawing.Size(300, 180)
+        Me.pctbox_tsocio_reverso.Size = New System.Drawing.Size(338, 225)
         Me.pctbox_tsocio_reverso.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.pctbox_tsocio_reverso.TabIndex = 6
         Me.pctbox_tsocio_reverso.TabStop = False
@@ -185,9 +191,10 @@ Partial Class frm_configuracion
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(27, 322)
+        Me.Button1.Location = New System.Drawing.Point(30, 402)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(300, 36)
+        Me.Button1.Size = New System.Drawing.Size(338, 45)
         Me.Button1.TabIndex = 5
         Me.Button1.Text = "Seleccionar Imagen"
         Me.Button1.UseVisualStyleBackColor = True
@@ -196,17 +203,18 @@ Partial Class frm_configuracion
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(23, 119)
+        Me.Label2.Location = New System.Drawing.Point(26, 149)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(205, 20)
+        Me.Label2.Size = New System.Drawing.Size(263, 25)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Tarjeta de socio (anverso)"
         '
         'pctbox_tsocio_anverso
         '
-        Me.pctbox_tsocio_anverso.Location = New System.Drawing.Point(27, 142)
+        Me.pctbox_tsocio_anverso.Location = New System.Drawing.Point(30, 178)
+        Me.pctbox_tsocio_anverso.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.pctbox_tsocio_anverso.Name = "pctbox_tsocio_anverso"
-        Me.pctbox_tsocio_anverso.Size = New System.Drawing.Size(300, 180)
+        Me.pctbox_tsocio_anverso.Size = New System.Drawing.Size(338, 225)
         Me.pctbox_tsocio_anverso.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.pctbox_tsocio_anverso.TabIndex = 3
         Me.pctbox_tsocio_anverso.TabStop = False
@@ -216,18 +224,19 @@ Partial Class frm_configuracion
         Me.cmb_temporada.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmb_temporada.FormattingEnabled = True
         Me.cmb_temporada.Items.AddRange(New Object() {"2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"})
-        Me.cmb_temporada.Location = New System.Drawing.Point(128, 19)
+        Me.cmb_temporada.Location = New System.Drawing.Point(144, 24)
+        Me.cmb_temporada.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmb_temporada.Name = "cmb_temporada"
-        Me.cmb_temporada.Size = New System.Drawing.Size(121, 28)
+        Me.cmb_temporada.Size = New System.Drawing.Size(136, 33)
         Me.cmb_temporada.TabIndex = 2
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(24, 22)
+        Me.Label1.Location = New System.Drawing.Point(27, 28)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(98, 20)
+        Me.Label1.Size = New System.Drawing.Size(127, 25)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Temporada:"
         '
@@ -237,10 +246,11 @@ Partial Class frm_configuracion
         Me.TabPage2.Controls.Add(Me.grpbox_mysql)
         Me.TabPage2.Controls.Add(Me.cmb_bd)
         Me.TabPage2.Controls.Add(Me.lbl_bd)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(768, 379)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TabPage2.Size = New System.Drawing.Size(865, 477)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Base de datos"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -259,9 +269,11 @@ Partial Class frm_configuracion
         Me.grpbox_excel.Controls.Add(Me.txt_archivo_excel)
         Me.grpbox_excel.Controls.Add(Me.Label4)
         Me.grpbox_excel.Controls.Add(Me.Button3)
-        Me.grpbox_excel.Location = New System.Drawing.Point(9, 49)
+        Me.grpbox_excel.Location = New System.Drawing.Point(10, 61)
+        Me.grpbox_excel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpbox_excel.Name = "grpbox_excel"
-        Me.grpbox_excel.Size = New System.Drawing.Size(432, 310)
+        Me.grpbox_excel.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.grpbox_excel.Size = New System.Drawing.Size(486, 388)
         Me.grpbox_excel.TabIndex = 20
         Me.grpbox_excel.TabStop = False
         Me.grpbox_excel.Text = "Excel-ODBC"
@@ -269,60 +281,63 @@ Partial Class frm_configuracion
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(0, 180)
+        Me.Label7.Location = New System.Drawing.Point(0, 225)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(246, 20)
+        Me.Label7.Size = New System.Drawing.Size(317, 25)
         Me.Label7.TabIndex = 28
         Me.Label7.Text = "Indique el nombre de las tablas:"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(-1, 243)
+        Me.Label6.Location = New System.Drawing.Point(-1, 304)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(265, 20)
+        Me.Label6.Size = New System.Drawing.Size(342, 25)
         Me.Label6.TabIndex = 27
         Me.Label6.Text = "Tabla de base de datos de socios:"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(0, 210)
+        Me.Label5.Location = New System.Drawing.Point(0, 262)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(132, 20)
+        Me.Label5.Size = New System.Drawing.Size(170, 25)
         Me.Label5.TabIndex = 26
         Me.Label5.Text = "Tabla de socios:"
         '
         'txt_tabla_bdsocios_xls
         '
         Me.txt_tabla_bdsocios_xls.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_tabla_bdsocios_xls.Location = New System.Drawing.Point(251, 268)
+        Me.txt_tabla_bdsocios_xls.Location = New System.Drawing.Point(282, 335)
+        Me.txt_tabla_bdsocios_xls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tabla_bdsocios_xls.Name = "txt_tabla_bdsocios_xls"
-        Me.txt_tabla_bdsocios_xls.Size = New System.Drawing.Size(175, 24)
+        Me.txt_tabla_bdsocios_xls.Size = New System.Drawing.Size(196, 28)
         Me.txt_tabla_bdsocios_xls.TabIndex = 25
         '
         'txt_tabla_socios_xls
         '
         Me.txt_tabla_socios_xls.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_tabla_socios_xls.Location = New System.Drawing.Point(251, 207)
+        Me.txt_tabla_socios_xls.Location = New System.Drawing.Point(282, 259)
+        Me.txt_tabla_socios_xls.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tabla_socios_xls.Name = "txt_tabla_socios_xls"
-        Me.txt_tabla_socios_xls.Size = New System.Drawing.Size(175, 24)
+        Me.txt_tabla_socios_xls.Size = New System.Drawing.Size(196, 28)
         Me.txt_tabla_socios_xls.TabIndex = 24
         '
         'txt_dsn
         '
         Me.txt_dsn.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_dsn.Location = New System.Drawing.Point(53, 142)
+        Me.txt_dsn.Location = New System.Drawing.Point(60, 178)
+        Me.txt_dsn.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_dsn.Name = "txt_dsn"
-        Me.txt_dsn.Size = New System.Drawing.Size(193, 24)
+        Me.txt_dsn.Size = New System.Drawing.Size(217, 28)
         Me.txt_dsn.TabIndex = 23
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(0, 144)
+        Me.Label15.Location = New System.Drawing.Point(0, 180)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(50, 20)
+        Me.Label15.Size = New System.Drawing.Size(62, 25)
         Me.Label15.TabIndex = 21
         Me.Label15.Text = "DSN:"
         '
@@ -330,9 +345,9 @@ Partial Class frm_configuracion
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(-8, 118)
+        Me.Label14.Location = New System.Drawing.Point(-9, 148)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(428, 17)
+        Me.Label14.Size = New System.Drawing.Size(475, 20)
         Me.Label14.TabIndex = 20
         Me.Label14.Text = " Recuerde crear un conector ODBC de 32 bits e indicar el nombre:"
         '
@@ -340,34 +355,36 @@ Partial Class frm_configuracion
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(0, 93)
+        Me.Label13.Location = New System.Drawing.Point(0, 116)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(416, 17)
+        Me.Label13.Size = New System.Drawing.Size(458, 20)
         Me.Label13.TabIndex = 19
         Me.Label13.Text = "El archivo se copiara a la carpeta de isntalación de la aplicación."
         '
         'txt_archivo_excel
         '
         Me.txt_archivo_excel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_archivo_excel.Location = New System.Drawing.Point(4, 64)
+        Me.txt_archivo_excel.Location = New System.Drawing.Point(4, 80)
+        Me.txt_archivo_excel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_archivo_excel.Name = "txt_archivo_excel"
-        Me.txt_archivo_excel.Size = New System.Drawing.Size(305, 24)
+        Me.txt_archivo_excel.Size = New System.Drawing.Size(343, 28)
         Me.txt_archivo_excel.TabIndex = 18
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(0, 36)
+        Me.Label4.Location = New System.Drawing.Point(0, 45)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(203, 20)
+        Me.Label4.Size = New System.Drawing.Size(262, 25)
         Me.Label4.TabIndex = 16
         Me.Label4.Text = "Archivo de base de datos:"
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(315, 62)
+        Me.Button3.Location = New System.Drawing.Point(354, 78)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(105, 28)
+        Me.Button3.Size = New System.Drawing.Size(118, 35)
         Me.Button3.TabIndex = 17
         Me.Button3.Text = "Examinar"
         Me.Button3.UseVisualStyleBackColor = True
@@ -389,9 +406,11 @@ Partial Class frm_configuracion
         Me.grpbox_mysql.Controls.Add(Me.Label10)
         Me.grpbox_mysql.Controls.Add(Me.Label9)
         Me.grpbox_mysql.Controls.Add(Me.Label8)
-        Me.grpbox_mysql.Location = New System.Drawing.Point(447, 48)
+        Me.grpbox_mysql.Location = New System.Drawing.Point(503, 60)
+        Me.grpbox_mysql.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.grpbox_mysql.Name = "grpbox_mysql"
-        Me.grpbox_mysql.Size = New System.Drawing.Size(303, 311)
+        Me.grpbox_mysql.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.grpbox_mysql.Size = New System.Drawing.Size(341, 389)
         Me.grpbox_mysql.TabIndex = 19
         Me.grpbox_mysql.TabStop = False
         Me.grpbox_mysql.Text = "Mysql"
@@ -399,128 +418,135 @@ Partial Class frm_configuracion
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(0, 181)
+        Me.Label16.Location = New System.Drawing.Point(0, 226)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(246, 20)
+        Me.Label16.Size = New System.Drawing.Size(317, 25)
         Me.Label16.TabIndex = 33
         Me.Label16.Text = "Indique el nombre de las tablas:"
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(0, 246)
+        Me.Label17.Location = New System.Drawing.Point(0, 308)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(265, 20)
+        Me.Label17.Size = New System.Drawing.Size(342, 25)
         Me.Label17.TabIndex = 32
         Me.Label17.Text = "Tabla de base de datos de socios:"
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(0, 211)
+        Me.Label18.Location = New System.Drawing.Point(0, 264)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(132, 20)
+        Me.Label18.Size = New System.Drawing.Size(170, 25)
         Me.Label18.TabIndex = 31
         Me.Label18.Text = "Tabla de socios:"
         '
         'txt_tabla_bdsocios_mysql
         '
         Me.txt_tabla_bdsocios_mysql.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_tabla_bdsocios_mysql.Location = New System.Drawing.Point(147, 269)
+        Me.txt_tabla_bdsocios_mysql.Location = New System.Drawing.Point(165, 336)
+        Me.txt_tabla_bdsocios_mysql.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tabla_bdsocios_mysql.Name = "txt_tabla_bdsocios_mysql"
-        Me.txt_tabla_bdsocios_mysql.Size = New System.Drawing.Size(150, 24)
+        Me.txt_tabla_bdsocios_mysql.Size = New System.Drawing.Size(168, 28)
         Me.txt_tabla_bdsocios_mysql.TabIndex = 30
         '
         'txt_tabla_socios_mysql
         '
         Me.txt_tabla_socios_mysql.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_tabla_socios_mysql.Location = New System.Drawing.Point(147, 211)
+        Me.txt_tabla_socios_mysql.Location = New System.Drawing.Point(165, 264)
+        Me.txt_tabla_socios_mysql.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_tabla_socios_mysql.Name = "txt_tabla_socios_mysql"
-        Me.txt_tabla_socios_mysql.Size = New System.Drawing.Size(150, 24)
+        Me.txt_tabla_socios_mysql.Size = New System.Drawing.Size(168, 28)
         Me.txt_tabla_socios_mysql.TabIndex = 29
         '
         'txt_password
         '
         Me.txt_password.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_password.Location = New System.Drawing.Point(135, 149)
+        Me.txt_password.Location = New System.Drawing.Point(152, 186)
+        Me.txt_password.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_password.Name = "txt_password"
-        Me.txt_password.Size = New System.Drawing.Size(162, 24)
+        Me.txt_password.Size = New System.Drawing.Size(182, 28)
         Me.txt_password.TabIndex = 23
         '
         'txt_user
         '
         Me.txt_user.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_user.Location = New System.Drawing.Point(135, 116)
+        Me.txt_user.Location = New System.Drawing.Point(152, 145)
+        Me.txt_user.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_user.Name = "txt_user"
-        Me.txt_user.Size = New System.Drawing.Size(162, 24)
+        Me.txt_user.Size = New System.Drawing.Size(182, 28)
         Me.txt_user.TabIndex = 23
         '
         'txt_bbdd
         '
         Me.txt_bbdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_bbdd.Location = New System.Drawing.Point(135, 83)
+        Me.txt_bbdd.Location = New System.Drawing.Point(152, 104)
+        Me.txt_bbdd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_bbdd.Name = "txt_bbdd"
-        Me.txt_bbdd.Size = New System.Drawing.Size(162, 24)
+        Me.txt_bbdd.Size = New System.Drawing.Size(182, 28)
         Me.txt_bbdd.TabIndex = 23
         '
         'txt_port
         '
         Me.txt_port.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_port.Location = New System.Drawing.Point(135, 52)
+        Me.txt_port.Location = New System.Drawing.Point(152, 65)
+        Me.txt_port.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_port.Name = "txt_port"
-        Me.txt_port.Size = New System.Drawing.Size(68, 24)
+        Me.txt_port.Size = New System.Drawing.Size(76, 28)
         Me.txt_port.TabIndex = 22
         '
         'txt_server
         '
         Me.txt_server.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_server.Location = New System.Drawing.Point(135, 23)
+        Me.txt_server.Location = New System.Drawing.Point(152, 29)
+        Me.txt_server.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txt_server.Name = "txt_server"
-        Me.txt_server.Size = New System.Drawing.Size(162, 24)
+        Me.txt_server.Size = New System.Drawing.Size(182, 28)
         Me.txt_server.TabIndex = 21
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(0, 152)
+        Me.Label12.Location = New System.Drawing.Point(0, 190)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(100, 20)
+        Me.Label12.Size = New System.Drawing.Size(129, 25)
         Me.Label12.TabIndex = 23
         Me.Label12.Text = "Contraseña:"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(0, 119)
+        Me.Label11.Location = New System.Drawing.Point(0, 149)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(72, 20)
+        Me.Label11.Size = New System.Drawing.Size(92, 25)
         Me.Label11.TabIndex = 22
         Me.Label11.Text = "Usuario:"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(0, 87)
+        Me.Label10.Location = New System.Drawing.Point(0, 109)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(122, 20)
+        Me.Label10.Size = New System.Drawing.Size(156, 25)
         Me.Label10.TabIndex = 21
         Me.Label10.Text = "Base de datos:"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(0, 55)
+        Me.Label9.Location = New System.Drawing.Point(0, 69)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(63, 20)
+        Me.Label9.Size = New System.Drawing.Size(81, 25)
         Me.Label9.TabIndex = 20
         Me.Label9.Text = "Puerto:"
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(0, 26)
+        Me.Label8.Location = New System.Drawing.Point(0, 32)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(76, 20)
+        Me.Label8.Size = New System.Drawing.Size(98, 25)
         Me.Label8.TabIndex = 14
         Me.Label8.Text = "Servidor:"
         '
@@ -528,36 +554,39 @@ Partial Class frm_configuracion
         '
         Me.cmb_bd.FormattingEnabled = True
         Me.cmb_bd.Items.AddRange(New Object() {"Excel_ODBC", "MySQL"})
-        Me.cmb_bd.Location = New System.Drawing.Point(191, 14)
+        Me.cmb_bd.Location = New System.Drawing.Point(215, 18)
+        Me.cmb_bd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cmb_bd.Name = "cmb_bd"
-        Me.cmb_bd.Size = New System.Drawing.Size(152, 28)
+        Me.cmb_bd.Size = New System.Drawing.Size(170, 33)
         Me.cmb_bd.TabIndex = 14
         '
         'lbl_bd
         '
         Me.lbl_bd.AutoSize = True
-        Me.lbl_bd.Location = New System.Drawing.Point(6, 17)
+        Me.lbl_bd.Location = New System.Drawing.Point(7, 21)
         Me.lbl_bd.Name = "lbl_bd"
-        Me.lbl_bd.Size = New System.Drawing.Size(179, 20)
+        Me.lbl_bd.Size = New System.Drawing.Size(232, 25)
         Me.lbl_bd.TabIndex = 13
         Me.lbl_bd.Text = "Tipo de base de datos:"
         '
-        'Button4
+        'btn_guardar
         '
-        Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button4.Location = New System.Drawing.Point(647, 430)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(105, 28)
-        Me.Button4.TabIndex = 18
-        Me.Button4.Text = "Guardar"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.btn_guardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_guardar.Location = New System.Drawing.Point(728, 538)
+        Me.btn_guardar.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btn_guardar.Name = "btn_guardar"
+        Me.btn_guardar.Size = New System.Drawing.Size(118, 35)
+        Me.btn_guardar.TabIndex = 18
+        Me.btn_guardar.Text = "Guardar"
+        Me.btn_guardar.UseVisualStyleBackColor = True
         '
         'Button5
         '
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(49, 430)
+        Me.Button5.Location = New System.Drawing.Point(55, 538)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(105, 28)
+        Me.Button5.Size = New System.Drawing.Size(118, 35)
         Me.Button5.TabIndex = 19
         Me.Button5.Text = "Cerrar"
         Me.Button5.UseVisualStyleBackColor = True
@@ -576,13 +605,14 @@ Partial Class frm_configuracion
         '
         'frm_configuracion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(818, 469)
+        Me.ClientSize = New System.Drawing.Size(920, 586)
         Me.Controls.Add(Me.Button5)
-        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.btn_guardar)
         Me.Controls.Add(Me.TabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frm_configuracion"
         Me.Text = "  "
         Me.TabControl1.ResumeLayout(False)
@@ -616,7 +646,7 @@ Partial Class frm_configuracion
     Friend WithEvents Label4 As Label
     Friend WithEvents cmb_bd As ComboBox
     Friend WithEvents lbl_bd As Label
-    Friend WithEvents Button4 As Button
+    Friend WithEvents btn_guardar As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents grpbox_mysql As GroupBox
     Friend WithEvents Label9 As Label
