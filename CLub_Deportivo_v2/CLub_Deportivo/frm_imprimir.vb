@@ -127,6 +127,7 @@ Public Class frm_imprimir
 
     Private Sub PrintDocument1_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument1.PrintPage
         dibuja_tarjeta(Mapa_tarjetas1.tarjeta, e)
+
     End Sub
 
     Private Sub PrintDocument2_PrintPage(sender As Object, e As PrintPageEventArgs) Handles PrintDocument2.PrintPage
@@ -138,9 +139,12 @@ Public Class frm_imprimir
 
     Private Sub btn_imprimir_fondo_Click(sender As Object, e As EventArgs) Handles btn_imprimir_fondo.Click
         If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
-            PrintPreviewDialog1.Document = PrintDocument2
-            PrintPreviewDialog1.WindowState = FormWindowState.Maximized
-            PrintPreviewDialog1.ShowDialog()
+            '' Descomentar para imprimir con vista previa de impresión
+            'PrintPreviewDialog1.Document = PrintDocument2
+            'PrintPreviewDialog1.WindowState = FormWindowState.Maximized
+            'PrintPreviewDialog1.ShowDialog()
+            PrintDocument2.PrinterSettings = PrintDialog1.PrinterSettings
+            PrintDocument2.Print()
         End If
 
         'If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
@@ -152,9 +156,12 @@ Public Class frm_imprimir
 
     Private Sub btn_imprimir_tarjeta_Click(sender As Object, e As EventArgs) Handles btn_imprimir_tarjeta.Click
         If (PrintDialog1.ShowDialog() = DialogResult.OK) Then
-            PrintPreviewDialog1.Document = PrintDocument1
-            PrintPreviewDialog1.WindowState = FormWindowState.Maximized
-            PrintPreviewDialog1.ShowDialog()
+            '' Descomentar para imprimir con vista previa de impresión
+            ''PrintPreviewDialog1.Document = PrintDocument1
+            ''PrintPreviewDialog1.WindowState = FormWindowState.Maximized
+            ''PrintPreviewDialog1.ShowDialog()
+            PrintDocument1.PrinterSettings = PrintDialog1.PrinterSettings
+            PrintDocument1.Print()
         End If
 
         'PrintForm1.Print()
@@ -187,5 +194,9 @@ Public Class frm_imprimir
 
     Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
         establece_fondo()
+    End Sub
+
+    Private Sub Mapa_tarjetas1_Load(sender As Object, e As EventArgs) Handles Mapa_tarjetas1.Load
+
     End Sub
 End Class

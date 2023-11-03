@@ -214,7 +214,7 @@ Partial Class frm_imprimir
         'PrintDocument2
         '
         '
-        'frm_imprimir2
+        'frm_imprimir
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -223,7 +223,7 @@ Partial Class frm_imprimir
         Me.ClientSize = New System.Drawing.Size(496, 800)
         Me.Controls.Add(Me.TabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "frm_imprimir2"
+        Me.Name = "frm_imprimir"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "C.D.B. pesca Reinosa - Imprimir"
         Me.TabControl1.ResumeLayout(False)

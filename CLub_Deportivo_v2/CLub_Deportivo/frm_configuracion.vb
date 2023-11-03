@@ -1,8 +1,5 @@
 ﻿Imports System.IO
 Public Class frm_configuracion
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Close()
-    End Sub
     Private Sub cmb_bd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_bd.SelectedIndexChanged
         If cmb_bd.SelectedIndex = 1 Then
             grpbox_excel.Enabled = False
@@ -42,22 +39,9 @@ Public Class frm_configuracion
         txt_tabla_socios_mysql.Text = bbdd.tabla_socios_mysql
         txt_tabla_bdsocios_mysql.Text = bbdd.tabla_bdsocios_mysql
     End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        OpenFile_anverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
-        OpenFile_anverso.ShowDialog()
-
-
-    End Sub
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        OpenFile_reverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
-        OpenFile_reverso.ShowDialog()
-    End Sub
-
     Private Sub OpenFile_reverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_reverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_reverso.FileName)
-        pctbox_tsocio_anverso.Image = Nothing
+        pctbox_tsocio_reverso.Image = Nothing
         File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso, True)
         pctbox_tsocio_reverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso)
     End Sub
@@ -123,5 +107,19 @@ Public Class frm_configuracion
         pctbox_tsocio_anverso.Image = Nothing
         File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso, True)
         pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso)
+    End Sub
+
+    Private Sub btn_anverso_Click(sender As Object, e As EventArgs) Handles btn_anverso.Click
+        OpenFile_anverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
+        OpenFile_anverso.ShowDialog()
+    End Sub
+
+    Private Sub btn_reverso_Click(sender As Object, e As EventArgs) Handles btn_reverso.Click
+        OpenFile_reverso.Filter = "Imagenes|*.jpg;*.gif;*.png|Todos los archivos|*.*"
+        OpenFile_reverso.ShowDialog()
+    End Sub
+
+    Private Sub btn_cerrar_Click(sender As Object, e As EventArgs) Handles btn_cerrar.Click
+        Close()
     End Sub
 End Class

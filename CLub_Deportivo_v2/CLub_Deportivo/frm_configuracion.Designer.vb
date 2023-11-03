@@ -29,10 +29,10 @@ Partial Class frm_configuracion
         Me.txt_tarjeta_salmon = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btn_reverso = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pctbox_tsocio_reverso = New System.Windows.Forms.PictureBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_anverso = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pctbox_tsocio_anverso = New System.Windows.Forms.PictureBox()
         Me.cmb_temporada = New System.Windows.Forms.ComboBox()
@@ -70,7 +70,7 @@ Partial Class frm_configuracion
         Me.cmb_bd = New System.Windows.Forms.ComboBox()
         Me.lbl_bd = New System.Windows.Forms.Label()
         Me.btn_guardar = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
+        Me.btn_cerrar = New System.Windows.Forms.Button()
         Me.OpenFile_anverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_reverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_bbdd = New System.Windows.Forms.OpenFileDialog()
@@ -101,10 +101,10 @@ Partial Class frm_configuracion
         Me.TabPage1.Controls.Add(Me.txt_tarjeta_salmon)
         Me.TabPage1.Controls.Add(Me.Label20)
         Me.TabPage1.Controls.Add(Me.Label19)
-        Me.TabPage1.Controls.Add(Me.Button2)
+        Me.TabPage1.Controls.Add(Me.btn_reverso)
         Me.TabPage1.Controls.Add(Me.Label3)
         Me.TabPage1.Controls.Add(Me.pctbox_tsocio_reverso)
-        Me.TabPage1.Controls.Add(Me.Button1)
+        Me.TabPage1.Controls.Add(Me.btn_anverso)
         Me.TabPage1.Controls.Add(Me.Label2)
         Me.TabPage1.Controls.Add(Me.pctbox_tsocio_anverso)
         Me.TabPage1.Controls.Add(Me.cmb_temporada)
@@ -157,16 +157,16 @@ Partial Class frm_configuracion
         Me.Label19.TabIndex = 9
         Me.Label19.Text = "Precio tarjeta de salmón (€):"
         '
-        'Button2
+        'btn_reverso
         '
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(498, 402)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(338, 45)
-        Me.Button2.TabIndex = 8
-        Me.Button2.Text = "Seleccionar Imagen"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btn_reverso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_reverso.Location = New System.Drawing.Point(498, 402)
+        Me.btn_reverso.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btn_reverso.Name = "btn_reverso"
+        Me.btn_reverso.Size = New System.Drawing.Size(338, 45)
+        Me.btn_reverso.TabIndex = 8
+        Me.btn_reverso.Text = "Seleccionar Imagen"
+        Me.btn_reverso.UseVisualStyleBackColor = True
         '
         'Label3
         '
@@ -188,16 +188,16 @@ Partial Class frm_configuracion
         Me.pctbox_tsocio_reverso.TabIndex = 6
         Me.pctbox_tsocio_reverso.TabStop = False
         '
-        'Button1
+        'btn_anverso
         '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(30, 402)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(338, 45)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Seleccionar Imagen"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_anverso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_anverso.Location = New System.Drawing.Point(30, 402)
+        Me.btn_anverso.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btn_anverso.Name = "btn_anverso"
+        Me.btn_anverso.Size = New System.Drawing.Size(338, 45)
+        Me.btn_anverso.TabIndex = 5
+        Me.btn_anverso.Text = "Seleccionar Imagen"
+        Me.btn_anverso.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -359,7 +359,7 @@ Partial Class frm_configuracion
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(458, 20)
         Me.Label13.TabIndex = 19
-        Me.Label13.Text = "El archivo se copiara a la carpeta de isntalación de la aplicación."
+        Me.Label13.Text = "El archivo se copiara a la carpeta de instalación de la aplicación."
         '
         'txt_archivo_excel
         '
@@ -580,16 +580,16 @@ Partial Class frm_configuracion
         Me.btn_guardar.Text = "Guardar"
         Me.btn_guardar.UseVisualStyleBackColor = True
         '
-        'Button5
+        'btn_cerrar
         '
-        Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button5.Location = New System.Drawing.Point(55, 538)
-        Me.Button5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(118, 35)
-        Me.Button5.TabIndex = 19
-        Me.Button5.Text = "Cerrar"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_cerrar.Location = New System.Drawing.Point(55, 538)
+        Me.btn_cerrar.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btn_cerrar.Name = "btn_cerrar"
+        Me.btn_cerrar.Size = New System.Drawing.Size(118, 35)
+        Me.btn_cerrar.TabIndex = 19
+        Me.btn_cerrar.Text = "Cerrar"
+        Me.btn_cerrar.UseVisualStyleBackColor = True
         '
         'OpenFile_anverso
         '
@@ -608,7 +608,7 @@ Partial Class frm_configuracion
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(920, 586)
-        Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.btn_cerrar)
         Me.Controls.Add(Me.btn_guardar)
         Me.Controls.Add(Me.TabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -633,10 +633,10 @@ Partial Class frm_configuracion
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents Button2 As Button
+    Friend WithEvents btn_reverso As Button
     Friend WithEvents Label3 As Label
     Friend WithEvents pctbox_tsocio_reverso As PictureBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_anverso As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents pctbox_tsocio_anverso As PictureBox
     Friend WithEvents cmb_temporada As ComboBox
@@ -647,7 +647,7 @@ Partial Class frm_configuracion
     Friend WithEvents cmb_bd As ComboBox
     Friend WithEvents lbl_bd As Label
     Friend WithEvents btn_guardar As Button
-    Friend WithEvents Button5 As Button
+    Friend WithEvents btn_cerrar As Button
     Friend WithEvents grpbox_mysql As GroupBox
     Friend WithEvents Label9 As Label
     Friend WithEvents Label8 As Label
