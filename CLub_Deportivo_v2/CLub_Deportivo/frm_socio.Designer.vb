@@ -65,7 +65,7 @@ Partial Class frm_socio
         Me.cmb_prov = New System.Windows.Forms.ComboBox()
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btn_cerrar = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.txt_nombre = New CLub_Deportivo.textbox_club()
         Me.txt_apellido = New CLub_Deportivo.textbox_club()
@@ -540,16 +540,16 @@ Partial Class frm_socio
         Me.Label3.TabIndex = 60
         Me.Label3.Text = "Provincia:"
         '
-        'Button1
+        'btn_cerrar
         '
-        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(911, 479)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(279, 42)
-        Me.Button1.TabIndex = 54
-        Me.Button1.Text = "CERRAR"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_cerrar.Location = New System.Drawing.Point(911, 479)
+        Me.btn_cerrar.Margin = New System.Windows.Forms.Padding(4)
+        Me.btn_cerrar.Name = "btn_cerrar"
+        Me.btn_cerrar.Size = New System.Drawing.Size(279, 42)
+        Me.btn_cerrar.TabIndex = 54
+        Me.btn_cerrar.Text = "CERRAR"
+        Me.btn_cerrar.UseVisualStyleBackColor = True
         '
         'SplitContainer1
         '
@@ -606,7 +606,7 @@ Partial Class frm_socio
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(1203, 551)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btn_cerrar)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -684,6 +684,6 @@ Partial Class frm_socio
     Friend WithEvents cmb_tarjeta As ComboBox
     Friend WithEvents Label13 As Label
     Friend WithEvents lbl_importe As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btn_cerrar As Button
     Friend WithEvents SplitContainer1 As SplitContainer
 End Class

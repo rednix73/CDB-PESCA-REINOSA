@@ -558,6 +558,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                             Dim salida3 As Integer = consulta2.ExecuteNonQuery
                             If (salida3 > 0) Then
                                 MsgBox("Socio insertado correctamente")
+                                frm_socio.reset()
                             End If
                         End If
 
@@ -597,6 +598,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                             Dim salida3 As Integer = consulta1.ExecuteNonQuery
                             If (salida3 > 0) Then
                                 MsgBox("Socio insertado correctamente")
+                                frm_socio.reset()
                             End If
                         End If
                     End If

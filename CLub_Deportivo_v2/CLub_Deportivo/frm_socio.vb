@@ -110,6 +110,8 @@ Public Class frm_socio
             If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
                 insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
                 bbdd.cargar()
+
+
             End If
         Catch ex As Exception
             MsgBox(ex.ToString())
@@ -372,7 +374,7 @@ Public Class frm_socio
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(0)
 
-        frm_busqueda.Show()
+        frm_busqueda.ShowDialog()
         'frm_busqueda.btn_usar.Visible = False
 
     End Sub
@@ -447,7 +449,36 @@ Public Class frm_socio
 
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub btn_cerrar_Click(sender As Object, e As EventArgs) Handles btn_cerrar.Click
+
         Me.Close()
+
+    End Sub
+    ''' <summary>
+    ''' Método que borra el contenido de los controles del formulario.
+    ''' </summary>
+    Public Sub reset()
+        Try
+            txt_nsocio.ResetText()
+            txt_nombre.Clear()
+            txt_apellido.ResetText()
+            txt_dni.ResetText()
+            dtpk_fecha_nac.Value = "2000/01/01"
+            txt_direcc.ResetText()
+            txt_cp.ResetText()
+            txt_email.ResetText()
+            txt_coment.ResetText()
+            lbl_importe.ResetText()
+
+            rdo_normal.Checked = True
+            cmb_tarjeta.SelectedIndex = -1
+            cmb_localidad.SelectedIndex = -1
+            cmb_prov.SelectedIndex = -1
+            cmb_pais.SelectedIndex = -1
+
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 End Class
