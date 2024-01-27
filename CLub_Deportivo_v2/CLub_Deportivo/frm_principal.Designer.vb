@@ -25,6 +25,7 @@ Partial Class frm_principal
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_principal))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GuardarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,7 +40,8 @@ Partial Class frm_principal
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ActualizarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActuaizarBBDDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -62,6 +64,14 @@ Partial Class frm_principal
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(376, 20)
         Me.ToolStripStatusLabel1.Text = "Club Deportivo Básico de Pesca Reinosa.  C.I.F. G301843"
         '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Padding = New System.Windows.Forms.Padding(1000, 0, 0, 0)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(1252, 20)
+        Me.ToolStripStatusLabel2.Text = "Copyright: Roberto Macho González."
+        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
@@ -75,7 +85,7 @@ Partial Class frm_principal
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ActualizarToolStripMenuItem, Me.ActuaizarBBDDToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
@@ -84,25 +94,25 @@ Partial Class frm_principal
         'GuardarToolStripMenuItem
         '
         Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
         Me.GuardarToolStripMenuItem.Text = "Guardar"
         '
         'ExportarToolStripMenuItem
         '
         Me.ExportarToolStripMenuItem.Name = "ExportarToolStripMenuItem"
-        Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
         Me.ExportarToolStripMenuItem.Text = "Exportar"
         '
         'ConfiguraciónToolStripMenuItem
         '
         Me.ConfiguraciónToolStripMenuItem.Name = "ConfiguraciónToolStripMenuItem"
-        Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
         Me.ConfiguraciónToolStripMenuItem.Text = "Configuración"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'GestionToolStripMenuItem
@@ -117,7 +127,7 @@ Partial Class frm_principal
         '
         Me.SociosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoSocioToolStripMenuItem, Me.ModificarSocioToolStripMenuItem, Me.EliminarSocioToolStripMenuItem})
         Me.SociosToolStripMenuItem.Name = "SociosToolStripMenuItem"
-        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
         Me.SociosToolStripMenuItem.Text = "Socios"
         '
         'NuevoSocioToolStripMenuItem
@@ -141,7 +151,7 @@ Partial Class frm_principal
         'ListadosToolStripMenuItem
         '
         Me.ListadosToolStripMenuItem.Name = "ListadosToolStripMenuItem"
-        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
         Me.ListadosToolStripMenuItem.Text = "Listados"
         '
         'AyudaToolStripMenuItem
@@ -158,13 +168,17 @@ Partial Class frm_principal
         Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
         '
-        'ToolStripStatusLabel2
+        'ActualizarToolStripMenuItem
         '
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Padding = New System.Windows.Forms.Padding(1000, 0, 0, 0)
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(1252, 20)
-        Me.ToolStripStatusLabel2.Text = "Copyright: Roberto Macho González."
-        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ActualizarToolStripMenuItem.Name = "ActualizarToolStripMenuItem"
+        Me.ActualizarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ActualizarToolStripMenuItem.Text = "Actualizar"
+        '
+        'ActuaizarBBDDToolStripMenuItem
+        '
+        Me.ActuaizarBBDDToolStripMenuItem.Name = "ActuaizarBBDDToolStripMenuItem"
+        Me.ActuaizarBBDDToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.ActuaizarBBDDToolStripMenuItem.Text = "Actualizar BBDD"
         '
         'frm_principal
         '
@@ -206,4 +220,6 @@ Partial Class frm_principal
     Friend WithEvents ExportarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConfiguraciónToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
+    Friend WithEvents ActualizarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ActuaizarBBDDToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -3,7 +3,7 @@ Public Class frm_socio
 
     Dim pago As Integer
     Dim tipo As String = ""
-    Dim importe As Integer = 0
+    Dim importe As Decimal = 0
 
 
 
@@ -17,7 +17,7 @@ Public Class frm_socio
         cmb_prov.SelectedItem = "CANTABRIA"
         cmb_pais.SelectedItem = "ESPAÑA"
     End Sub
-    Private Function calcula_importe() As Integer
+    Private Function calcula_importe() As Decimal
 
         Try
             Select Case cmb_tarjeta.SelectedIndex
