@@ -325,7 +325,10 @@ Module bbdd
 
                     dr3 = consulta2.ExecuteReader()
                     While dr3.Read
-                        libres2.Add(dr3(0))
+                        If (Not IsDBNull(dr3(0))) Then
+                            libres2.Add(dr3(0))
+                        End If
+
                     End While
                     dr3.Close()
 
