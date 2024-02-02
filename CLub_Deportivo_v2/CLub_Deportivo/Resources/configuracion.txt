@@ -11,9 +11,9 @@ Excel_ODBC
 
 ----Excel-ODBC----
 Archivo de base de datos:
-C:\Users\roberto\Desktop\tarjetas_socio_2024.xls
+C:\Users\roberto\Desktop\tarjetas_socio_2024.xlsx
 DSN:
-cdb-pesca-xls
+cdb-pesca-xlsx
 Tabla de socios:
 [socios_2023_24$]
 Tabla de base de datos de socios:

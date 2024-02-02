@@ -51,6 +51,8 @@
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_cerrar.Click
+        Me.DataGridView1.EndEdit()
+
         Me.Close()
 
     End Sub

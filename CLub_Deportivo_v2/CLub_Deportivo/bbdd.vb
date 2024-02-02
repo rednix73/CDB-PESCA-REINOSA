@@ -31,7 +31,7 @@ Module bbdd
     Public ruta_bd_excel As String '= "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
     Public DSN As String '= "cdb-pesca-xls"
     'Nombre de las tablas donde están los datos. Formato en excel: [Tabla$]
-    Public tabla_socios_xls As String ' = "[socios_2022_23$]"
+    Public tabla_socios_xls As String ' = "[socios_2023_24$]"
     Public tabla_bdsocios_xls As String '= "[bdsocios$]"
 
     '----Mysql----
@@ -68,11 +68,11 @@ Module bbdd
     Public dr3 As OdbcDataReader
     Public dr4 As OdbcDataReader
     'Tabla socios excel
-    Public da_socios2 As OdbcDataAdapter
-    Public cb_socios2 As OdbcCommandBuilder
+    Public da_socios2 As New OdbcDataAdapter
+    Public cb_socios2 As New OdbcCommandBuilder
     'Tabla Base de datos de socios excel
-    Public da_bdsocios2 As OdbcDataAdapter
-    Public cb_bdsocios2 As OdbcCommandBuilder
+    Public da_bdsocios2 As New OdbcDataAdapter
+    Public cb_bdsocios2 As New OdbcCommandBuilder
 
     ' Base de datos local excel - conexion oledb - falla cadena de conexion
     Public cadena3 As String = "Provider=Microsoft.ACE.OLEDB.12.0;" & "Data source=" & ruta_bd_excel & ";" & "Extended Properties=Excel 8.0;HDR=Yes"
@@ -425,28 +425,29 @@ Module bbdd
     Public Sub buscar_nombre(valor As String)
         Try
             dw_bdsocios.RowFilter = "apellidos Like '%" + valor + "%'"
-            frm_busqueda.Show()
             frm_busqueda.DataGridView1.DataSource = dw_bdsocios
+            frm_busqueda.ShowDialog()
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
     End Sub
+
     ''' <summary>
     ''' Método que filtra el dataview que contiene la tabla con la base de datos de socios por el número de socio y muestra la tabla flitrada en un control datagridview que a su vez se muestra en el formulario: frm_busqueda.
     ''' </summary>
     ''' <param name="valor">numero de socio</param>
     Public Sub buscar_nsocio(valor As String)
         Try
-            If (valor <> "") Then
+            If Not valor = "" Then
                 dw_socios.RowFilter = "numero=" + valor
                 dw_bdsocios.RowFilter = "numero=" + valor
                 frm_busqueda.DataGridView1.DataSource = dw_socios
-                frm_busqueda.Show()
+                frm_busqueda.ShowDialog()
                 If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
                     frm_busqueda.Close()
                     MsgBox("Número de socio no encontrado en temporada actual. Buscando en Base de datos...")
                     frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-                    frm_busqueda.Show()
+                    frm_busqueda.ShowDialog()
                     If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
                         frm_busqueda.Close()
                         MsgBox("Número de socio no encontrado. A continuacion se muestran todos los socios en la base de datos.")
@@ -476,17 +477,16 @@ Module bbdd
     ''' <param name="valor">texto que contiene el dni del socio</param>
     Public Sub buscar_dni(valor As String)
         Try
-
             dw_socios.RowFilter = "dni like '%" + valor + "%'"
             frm_busqueda.DataGridView1.DataSource = dw_socios
             If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
-                frm_busqueda.Show()
+                frm_busqueda.ShowDialog()
             Else
                 MsgBox("Socio no encontrado en temporada actual. Buscando en la base de datos de socios...")
                 dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
                 frm_busqueda.DataGridView1.DataSource = dw_bdsocios
                 If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
-                    frm_busqueda.Show()
+                    frm_busqueda.ShowDialog()
                 Else
                     MsgBox("Socio no encontrado")
                 End If

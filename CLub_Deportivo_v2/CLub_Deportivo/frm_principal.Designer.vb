@@ -30,6 +30,7 @@ Partial Class frm_principal
         Me.ArchivoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GuardarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActuaizarBBDDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfiguraciónToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SalirToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GestionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -40,8 +41,6 @@ Partial Class frm_principal
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ActualizarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ActuaizarBBDDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -85,7 +84,7 @@ Partial Class frm_principal
         '
         'ArchivoToolStripMenuItem
         '
-        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ActualizarToolStripMenuItem, Me.ActuaizarBBDDToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
+        Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ActuaizarBBDDToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
         Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
@@ -102,6 +101,12 @@ Partial Class frm_principal
         Me.ExportarToolStripMenuItem.Name = "ExportarToolStripMenuItem"
         Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
         Me.ExportarToolStripMenuItem.Text = "Exportar"
+        '
+        'ActuaizarBBDDToolStripMenuItem
+        '
+        Me.ActuaizarBBDDToolStripMenuItem.Name = "ActuaizarBBDDToolStripMenuItem"
+        Me.ActuaizarBBDDToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.ActuaizarBBDDToolStripMenuItem.Text = "Actualizar BBDD"
         '
         'ConfiguraciónToolStripMenuItem
         '
@@ -168,18 +173,6 @@ Partial Class frm_principal
         Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
         '
-        'ActualizarToolStripMenuItem
-        '
-        Me.ActualizarToolStripMenuItem.Name = "ActualizarToolStripMenuItem"
-        Me.ActualizarToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
-        Me.ActualizarToolStripMenuItem.Text = "Actualizar"
-        '
-        'ActuaizarBBDDToolStripMenuItem
-        '
-        Me.ActuaizarBBDDToolStripMenuItem.Name = "ActuaizarBBDDToolStripMenuItem"
-        Me.ActuaizarBBDDToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
-        Me.ActuaizarBBDDToolStripMenuItem.Text = "Actualizar BBDD"
-        '
         'frm_principal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 22.0!)
@@ -220,6 +213,5 @@ Partial Class frm_principal
     Friend WithEvents ExportarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConfiguraciónToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
-    Friend WithEvents ActualizarToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ActuaizarBBDDToolStripMenuItem As ToolStripMenuItem
 End Class

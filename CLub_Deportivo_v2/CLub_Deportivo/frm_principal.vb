@@ -88,4 +88,8 @@
     Private Sub ConfiguraciónToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfiguraciónToolStripMenuItem.Click
         frm_configuracion.Show()
     End Sub
+
+    Private Sub ActuaizarBBDDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActuaizarBBDDToolStripMenuItem.Click
+        frm_actualizar_bbdd.ShowDialog()
+    End Sub
 End Class

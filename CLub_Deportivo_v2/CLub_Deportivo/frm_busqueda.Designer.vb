@@ -43,6 +43,7 @@ Partial Class frm_busqueda
         '
         'btn_usar
         '
+        Me.btn_usar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_usar.Location = New System.Drawing.Point(25, 330)
         Me.btn_usar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_usar.Name = "btn_usar"
@@ -53,6 +54,7 @@ Partial Class frm_busqueda
         '
         'btn_cerrar
         '
+        Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_cerrar.Location = New System.Drawing.Point(994, 330)
         Me.btn_cerrar.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_cerrar.Name = "btn_cerrar"

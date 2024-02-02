@@ -1,11 +1,9 @@
 ﻿Imports CLub_Deportivo.bbdd
 Public Class frm_socio
 
-    Dim pago As Integer
+    Dim pago As Decimal
     Dim tipo As String = ""
     Dim importe As Decimal = 0
-
-
 
     Private Sub frm_socio_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.MdiParent = frm_principal
@@ -108,7 +106,10 @@ Public Class frm_socio
             End If
 
             If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
+                Dim importe As String
+                importe = calcula_importe().ToString().Replace(",", ".")
+
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, importe, txt_coment.Text)
                 bbdd.cargar()
 
 
@@ -256,7 +257,7 @@ Public Class frm_socio
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
 
-        frm_imprimir.Show()
+        frm_imprimir.ShowDialog()
 
     End Sub
 
@@ -371,13 +372,6 @@ Public Class frm_socio
 
     End Sub
 
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(0)
-
-        frm_busqueda.ShowDialog()
-        'frm_busqueda.btn_usar.Visible = False
-
-    End Sub
 
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
 
@@ -480,5 +474,17 @@ Public Class frm_socio
 
         End Try
 
+    End Sub
+
+    Private Sub btn_reset_Click(sender As Object, e As EventArgs) Handles btn_reset.Click
+        Me.reset()
+
+    End Sub
+
+    Private Sub btn_socios_Click(sender As Object, e As EventArgs) Handles btn_socios.Click
+        frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(0)
+
+        frm_busqueda.ShowDialog()
+        'frm_busqueda.btn_usar.Visible = False
     End Sub
 End Class
