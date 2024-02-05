@@ -93,34 +93,6 @@ Public Class frm_socio
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
-        Try
-            If rdo_normal.Checked Then
-                tipo = "NORMAL"
-            End If
-            If rdo_jubilado.Checked Then
-                tipo = "JUBILADO"
-            End If
-            If rdo_otros.Checked Then
-                tipo = "OTROS"
-            End If
-
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
-                Dim importe As String
-                importe = calcula_importe().ToString().Replace(",", ".")
-
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, importe, txt_coment.Text)
-                bbdd.cargar()
-
-
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-        End Try
-
-
-    End Sub
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles btn_num_libres.Click
         frm_numeros_libres.ShowDialog()
 
@@ -349,29 +321,6 @@ Public Class frm_socio
 
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
-        eliminar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
-        bbdd.cargar()
-    End Sub
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btn_modificar.Click
-        If rdo_normal.Checked Then
-            tipo = "NORMAL"
-        End If
-        If rdo_jubilado.Checked Then
-            tipo = "JUBILADO"
-        End If
-        If rdo_otros.Checked Then
-            tipo = "OTROS"
-        End If
-
-        If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
-            modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + +dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe(), txt_coment.Text)
-            bbdd.cargar()
-        End If
-
-    End Sub
-
 
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
 
@@ -486,5 +435,62 @@ Public Class frm_socio
 
         frm_busqueda.ShowDialog()
         'frm_busqueda.btn_usar.Visible = False
+    End Sub
+
+    Private Sub btn_insertar_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
+        Try
+            If rdo_normal.Checked Then
+                tipo = "NORMAL"
+            End If
+            If rdo_jubilado.Checked Then
+                tipo = "JUBILADO"
+            End If
+            If rdo_otros.Checked Then
+                tipo = "OTROS"
+            End If
+
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
+                Dim importe As String
+                importe = calcula_importe().ToString().Replace(",", ".")
+
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, importe, txt_coment.Text)
+                bbdd.cargar()
+
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+
+    End Sub
+
+    Private Sub btn_modificar_Click(sender As Object, e As EventArgs) Handles btn_modificar.Click
+        Try
+            If rdo_normal.Checked Then
+                tipo = "NORMAL"
+            End If
+            If rdo_jubilado.Checked Then
+                tipo = "JUBILADO"
+            End If
+            If rdo_otros.Checked Then
+                tipo = "OTROS"
+            End If
+
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
+                modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
+                bbdd.cargar()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+    End Sub
+
+    Private Sub btn_eliminar_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
+        Try
+            eliminar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_prov.Text, cmb_pais.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_email.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
+            bbdd.cargar()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
     End Sub
 End Class

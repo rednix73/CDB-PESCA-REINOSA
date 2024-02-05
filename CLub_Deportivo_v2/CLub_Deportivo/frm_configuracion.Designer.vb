@@ -111,7 +111,7 @@ Partial Class frm_configuracion
         Me.TabPage1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabPage1.Location = New System.Drawing.Point(4, 29)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(768, 379)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "General"
@@ -239,7 +239,7 @@ Partial Class frm_configuracion
         Me.TabPage2.Controls.Add(Me.lbl_bd)
         Me.TabPage2.Location = New System.Drawing.Point(4, 29)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(768, 379)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Base de datos"
@@ -544,7 +544,7 @@ Partial Class frm_configuracion
         '
         'btn_guardar
         '
-        Me.btn_guardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_guardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_guardar.Location = New System.Drawing.Point(647, 430)
         Me.btn_guardar.Name = "btn_guardar"
         Me.btn_guardar.Size = New System.Drawing.Size(105, 28)
@@ -554,7 +554,7 @@ Partial Class frm_configuracion
         '
         'btn_cerrar
         '
-        Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_cerrar.Location = New System.Drawing.Point(49, 430)
         Me.btn_cerrar.Name = "btn_cerrar"
         Me.btn_cerrar.Size = New System.Drawing.Size(105, 28)

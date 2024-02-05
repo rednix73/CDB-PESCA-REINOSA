@@ -35,7 +35,7 @@ Partial Class frm_numeros_libres
         Me.lst_numeros.FormattingEnabled = True
         Me.lst_numeros.ItemHeight = 16
         Me.lst_numeros.Location = New System.Drawing.Point(21, 36)
-        Me.lst_numeros.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lst_numeros.Margin = New System.Windows.Forms.Padding(4)
         Me.lst_numeros.Name = "lst_numeros"
         Me.lst_numeros.Size = New System.Drawing.Size(159, 228)
         Me.lst_numeros.TabIndex = 0
@@ -52,8 +52,9 @@ Partial Class frm_numeros_libres
         '
         'Button1
         '
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Location = New System.Drawing.Point(40, 303)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(100, 28)
         Me.Button1.TabIndex = 2
@@ -62,8 +63,9 @@ Partial Class frm_numeros_libres
         '
         'Button2
         '
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.Location = New System.Drawing.Point(40, 350)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(100, 28)
         Me.Button2.TabIndex = 3
@@ -91,7 +93,7 @@ Partial Class frm_numeros_libres
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lst_numeros)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frm_numeros_libres"
         Me.Text = " C.D.B. pesca Reinosa - Numeros libres"
         Me.ResumeLayout(False)
