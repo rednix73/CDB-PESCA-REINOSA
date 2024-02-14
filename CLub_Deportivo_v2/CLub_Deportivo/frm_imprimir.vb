@@ -192,7 +192,7 @@ Public Class frm_imprimir
         Me.Close()
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
+    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles Tab_fondo.Click
         establece_fondo()
     End Sub
 

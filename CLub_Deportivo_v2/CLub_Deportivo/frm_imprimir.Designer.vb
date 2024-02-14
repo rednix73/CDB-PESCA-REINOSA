@@ -27,9 +27,9 @@ Partial Class frm_imprimir
         Me.Mapa_tarjetas1 = New CLub_Deportivo.mapa_tarjetas()
         Me.btn_imprimir_tarjeta = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Tab_tarjeta = New System.Windows.Forms.TabPage()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Tab_fondo = New System.Windows.Forms.TabPage()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.btn_imprimir_fondo = New System.Windows.Forms.Button()
         Me.Mapa_tarjetas2 = New CLub_Deportivo.mapa_tarjetas()
@@ -42,8 +42,8 @@ Partial Class frm_imprimir
         Me.PrintPreviewDialog1 = New System.Windows.Forms.PrintPreviewDialog()
         Me.PrintDocument2 = New System.Drawing.Printing.PrintDocument()
         Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
-        Me.TabPage2.SuspendLayout()
+        Me.Tab_tarjeta.SuspendLayout()
+        Me.Tab_fondo.SuspendLayout()
         Me.grp_box_tarjeta.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,7 +54,7 @@ Partial Class frm_imprimir
         Me.Mapa_tarjetas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Mapa_tarjetas1.Imagen_Fondo_tarjeta = Nothing
         Me.Mapa_tarjetas1.Location = New System.Drawing.Point(18, 6)
-        Me.Mapa_tarjetas1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Mapa_tarjetas1.Margin = New System.Windows.Forms.Padding(4)
         Me.Mapa_tarjetas1.Name = "Mapa_tarjetas1"
         Me.Mapa_tarjetas1.Size = New System.Drawing.Size(361, 500)
         Me.Mapa_tarjetas1.TabIndex = 17
@@ -64,7 +64,7 @@ Partial Class frm_imprimir
         '
         Me.btn_imprimir_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_imprimir_tarjeta.Location = New System.Drawing.Point(18, 514)
-        Me.btn_imprimir_tarjeta.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_imprimir_tarjeta.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_imprimir_tarjeta.Name = "btn_imprimir_tarjeta"
         Me.btn_imprimir_tarjeta.Size = New System.Drawing.Size(165, 34)
         Me.btn_imprimir_tarjeta.TabIndex = 18
@@ -73,8 +73,8 @@ Partial Class frm_imprimir
         '
         'TabControl1
         '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.Tab_tarjeta)
+        Me.TabControl1.Controls.Add(Me.Tab_fondo)
         Me.TabControl1.Location = New System.Drawing.Point(11, 10)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabControl1.Name = "TabControl1"
@@ -82,50 +82,51 @@ Partial Class frm_imprimir
         Me.TabControl1.Size = New System.Drawing.Size(415, 628)
         Me.TabControl1.TabIndex = 19
         '
-        'TabPage1
+        'Tab_tarjeta
         '
-        Me.TabPage1.Controls.Add(Me.Button2)
-        Me.TabPage1.Controls.Add(Me.Mapa_tarjetas1)
-        Me.TabPage1.Controls.Add(Me.btn_imprimir_tarjeta)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TabPage1.Size = New System.Drawing.Size(407, 599)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Tarjeta"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.Tab_tarjeta.Controls.Add(Me.Button2)
+        Me.Tab_tarjeta.Controls.Add(Me.Mapa_tarjetas1)
+        Me.Tab_tarjeta.Controls.Add(Me.btn_imprimir_tarjeta)
+        Me.Tab_tarjeta.Location = New System.Drawing.Point(4, 25)
+        Me.Tab_tarjeta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Tab_tarjeta.Name = "Tab_tarjeta"
+        Me.Tab_tarjeta.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Tab_tarjeta.Size = New System.Drawing.Size(407, 599)
+        Me.Tab_tarjeta.TabIndex = 0
+        Me.Tab_tarjeta.Text = "Tarjeta"
+        Me.Tab_tarjeta.UseVisualStyleBackColor = True
         '
         'Button2
         '
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.Location = New System.Drawing.Point(207, 514)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(172, 34)
         Me.Button2.TabIndex = 20
         Me.Button2.Text = "Cerrar"
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'TabPage2
+        'Tab_fondo
         '
-        Me.TabPage2.Controls.Add(Me.Button3)
-        Me.TabPage2.Controls.Add(Me.btn_imprimir_fondo)
-        Me.TabPage2.Controls.Add(Me.Mapa_tarjetas2)
-        Me.TabPage2.Controls.Add(Me.grp_box_tarjeta)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.TabPage2.Size = New System.Drawing.Size(407, 599)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Fondo"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.Tab_fondo.Controls.Add(Me.Button3)
+        Me.Tab_fondo.Controls.Add(Me.btn_imprimir_fondo)
+        Me.Tab_fondo.Controls.Add(Me.Mapa_tarjetas2)
+        Me.Tab_fondo.Controls.Add(Me.grp_box_tarjeta)
+        Me.Tab_fondo.Location = New System.Drawing.Point(4, 25)
+        Me.Tab_fondo.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Tab_fondo.Name = "Tab_fondo"
+        Me.Tab_fondo.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Tab_fondo.Size = New System.Drawing.Size(407, 599)
+        Me.Tab_fondo.TabIndex = 1
+        Me.Tab_fondo.Text = "Fondo"
+        Me.Tab_fondo.UseVisualStyleBackColor = True
         '
         'Button3
         '
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button3.Location = New System.Drawing.Point(204, 560)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(174, 34)
         Me.Button3.TabIndex = 21
@@ -134,8 +135,9 @@ Partial Class frm_imprimir
         '
         'btn_imprimir_fondo
         '
+        Me.btn_imprimir_fondo.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btn_imprimir_fondo.Location = New System.Drawing.Point(15, 560)
-        Me.btn_imprimir_fondo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btn_imprimir_fondo.Margin = New System.Windows.Forms.Padding(4)
         Me.btn_imprimir_fondo.Name = "btn_imprimir_fondo"
         Me.btn_imprimir_fondo.Size = New System.Drawing.Size(166, 34)
         Me.btn_imprimir_fondo.TabIndex = 20
@@ -149,7 +151,7 @@ Partial Class frm_imprimir
         Me.Mapa_tarjetas2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Mapa_tarjetas2.Imagen_Fondo_tarjeta = Nothing
         Me.Mapa_tarjetas2.Location = New System.Drawing.Point(16, 54)
-        Me.Mapa_tarjetas2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Mapa_tarjetas2.Margin = New System.Windows.Forms.Padding(4)
         Me.Mapa_tarjetas2.Name = "Mapa_tarjetas2"
         Me.Mapa_tarjetas2.Size = New System.Drawing.Size(362, 500)
         Me.Mapa_tarjetas2.TabIndex = 18
@@ -159,12 +161,12 @@ Partial Class frm_imprimir
         '
         Me.grp_box_tarjeta.Controls.Add(Me.rdo_reverso)
         Me.grp_box_tarjeta.Controls.Add(Me.rdo_anverso)
-        Me.grp_box_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.grp_box_tarjeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.grp_box_tarjeta.Location = New System.Drawing.Point(15, 5)
         Me.grp_box_tarjeta.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.grp_box_tarjeta.Name = "grp_box_tarjeta"
         Me.grp_box_tarjeta.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.grp_box_tarjeta.Size = New System.Drawing.Size(363, 46)
+        Me.grp_box_tarjeta.Size = New System.Drawing.Size(363, 51)
         Me.grp_box_tarjeta.TabIndex = 16
         Me.grp_box_tarjeta.TabStop = False
         Me.grp_box_tarjeta.Text = "Seleccione el fondo:"
@@ -172,10 +174,11 @@ Partial Class frm_imprimir
         'rdo_reverso
         '
         Me.rdo_reverso.AutoSize = True
-        Me.rdo_reverso.Location = New System.Drawing.Point(268, 15)
+        Me.rdo_reverso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdo_reverso.Location = New System.Drawing.Point(228, 18)
         Me.rdo_reverso.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rdo_reverso.Name = "rdo_reverso"
-        Me.rdo_reverso.Size = New System.Drawing.Size(89, 22)
+        Me.rdo_reverso.Size = New System.Drawing.Size(106, 28)
         Me.rdo_reverso.TabIndex = 1
         Me.rdo_reverso.Text = "Reverso."
         Me.rdo_reverso.UseVisualStyleBackColor = True
@@ -184,10 +187,11 @@ Partial Class frm_imprimir
         '
         Me.rdo_anverso.AutoSize = True
         Me.rdo_anverso.Checked = True
-        Me.rdo_anverso.Location = New System.Drawing.Point(36, 15)
+        Me.rdo_anverso.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.rdo_anverso.Location = New System.Drawing.Point(20, 20)
         Me.rdo_anverso.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rdo_anverso.Name = "rdo_anverso"
-        Me.rdo_anverso.Size = New System.Drawing.Size(87, 22)
+        Me.rdo_anverso.Size = New System.Drawing.Size(106, 28)
         Me.rdo_anverso.TabIndex = 0
         Me.rdo_anverso.TabStop = True
         Me.rdo_anverso.Text = "Anverso."
@@ -237,10 +241,10 @@ Partial Class frm_imprimir
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "C.D.B. pesca Reinosa - Imprimir"
         Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
-        Me.TabPage1.PerformLayout()
-        Me.TabPage2.ResumeLayout(False)
-        Me.TabPage2.PerformLayout()
+        Me.Tab_tarjeta.ResumeLayout(False)
+        Me.Tab_tarjeta.PerformLayout()
+        Me.Tab_fondo.ResumeLayout(False)
+        Me.Tab_fondo.PerformLayout()
         Me.grp_box_tarjeta.ResumeLayout(False)
         Me.grp_box_tarjeta.PerformLayout()
         Me.ResumeLayout(False)
@@ -250,8 +254,8 @@ Partial Class frm_imprimir
     Friend WithEvents Mapa_tarjetas1 As mapa_tarjetas
     Friend WithEvents btn_imprimir_tarjeta As Button
     Friend WithEvents TabControl1 As TabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents Tab_tarjeta As TabPage
+    Friend WithEvents Tab_fondo As TabPage
     Friend WithEvents btn_imprimir_fondo As Button
     Friend WithEvents Mapa_tarjetas2 As mapa_tarjetas
     Friend WithEvents grp_box_tarjeta As GroupBox
