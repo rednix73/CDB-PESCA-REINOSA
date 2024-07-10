@@ -535,14 +535,6 @@ Module bbdd
                         dr3.Close()
                     Else
                         dr3.Close()
-                        'Comprobación de que no existe otro socio en la base de datos de socios con el mismo número de socio.
-                        sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
-                        consulta2.CommandText = sql_txt
-                        dr3 = consulta2.ExecuteReader
-                        If (dr3.HasRows) Then
-                            MsgBox("Ya existe otro socio en la bbdd de socios con ese número asignado. Compruebe que sea el mismo socio.")
-                        End If
-                        dr3.Close()
 
                         'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de DNI.
                         Dim sql_txt2 As String
@@ -564,9 +556,43 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                                 frm_socio.reset()
                             End If
                         End If
-
                     End If
 
+
+
+                    'Comprobación de que no existe otro socio en la base de datos de socios con el mismo número de socio.
+                    sql_txt = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE NUMERO=" + nsocio
+                    consulta2.CommandText = sql_txt
+                    dr3 = consulta2.ExecuteReader
+                    If (dr3.HasRows) Then
+                        MsgBox("Ya existe otro socio en la base de datos de socios con ese número asignado. Compruebe que es el mismo socio.")
+                        dr3.Close()
+                    Else
+                        dr3.Close()
+
+                        'Comprobación de que no existe otro socio en la base de datos de socios con el mismo DNI.
+                        Dim sql_txt2 As String
+                        sql_txt2 = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE dni='" + dni + "'"
+                        consulta2.CommandText = sql_txt2
+                        dr4 = consulta2.ExecuteReader
+                        If (dr4.HasRows) Then
+                            MsgBox("DNI no válido. Ya existe otro socio en la base de datos de socios con el mismo DNI. Compruebe que es el mismo socio.")
+                            dr4.Close()
+                        Else
+                            dr4.Close()
+                            'Consulta de insercion de nuev socio en la base de datos de socios.
+                            Dim sql_txt3 As String = "INSERT INTO " + tabla_bdsocios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio) 
+VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
+                            consulta2.CommandText = sql_txt3
+                            Dim salida3 As Integer = consulta2.ExecuteNonQuery
+                            If (salida3 > 0) Then
+                                MsgBox("SOCIO NUEVO! Insertado correctamente en la base de datos de socios.")
+                                frm_socio.reset()
+                            End If
+                        End If
+                    End If
+
+                    '''NOTA IMPORTANTE: FALTA EL CODIGO DE INSERCION AUTOMATICA EN LA BASE DE DATOS PARA SOCIOS NUEVOS PARA BASE DE DATOS MYSQL.
 
                 Case tipobd.MySQL
                     consulta1 = New MySqlCommand()
