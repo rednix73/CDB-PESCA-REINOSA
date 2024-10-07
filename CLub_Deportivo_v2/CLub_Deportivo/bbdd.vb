@@ -527,10 +527,10 @@ Module bbdd
                     End If
                     'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de socio.
                     Dim sql_txt As String
-                    sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
+                    sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO='" + nsocio + "'"
                     consulta2.CommandText = sql_txt
                     dr3 = consulta2.ExecuteReader
-                    If (dr3.HasRows) Then
+                    If dr3.HasRows Then
                         MsgBox("Número de socio no válido. Ya existe otro socio en la temporada actual con ese número asignado. Asigne otro número a este socio")
                         dr3.Close()
                     Else
@@ -557,8 +557,6 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                             End If
                         End If
                     End If
-
-
 
                     'Comprobación de que no existe otro socio en la base de datos de socios con el mismo número de socio.
                     sql_txt = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE NUMERO=" + nsocio

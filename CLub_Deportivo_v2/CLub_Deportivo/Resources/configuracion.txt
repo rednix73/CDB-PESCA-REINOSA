@@ -11,11 +11,11 @@ Excel_ODBC
 
 ----Excel-ODBC----
 Archivo de base de datos:
-C:\Users\roberto\Desktop\tarjetas_socio_2024.xlsx
+D:\Usuarios\roberto\OneDrive - Educantabria\Documentos\tarjetas_socio_2025.xls
 DSN:
 cdb-pesca-xlsx
 Tabla de socios:
-[socios_2023_24$]
+[socios_2024_25$]
 Tabla de base de datos de socios:
 [bdsocios$]
 
