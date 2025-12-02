@@ -497,6 +497,7 @@ Module bbdd
         End Try
 
     End Sub
+
     ''' <summary>
     ''' Inserta un socio en la tabla socios de la base de datos.
     ''' </summary>
@@ -548,7 +549,7 @@ Module bbdd
                             dr4.Close()
                             'Consulta de insercion.
                             Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,importe,comentarios) 
-VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
+    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
                             consulta2.CommandText = sql_txt3
                             Dim salida3 As Integer = consulta2.ExecuteNonQuery
                             If (salida3 > 0) Then
@@ -580,7 +581,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                             dr4.Close()
                             'Consulta de insercion de nuev socio en la base de datos de socios.
                             Dim sql_txt3 As String = "INSERT INTO " + tabla_bdsocios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio) 
-VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
+    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
                             consulta2.CommandText = sql_txt3
                             Dim salida3 As Integer = consulta2.ExecuteNonQuery
                             If (salida3 > 0) Then
@@ -620,7 +621,7 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
                             dr2.Close()
                             'Consulta de insercion.
                             Dim sql_txt3 As String = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,comentarios) 
-VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "','" + comentarios + "')"
+    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "','" + comentarios + "')"
                             consulta1.CommandText = sql_txt3
                             Dim salida3 As Integer = consulta1.ExecuteNonQuery
                             If (salida3 > 0) Then
@@ -637,8 +638,176 @@ VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + di
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
-
     End Sub
+
+
+
+    ''' <summary>
+    ''' Inserta un socio en la tabla socios de la base de datos. Revisado con Claude AI. Da errores.
+    ''' </summary>
+    'Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
+    '    Try
+    '        conectar()
+    '        Select Case tp
+    '            Case tipobd.Excel_ODBC
+    '                consulta2 = New OdbcCommand()
+    '                consulta2.Connection = conn2
+    '                If Not conn2.State = ConnectionState.Open Then
+    '                    conectar()
+    '                End If
+
+    '                'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de socio.
+    '                Dim sql_txt As String
+    '                sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
+    '                consulta2.CommandText = sql_txt
+    '                dr3 = consulta2.ExecuteReader
+
+    '                If dr3.HasRows Then
+    '                    MsgBox("Número de socio no válido. Ya existe otro socio en la temporada actual con ese número asignado. Asigne otro número a este socio")
+    '                    dr3.Close()
+    '                    desconectar()
+    '                    Exit Sub
+    '                End If
+    '                dr3.Close()
+
+    '                'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de DNI.
+    '                Dim sql_txt2 As String
+    '                sql_txt2 = "SELECT * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+    '                consulta2.CommandText = sql_txt2
+    '                dr4 = consulta2.ExecuteReader
+
+    '                If (dr4.HasRows) Then
+    '                    MsgBox("DNI no válido. Ya existe otro socio en la temporada actual con el mismo DNI.")
+    '                    dr4.Close()
+    '                    desconectar()
+    '                    Exit Sub
+    '                End If
+    '                dr4.Close()
+
+    '                'Consulta de insercion en tabla de socios de temporada actual.
+    '                Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta,tipo_socio,importe,comentarios) VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ",'" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
+    '                consulta2.CommandText = sql_txt3
+    '                Dim salida3 As Integer = consulta2.ExecuteNonQuery
+
+    '                If (salida3 > 0) Then
+    '                    MsgBox("Socio insertado correctamente en la temporada actual")
+    '                End If
+
+    '                'Comprobación de que no existe otro socio en la base de datos de socios con el mismo número de socio.
+    '                sql_txt = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE NUMERO=" + nsocio
+    '                consulta2.CommandText = sql_txt
+    '                dr3 = consulta2.ExecuteReader
+
+    '                If (dr3.HasRows) Then
+    '                    MsgBox("Ya existe otro socio en la base de datos de socios con ese número asignado. No se insertará en la base de datos general.")
+    '                    dr3.Close()
+    '                    desconectar()
+    '                    frm_socio.reset()
+    '                    Exit Sub
+    '                End If
+    '                dr3.Close()
+
+    '                'Comprobación de que no existe otro socio en la base de datos de socios con el mismo DNI.
+    '                sql_txt2 = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE dni='" + dni + "'"
+    '                consulta2.CommandText = sql_txt2
+    '                dr4 = consulta2.ExecuteReader
+
+    '                If (dr4.HasRows) Then
+    '                    MsgBox("DNI no válido. Ya existe otro socio en la base de datos de socios con el mismo DNI. No se insertará en la base de datos general.")
+    '                    dr4.Close()
+    '                    desconectar()
+    '                    frm_socio.reset()
+    '                    Exit Sub
+    '                End If
+    '                dr4.Close()
+
+    '                'Consulta de insercion de nuevo socio en la base de datos de socios (sin importe ni comentarios).
+    '                Dim sql_txt4 As String = "INSERT INTO " + tabla_bdsocios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta,tipo_socio) VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ",'" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
+    '                consulta2.CommandText = sql_txt4
+    '                Dim salida4 As Integer = consulta2.ExecuteNonQuery
+
+    '                If (salida4 > 0) Then
+    '                    MsgBox("SOCIO NUEVO! Insertado correctamente en la base de datos de socios.")
+    '                    frm_socio.reset()
+    '                End If
+
+    '            Case tipobd.MySQL
+    '                consulta1 = New MySqlCommand()
+    '                consulta1.Connection = conn1
+    '                If (Not conn1.State = ConnectionState.Open) Then
+    '                    conectar()
+    '                End If
+
+    '                'Comprobación de que no existe otro socio en la tabla de socios con el mismo número.
+    '                Dim sql_txt As String = "SELECT * FROM " + tabla_socios_mysql + " WHERE n_socio=" + nsocio
+    '                consulta1.CommandText = sql_txt
+    '                dr1 = consulta1.ExecuteReader
+
+    '                If (dr1.HasRows) Then
+    '                    MsgBox("Número de socio no válido. Ya existe otro socio con ese número asignado. Asigne otro número a este socio")
+    '                    dr1.Close()
+    '                    desconectar()
+    '                    Exit Sub
+    '                End If
+    '                dr1.Close()
+
+    '                'Comprobación de que no existe otro socio con el mismo DNI.
+    '                Dim sql_txt2 As String = "SELECT * FROM " + tabla_socios_mysql + " WHERE dni='" + dni + "'"
+    '                consulta1.CommandText = sql_txt2
+    '                dr2 = consulta1.ExecuteReader
+
+    '                If (dr2.HasRows) Then
+    '                    MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+    '                    dr2.Close()
+    '                    desconectar()
+    '                    Exit Sub
+    '                End If
+    '                dr2.Close()
+
+    '                'Consulta de insercion en tabla socios.
+    '                Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_mysql + "(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta,tipo_socio,importe,comentarios) VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ",'" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
+    '                consulta1.CommandText = sql_txt3
+    '                Dim salida3 As Integer = consulta1.ExecuteNonQuery
+
+    '                If (salida3 > 0) Then
+    '                    MsgBox("Socio insertado correctamente en la temporada actual")
+    '                End If
+
+    '                'Comprobación si existe en la base de datos general de socios.
+    '                sql_txt = "SELECT * FROM " + tabla_bdsocios_mysql + " WHERE n_socio=" + nsocio
+    '                consulta1.CommandText = sql_txt
+    '                dr1 = consulta1.ExecuteReader
+
+    '                If (dr1.HasRows) Then
+    '                    MsgBox("Ya existe en la base de datos general de socios.")
+    '                    dr1.Close()
+    '                    desconectar()
+    '                    frm_socio.reset()
+    '                    Exit Sub
+    '                End If
+    '                dr1.Close()
+
+    '                'Insertar también en base de datos general si no existe.
+    '                Dim sql_txt4 As String = "INSERT INTO " + tabla_bdsocios_mysql + "(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta,tipo_socio) VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ",'" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
+    '                consulta1.CommandText = sql_txt4
+    '                Dim salida4 As Integer = consulta1.ExecuteNonQuery
+
+    '                If (salida4 > 0) Then
+    '                    MsgBox("SOCIO NUEVO! Insertado correctamente en la base de datos general de socios.")
+    '                    frm_socio.reset()
+    '                End If
+
+    '        End Select
+
+    '        desconectar()
+
+    '    Catch ex As Exception
+    '        MsgBox("Error al insertar socio: " & ex.Message)
+    '        desconectar()
+    '    End Try
+    'End Sub
+
+
 
     ''' <summary>
     ''' Modifica un registro existente en la tabla socios.
