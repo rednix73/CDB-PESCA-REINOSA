@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -317,7 +317,7 @@ Namespace My.Resources
         '''<summary>
         '''  Busca una cadena traducida similar a ------ConfiguraciÃ³n - General------
         '''Temporada:
-        '''2023
+        '''2024
         '''Precio tarjeta  de Salmon(â‚¬):
         '''17
         '''Precio tarjeta  de Trucha(â‚¬):
@@ -328,11 +328,11 @@ Namespace My.Resources
         '''
         '''----Excel-ODBC----
         '''Archivo de base de datos:
-        '''C:\Users\roberto\Documents\tarjetas_socio_2023.xls
+        '''D:\Usuarios\roberto\OneDrive - Educantabria\Documentos\tarjetas_socio_2025.xls
         '''DSN:
-        '''cdb-pesca-xls
+        '''cdb-pesca-xlsx
         '''Tabla de socios:
-        '''[socios_2022_23$]
+        '''[socios_2024_25$]
         '''Tabla de base de datos de socios:
         '''[bdsocios$]
         '''
@@ -341,9 +341,7 @@ Namespace My.Resources
         '''153.92.7.1
         '''Puerto:
         '''3306
-        '''Base de datos:
-        '''u127917223_socio
-        '''Usuar [resto de la cadena truncado]&quot;;.
+        '''Base de da [resto de la cadena truncado]&quot;;.
         '''</summary>
         Friend ReadOnly Property configuracion() As String
             Get
