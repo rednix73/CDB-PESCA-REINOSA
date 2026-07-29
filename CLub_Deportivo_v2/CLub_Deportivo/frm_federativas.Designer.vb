@@ -27,10 +27,10 @@ Partial Class frm_federativas
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txt_telefono = New System.Windows.Forms.TextBox()
-        Me.grp_socio = New System.Windows.Forms.GroupBox()
-        Me.rdo_otros = New System.Windows.Forms.RadioButton()
-        Me.rdo_jubilado = New System.Windows.Forms.RadioButton()
+        Me.grp_tarjeta = New System.Windows.Forms.GroupBox()
+        Me.rdo_gratis = New System.Windows.Forms.RadioButton()
         Me.rdo_normal = New System.Windows.Forms.RadioButton()
+        Me.rdo_competicion = New System.Windows.Forms.RadioButton()
         Me.grp_estado = New System.Windows.Forms.GroupBox()
         Me.lbl_importe = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -46,8 +46,6 @@ Partial Class frm_federativas
         Me.btn_eliminar = New System.Windows.Forms.Button()
         Me.btn_socios = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.cmb_tarjeta = New System.Windows.Forms.ComboBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.txt_nombre = New CLub_Deportivo.textbox_club()
         Me.txt_apellido = New CLub_Deportivo.textbox_club()
@@ -63,13 +61,13 @@ Partial Class frm_federativas
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmb_modalidad = New System.Windows.Forms.ComboBox()
-        Me.cmb_comite = New System.Windows.Forms.ComboBox()
+        Me.cmb_compite = New System.Windows.Forms.ComboBox()
         Me.txt_direcc = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btn_cerrar = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.btn_reset = New System.Windows.Forms.Button()
-        Me.grp_socio.SuspendLayout()
+        Me.grp_tarjeta.SuspendLayout()
         Me.grp_estado.SuspendLayout()
         Me.grp_commnent.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -118,54 +116,54 @@ Partial Class frm_federativas
         Me.txt_telefono.Size = New System.Drawing.Size(271, 27)
         Me.txt_telefono.TabIndex = 28
         '
-        'grp_socio
+        'grp_tarjeta
         '
-        Me.grp_socio.Controls.Add(Me.rdo_otros)
-        Me.grp_socio.Controls.Add(Me.rdo_jubilado)
-        Me.grp_socio.Controls.Add(Me.rdo_normal)
-        Me.grp_socio.Location = New System.Drawing.Point(644, 203)
-        Me.grp_socio.Margin = New System.Windows.Forms.Padding(4)
-        Me.grp_socio.Name = "grp_socio"
-        Me.grp_socio.Padding = New System.Windows.Forms.Padding(4)
-        Me.grp_socio.Size = New System.Drawing.Size(249, 134)
-        Me.grp_socio.TabIndex = 35
-        Me.grp_socio.TabStop = False
-        Me.grp_socio.Text = "Tipo de socio:"
+        Me.grp_tarjeta.Controls.Add(Me.rdo_gratis)
+        Me.grp_tarjeta.Controls.Add(Me.rdo_normal)
+        Me.grp_tarjeta.Controls.Add(Me.rdo_competicion)
+        Me.grp_tarjeta.Location = New System.Drawing.Point(644, 203)
+        Me.grp_tarjeta.Margin = New System.Windows.Forms.Padding(4)
+        Me.grp_tarjeta.Name = "grp_tarjeta"
+        Me.grp_tarjeta.Padding = New System.Windows.Forms.Padding(4)
+        Me.grp_tarjeta.Size = New System.Drawing.Size(249, 134)
+        Me.grp_tarjeta.TabIndex = 35
+        Me.grp_tarjeta.TabStop = False
+        Me.grp_tarjeta.Text = "Tipo de tarjeta:"
         '
-        'rdo_otros
+        'rdo_gratis
         '
-        Me.rdo_otros.AutoSize = True
-        Me.rdo_otros.Location = New System.Drawing.Point(26, 90)
-        Me.rdo_otros.Margin = New System.Windows.Forms.Padding(4)
-        Me.rdo_otros.Name = "rdo_otros"
-        Me.rdo_otros.Size = New System.Drawing.Size(213, 22)
-        Me.rdo_otros.TabIndex = 2
-        Me.rdo_otros.Text = "Menor/fémina/otros (gratis)."
-        Me.rdo_otros.UseVisualStyleBackColor = True
-        '
-        'rdo_jubilado
-        '
-        Me.rdo_jubilado.AutoSize = True
-        Me.rdo_jubilado.Location = New System.Drawing.Point(26, 60)
-        Me.rdo_jubilado.Margin = New System.Windows.Forms.Padding(4)
-        Me.rdo_jubilado.Name = "rdo_jubilado"
-        Me.rdo_jubilado.Size = New System.Drawing.Size(131, 22)
-        Me.rdo_jubilado.TabIndex = 1
-        Me.rdo_jubilado.Text = "Jubilado (50%)."
-        Me.rdo_jubilado.UseVisualStyleBackColor = True
+        Me.rdo_gratis.AutoSize = True
+        Me.rdo_gratis.Location = New System.Drawing.Point(26, 90)
+        Me.rdo_gratis.Margin = New System.Windows.Forms.Padding(4)
+        Me.rdo_gratis.Name = "rdo_gratis"
+        Me.rdo_gratis.Size = New System.Drawing.Size(165, 22)
+        Me.rdo_gratis.TabIndex = 2
+        Me.rdo_gratis.Text = "Menor/otros (gratis)."
+        Me.rdo_gratis.UseVisualStyleBackColor = True
         '
         'rdo_normal
         '
         Me.rdo_normal.AutoSize = True
         Me.rdo_normal.Checked = True
-        Me.rdo_normal.Location = New System.Drawing.Point(26, 30)
+        Me.rdo_normal.Location = New System.Drawing.Point(26, 60)
         Me.rdo_normal.Margin = New System.Windows.Forms.Padding(4)
         Me.rdo_normal.Name = "rdo_normal"
         Me.rdo_normal.Size = New System.Drawing.Size(82, 22)
-        Me.rdo_normal.TabIndex = 0
+        Me.rdo_normal.TabIndex = 1
         Me.rdo_normal.TabStop = True
         Me.rdo_normal.Text = "Normal."
         Me.rdo_normal.UseVisualStyleBackColor = True
+        '
+        'rdo_competicion
+        '
+        Me.rdo_competicion.AutoSize = True
+        Me.rdo_competicion.Location = New System.Drawing.Point(26, 30)
+        Me.rdo_competicion.Margin = New System.Windows.Forms.Padding(4)
+        Me.rdo_competicion.Name = "rdo_competicion"
+        Me.rdo_competicion.Size = New System.Drawing.Size(117, 22)
+        Me.rdo_competicion.TabIndex = 0
+        Me.rdo_competicion.Text = "Competición."
+        Me.rdo_competicion.UseVisualStyleBackColor = True
         '
         'grp_estado
         '
@@ -316,8 +314,6 @@ Partial Class frm_federativas
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.cmb_tarjeta)
-        Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Controls.Add(Me.txt_nsocio)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.btn_buscar_nsocio)
@@ -327,27 +323,6 @@ Partial Class frm_federativas
         Me.GroupBox1.TabIndex = 51
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Socio"
-        '
-        'cmb_tarjeta
-        '
-        Me.cmb_tarjeta.FormattingEnabled = True
-        Me.cmb_tarjeta.Items.AddRange(New Object() {"SALMON", "TRUCHA"})
-        Me.cmb_tarjeta.Location = New System.Drawing.Point(10, 125)
-        Me.cmb_tarjeta.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmb_tarjeta.Name = "cmb_tarjeta"
-        Me.cmb_tarjeta.Size = New System.Drawing.Size(180, 26)
-        Me.cmb_tarjeta.TabIndex = 48
-        Me.cmb_tarjeta.Text = "Seleccionar..."
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(7, 103)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(105, 18)
-        Me.Label13.TabIndex = 49
-        Me.Label13.Text = "Tipo de tarjeta:"
         '
         'GroupBox2
         '
@@ -439,7 +414,7 @@ Partial Class frm_federativas
         Me.GroupBox3.Controls.Add(Me.txt_telefono)
         Me.GroupBox3.Controls.Add(Me.Label11)
         Me.GroupBox3.Controls.Add(Me.cmb_modalidad)
-        Me.GroupBox3.Controls.Add(Me.cmb_comite)
+        Me.GroupBox3.Controls.Add(Me.cmb_compite)
         Me.GroupBox3.Controls.Add(Me.txt_direcc)
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Location = New System.Drawing.Point(12, 202)
@@ -518,16 +493,16 @@ Partial Class frm_federativas
         Me.cmb_modalidad.TabIndex = 62
         Me.cmb_modalidad.Text = "Seleccionar solo si compite"
         '
-        'cmb_comite
+        'cmb_compite
         '
-        Me.cmb_comite.FormattingEnabled = True
-        Me.cmb_comite.Items.AddRange(New Object() {"SI", "NO"})
-        Me.cmb_comite.Location = New System.Drawing.Point(205, 111)
-        Me.cmb_comite.Margin = New System.Windows.Forms.Padding(4)
-        Me.cmb_comite.Name = "cmb_comite"
-        Me.cmb_comite.Size = New System.Drawing.Size(167, 26)
-        Me.cmb_comite.TabIndex = 59
-        Me.cmb_comite.Text = "Seleccionar..."
+        Me.cmb_compite.FormattingEnabled = True
+        Me.cmb_compite.Items.AddRange(New Object() {"SI", "NO"})
+        Me.cmb_compite.Location = New System.Drawing.Point(205, 111)
+        Me.cmb_compite.Margin = New System.Windows.Forms.Padding(4)
+        Me.cmb_compite.Name = "cmb_compite"
+        Me.cmb_compite.Size = New System.Drawing.Size(167, 26)
+        Me.cmb_compite.TabIndex = 59
+        Me.cmb_compite.Text = "Seleccionar..."
         '
         'txt_direcc
         '
@@ -601,7 +576,7 @@ Partial Class frm_federativas
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.grp_socio)
+        Me.Controls.Add(Me.grp_tarjeta)
         Me.Controls.Add(Me.grp_estado)
         Me.Controls.Add(Me.grp_commnent)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -610,8 +585,8 @@ Partial Class frm_federativas
         Me.Name = "frm_federativas"
         Me.Text = "C.D.B. Pesca Reinosa -Gestion - Federativas."
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        Me.grp_socio.ResumeLayout(False)
-        Me.grp_socio.PerformLayout()
+        Me.grp_tarjeta.ResumeLayout(False)
+        Me.grp_tarjeta.PerformLayout()
         Me.grp_estado.ResumeLayout(False)
         Me.grp_estado.PerformLayout()
         Me.grp_commnent.ResumeLayout(False)
@@ -640,10 +615,10 @@ Partial Class frm_federativas
     Friend WithEvents txt_coment As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents grp_estado As GroupBox
-    Friend WithEvents grp_socio As GroupBox
-    Friend WithEvents rdo_otros As RadioButton
-    Friend WithEvents rdo_jubilado As RadioButton
+    Friend WithEvents grp_tarjeta As GroupBox
+    Friend WithEvents rdo_gratis As RadioButton
     Friend WithEvents rdo_normal As RadioButton
+    Friend WithEvents rdo_competicion As RadioButton
     Friend WithEvents txt_telefono As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
@@ -666,11 +641,9 @@ Partial Class frm_federativas
     Friend WithEvents Label9 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents cmb_modalidad As ComboBox
-    Friend WithEvents cmb_comite As ComboBox
+    Friend WithEvents cmb_compite As ComboBox
     Friend WithEvents txt_direcc As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents cmb_tarjeta As ComboBox
-    Friend WithEvents Label13 As Label
     Friend WithEvents lbl_importe As Label
     Friend WithEvents btn_cerrar As Button
     Friend WithEvents SplitContainer1 As SplitContainer

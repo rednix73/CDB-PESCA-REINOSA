@@ -31,8 +31,9 @@ Module bbdd
     Public ruta_bd_excel As String '= "C:\Users\roberto\Documents\tarjetas_socio_2023.xls"
     Public DSN As String '= "cdb-pesca-xls"
     'Nombre de las tablas donde están los datos. Formato en excel: [Tabla$]
-    Public tabla_socios_xls As String ' = "[socios_2023_24$]"
-    Public tabla_bdsocios_xls As String '= "[bdsocios$]"
+    Public tabla_socios_xls As String = "[socios_2027$]"
+    Public tabla_bdsocios_xls As String = "[bdsocios_2027$]"
+    Public tabla_federa_xls As String = "[federativas_2027$]"
 
     '----Mysql----
     Public server As String '= "153.92.7.1"
@@ -73,6 +74,9 @@ Module bbdd
     'Tabla Base de datos de socios excel
     Public da_bdsocios2 As New OdbcDataAdapter
     Public cb_bdsocios2 As New OdbcCommandBuilder
+    'Tabla tarjetas federativas de excel
+    Public da_federa2 As New OdbcDataAdapter
+    Public cb_federa2 As New OdbcCommandBuilder
 
     ' Base de datos local excel - conexion oledb - falla cadena de conexion
     Public cadena3 As String = "Provider=Microsoft.ACE.OLEDB.12.0;" & "Data source=" & ruta_bd_excel & ";" & "Extended Properties=Excel 8.0;HDR=Yes"
@@ -90,8 +94,10 @@ Module bbdd
 
     Public dw_socios As DataView
     Public dw_bdsocios As New DataView
+    Public dw_federa As New DataView
 
-    'Dataset con ambas tablas
+
+    'Dataset con todas las tablas
     Public ds_club As New DataSet
     ''' <summary>
     ''' Método en el que se establece la conexión con la base de datos en función del valor del campo: tp en el que se indica el tipo de base de datos a utilizar.
@@ -162,7 +168,7 @@ Module bbdd
                 'Conexión por ODBC
                 ds_club = New DataSet()
                 da_socios2 = New OdbcDataAdapter()
-                da_socios2 = New OdbcDataAdapter("SELECT * FROM " & tabla_socios_xls & "", conn2)
+                da_socios2 = New OdbcDataAdapter("SELECT * FROM " + tabla_socios_xls, conn2)
                 da_socios2.Fill(ds_club, "socios")
                 cb_socios2 = New OdbcCommandBuilder(da_socios2)
                 dw_socios = New DataView(ds_club.Tables(0))
@@ -170,6 +176,10 @@ Module bbdd
                 da_bdsocios2.Fill(ds_club, "bdsocios")
                 cb_bdsocios2 = New OdbcCommandBuilder(da_bdsocios2)
                 dw_bdsocios = New DataView(ds_club.Tables(1))
+                da_federa2 = New OdbcDataAdapter("SELECT * FROM " + tabla_federa_xls, conn2)
+                da_federa2.Fill(ds_club, "federativas")
+                cb_federa2 = New OdbcCommandBuilder(da_federa2)
+                dw_federa = New DataView(ds_club.Tables(2))
 
                 ''Conexión directa por OLEDB
                 'conectar()
@@ -238,6 +248,7 @@ Module bbdd
             linea = sr.ReadLine()
             tabla_bdsocios_xls = sr.ReadLine()
             linea = sr.ReadLine()
+            tabla_federa_xls = sr.ReadLine()
             linea = sr.ReadLine()
             linea = sr.ReadLine()
             server = sr.ReadLine()

@@ -32,7 +32,6 @@
                 frm_federativas.txt_cp.Text = DataGridView1.SelectedRows(0).Cells(5).Value.ToString()
                 frm_federativas.cmb_localidad.Text = ""
                 frm_federativas.cmb_localidad.Text = DataGridView1.SelectedRows(0).Cells(6).Value.ToString()
-                frm_federativas.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value) - 1)
 
 
                 Select Case DataGridView1.SelectedRows(0).Cells(12).Value.ToString()
@@ -54,7 +53,7 @@
                     'MsgBox(Calcula_edad(fechanac).Year.ToString())
                     If (Calcula_edad(fechanac) >= 65) Then
                         frm_socio.rdo_jubilado.Checked = True
-                        frm_federativas.rdo_jubilado.Checked = True
+                        frm_federativas.rdo_normal.Checked = True
                     End If
                 Else
                     frm_socio.dtpk_fecha_nac.Value = "2000/01/01"

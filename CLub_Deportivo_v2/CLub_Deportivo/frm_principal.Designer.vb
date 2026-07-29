@@ -142,25 +142,24 @@ Partial Class frm_principal
         'NuevoSocioToolStripMenuItem
         '
         Me.NuevoSocioToolStripMenuItem.Name = "NuevoSocioToolStripMenuItem"
-        Me.NuevoSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.NuevoSocioToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
         Me.NuevoSocioToolStripMenuItem.Text = "Nuevo socio"
         '
         'ModificarSocioToolStripMenuItem
         '
         Me.ModificarSocioToolStripMenuItem.Name = "ModificarSocioToolStripMenuItem"
-        Me.ModificarSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ModificarSocioToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
         Me.ModificarSocioToolStripMenuItem.Text = "Modificar socio"
         '
         'EliminarSocioToolStripMenuItem
         '
         Me.EliminarSocioToolStripMenuItem.Name = "EliminarSocioToolStripMenuItem"
-        Me.EliminarSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.EliminarSocioToolStripMenuItem.Size = New System.Drawing.Size(220, 30)
         Me.EliminarSocioToolStripMenuItem.Text = "Eliminar socio"
         '
         'FederativasToolStripMenuItem
         '
         Me.FederativasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevaTarjetaToolStripMenuItem, Me.ModificarTarjetaToolStripMenuItem, Me.EliminarTarjetaToolStripMenuItem})
-        Me.FederativasToolStripMenuItem.Enabled = False
         Me.FederativasToolStripMenuItem.Name = "FederativasToolStripMenuItem"
         Me.FederativasToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.FederativasToolStripMenuItem.Text = "Federativas"

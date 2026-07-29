@@ -38,6 +38,8 @@
                     Case tipobd.Excel_ODBC
                         da_socios2.Update(ds_club.Tables(0))
                         da_bdsocios2.Update(ds_club.Tables(1))
+                        da_federa2.Update(ds_club.Tables(2))
+
                     Case tipobd.MySQL
                         da_socios1.Update(ds_club.Tables(0))
                         da_bdsocios1.Update(ds_club.Tables(1))

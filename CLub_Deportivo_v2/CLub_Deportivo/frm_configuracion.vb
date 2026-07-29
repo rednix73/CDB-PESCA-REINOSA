@@ -38,6 +38,8 @@ Public Class frm_configuracion
         txt_password.Text = bbdd.password
         txt_tabla_socios_mysql.Text = bbdd.tabla_socios_mysql
         txt_tabla_bdsocios_mysql.Text = bbdd.tabla_bdsocios_mysql
+        txt_tabla_federativas_xls.Text = bbdd.tabla_federa_xls
+
     End Sub
     Private Sub OpenFile_reverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_reverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_reverso.FileName)
@@ -78,7 +80,10 @@ Public Class frm_configuracion
             sw.WriteLine(txt_tabla_socios_xls.Text)
             sw.WriteLine("Tabla de base de datos de socios:")
             sw.WriteLine(txt_tabla_bdsocios_xls.Text)
+            sw.WriteLine("Tabla de tarjetas federativas:")
+            sw.WriteLine(txt_tabla_federativas_xls.Text)
             sw.WriteLine()
+
             sw.WriteLine("----MySQL----")
             sw.WriteLine("Servidor:")
             sw.WriteLine(txt_server.Text)
@@ -94,6 +99,8 @@ Public Class frm_configuracion
             sw.WriteLine(txt_tabla_socios_mysql.Text)
             sw.WriteLine("Tabla de base de datos de socios:")
             sw.WriteLine(txt_tabla_bdsocios_mysql.Text)
+            sw.WriteLine("Tabla de tarjetas federativas:")
+            sw.WriteLine(txt_tabla_federativas_mysql.Text)
             sw.Close()
             MsgBox("Configuración guardada correctamente", MsgBoxStyle.Information)
         Catch ex As Exception

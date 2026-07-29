@@ -74,6 +74,10 @@ Partial Class frm_configuracion
         Me.OpenFile_anverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_reverso = New System.Windows.Forms.OpenFileDialog()
         Me.OpenFile_bbdd = New System.Windows.Forms.OpenFileDialog()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txt_tabla_federativas_xls = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txt_tabla_federativas_mysql = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.pctbox_tsocio_reverso, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,7 +95,7 @@ Partial Class frm_configuracion
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(776, 412)
+        Me.TabControl1.Size = New System.Drawing.Size(776, 462)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -240,13 +244,15 @@ Partial Class frm_configuracion
         Me.TabPage2.Location = New System.Drawing.Point(4, 29)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(768, 379)
+        Me.TabPage2.Size = New System.Drawing.Size(768, 429)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Base de datos"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'grpbox_excel
         '
+        Me.grpbox_excel.Controls.Add(Me.Label21)
+        Me.grpbox_excel.Controls.Add(Me.txt_tabla_federativas_xls)
         Me.grpbox_excel.Controls.Add(Me.Label7)
         Me.grpbox_excel.Controls.Add(Me.Label6)
         Me.grpbox_excel.Controls.Add(Me.Label5)
@@ -261,7 +267,7 @@ Partial Class frm_configuracion
         Me.grpbox_excel.Controls.Add(Me.Button3)
         Me.grpbox_excel.Location = New System.Drawing.Point(9, 49)
         Me.grpbox_excel.Name = "grpbox_excel"
-        Me.grpbox_excel.Size = New System.Drawing.Size(432, 310)
+        Me.grpbox_excel.Size = New System.Drawing.Size(432, 374)
         Me.grpbox_excel.TabIndex = 20
         Me.grpbox_excel.TabStop = False
         Me.grpbox_excel.Text = "Excel-ODBC"
@@ -332,7 +338,7 @@ Partial Class frm_configuracion
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label14.Location = New System.Drawing.Point(-8, 118)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(428, 17)
+        Me.Label14.Size = New System.Drawing.Size(397, 16)
         Me.Label14.TabIndex = 20
         Me.Label14.Text = " Recuerde crear un conector ODBC de 32 bits e indicar el nombre:"
         '
@@ -342,7 +348,7 @@ Partial Class frm_configuracion
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.Location = New System.Drawing.Point(0, 93)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(416, 17)
+        Me.Label13.Size = New System.Drawing.Size(394, 16)
         Me.Label13.TabIndex = 19
         Me.Label13.Text = "El archivo se copiara a la carpeta de instalación de la aplicación."
         '
@@ -374,6 +380,8 @@ Partial Class frm_configuracion
         '
         'grpbox_mysql
         '
+        Me.grpbox_mysql.Controls.Add(Me.Label22)
+        Me.grpbox_mysql.Controls.Add(Me.txt_tabla_federativas_mysql)
         Me.grpbox_mysql.Controls.Add(Me.Label16)
         Me.grpbox_mysql.Controls.Add(Me.Label17)
         Me.grpbox_mysql.Controls.Add(Me.Label18)
@@ -391,7 +399,7 @@ Partial Class frm_configuracion
         Me.grpbox_mysql.Controls.Add(Me.Label8)
         Me.grpbox_mysql.Location = New System.Drawing.Point(447, 48)
         Me.grpbox_mysql.Name = "grpbox_mysql"
-        Me.grpbox_mysql.Size = New System.Drawing.Size(303, 311)
+        Me.grpbox_mysql.Size = New System.Drawing.Size(303, 375)
         Me.grpbox_mysql.TabIndex = 19
         Me.grpbox_mysql.TabStop = False
         Me.grpbox_mysql.Text = "Mysql"
@@ -545,7 +553,7 @@ Partial Class frm_configuracion
         'btn_guardar
         '
         Me.btn_guardar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_guardar.Location = New System.Drawing.Point(647, 430)
+        Me.btn_guardar.Location = New System.Drawing.Point(646, 480)
         Me.btn_guardar.Name = "btn_guardar"
         Me.btn_guardar.Size = New System.Drawing.Size(105, 28)
         Me.btn_guardar.TabIndex = 18
@@ -555,7 +563,7 @@ Partial Class frm_configuracion
         'btn_cerrar
         '
         Me.btn_cerrar.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btn_cerrar.Location = New System.Drawing.Point(49, 430)
+        Me.btn_cerrar.Location = New System.Drawing.Point(52, 480)
         Me.btn_cerrar.Name = "btn_cerrar"
         Me.btn_cerrar.Size = New System.Drawing.Size(105, 28)
         Me.btn_cerrar.TabIndex = 19
@@ -574,11 +582,45 @@ Partial Class frm_configuracion
         '
         Me.OpenFile_bbdd.FileName = "OpenFileDialog1"
         '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(-1, 304)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(226, 20)
+        Me.Label21.TabIndex = 30
+        Me.Label21.Text = "Tabla de tarjetas federativas:"
+        '
+        'txt_tabla_federativas_xls
+        '
+        Me.txt_tabla_federativas_xls.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_tabla_federativas_xls.Location = New System.Drawing.Point(251, 329)
+        Me.txt_tabla_federativas_xls.Name = "txt_tabla_federativas_xls"
+        Me.txt_tabla_federativas_xls.Size = New System.Drawing.Size(175, 24)
+        Me.txt_tabla_federativas_xls.TabIndex = 29
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(0, 305)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(226, 20)
+        Me.Label22.TabIndex = 35
+        Me.Label22.Text = "Tabla de tarjetas federativas:"
+        '
+        'txt_tabla_federativas_mysql
+        '
+        Me.txt_tabla_federativas_mysql.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_tabla_federativas_mysql.Location = New System.Drawing.Point(147, 328)
+        Me.txt_tabla_federativas_mysql.Name = "txt_tabla_federativas_mysql"
+        Me.txt_tabla_federativas_mysql.Size = New System.Drawing.Size(150, 24)
+        Me.txt_tabla_federativas_mysql.TabIndex = 34
+        '
         'frm_configuracion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(818, 469)
+        Me.ClientSize = New System.Drawing.Size(818, 520)
         Me.Controls.Add(Me.btn_cerrar)
         Me.Controls.Add(Me.btn_guardar)
         Me.Controls.Add(Me.TabControl1)
@@ -651,4 +693,8 @@ Partial Class frm_configuracion
     Friend WithEvents Label19 As Label
     Friend WithEvents OpenFile_reverso As OpenFileDialog
     Friend WithEvents OpenFile_bbdd As OpenFileDialog
+    Friend WithEvents Label21 As Label
+    Friend WithEvents txt_tabla_federativas_xls As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents txt_tabla_federativas_mysql As TextBox
 End Class

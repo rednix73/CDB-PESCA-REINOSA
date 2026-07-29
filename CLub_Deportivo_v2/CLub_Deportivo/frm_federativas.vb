@@ -4,6 +4,8 @@ Public Class frm_federativas
     Dim pago As Decimal
     Dim tipo As String = ""
     Dim importe As Decimal = 0
+    Dim precio_competicion As Decimal = 50
+    Dim precio_tarjeta As Decimal = 30
 
     Private Sub frm_federativas_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.MdiParent = frm_principal
@@ -13,6 +15,9 @@ Public Class frm_federativas
             For i = 0 To lista_localidades.Count - 1
                 cmb_localidad.Items.Add(lista_localidades(i).Nombre)
             Next
+            rdo_normal.Checked = True
+            importe = calcula_importe()
+            lbl_importe.Text = "Importe: " + importe.ToString() + "€"
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
@@ -21,30 +26,16 @@ Public Class frm_federativas
     Private Function calcula_importe() As Decimal
 
         Try
-            Select Case cmb_tarjeta.SelectedIndex
-                Case 1
-                    If (rdo_normal.Checked) Then
-                        importe = precio_trucha
-                    End If
-                    If (rdo_jubilado.Checked) Then
-                        importe = precio_trucha / 2
-                    End If
-                    If (rdo_otros.Checked) Then
-                        importe = 0
-                    End If
-                Case 0
-                    If (rdo_normal.Checked) Then
-                        importe = precio_salmon
-                    End If
-                    If (rdo_jubilado.Checked) Then
-                        importe = precio_salmon / 2
-                    End If
-                    If (rdo_otros.Checked) Then
-                        importe = 0
-                    End If
-                Case Else
-                    importe = 0
-            End Select
+            If rdo_competicion.Checked Then
+                importe = precio_competicion + precio_tarjeta * (cmb_compite.SelectedIndex + 1)
+            End If
+            If rdo_normal.Checked Then
+                importe = precio_tarjeta
+            End If
+            If rdo_gratis.Checked Then
+                importe = 0
+            End If
+            lbl_importe.Text = "Importe: " + importe.ToString() + "€"
             Return importe
         Catch ex As Exception
             MsgBox(ex.ToString())
@@ -53,7 +44,7 @@ Public Class frm_federativas
     End Function
 
     Private Sub cmb_provincias_SelectedIndexChanged(sender As System.Object, e As System.EventArgs)
-        If cmb_comite.SelectedItem = "CANTABRIA" Then
+        If cmb_compite.SelectedItem = "CANTABRIA" Then
             cmb_localidad.Items.Clear()
             For i = 0 To lista_localidades.Count - 1
                 cmb_localidad.Items.Add(lista_localidades(i).Nombre)
@@ -91,9 +82,9 @@ Public Class frm_federativas
 
     End Sub
 
-    Private Sub rdo_otros_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_otros.CheckedChanged
-
-        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+    Private Sub rdo_otros_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_gratis.CheckedChanged
+        importe = calcula_importe()
+        lbl_importe.Text = "Importe: " + importe.ToString() + "€"
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs)
@@ -126,7 +117,7 @@ Public Class frm_federativas
     Private Sub dtpk_fecha_nac_ValueChanged(sender As Object, e As EventArgs) Handles dtpk_fecha_nac.ValueChanged
 
         If (DateDiff(DateInterval.Year, dtpk_fecha_nac.Value, DateTime.Now) > 65) Then
-            rdo_jubilado.Checked = True
+            rdo_normal.Checked = True
 
         End If
 
@@ -146,11 +137,10 @@ Public Class frm_federativas
     ''' <param name="pais"></param>
     ''' <param name="fechanac"></param>
     ''' <param name="email"></param>
-    ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
-    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, comentarios As String) As Boolean
+    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tipo_socio As String, comentarios As String) As Boolean
 
         Dim msg As String = "Debe completar obligatoriamente, al menos los siguientes datos: "
         Dim contador As Integer = 0
@@ -190,10 +180,6 @@ Public Class frm_federativas
             msg += "Pais, "
             contador += 1
         End If
-        If (tarjeta = "0") Then
-            msg += "Tarjeta, "
-            contador += 1
-        End If
         If (tipo_socio = "") Then
             msg += "Tipo socio, "
             contador += 1
@@ -217,7 +203,7 @@ Public Class frm_federativas
         buscar_nsocio(txt_nsocio.Text)
     End Sub
 
-    Private Sub grp_socio_Enter(sender As Object, e As EventArgs) Handles grp_socio.Enter
+    Private Sub grp_socio_Enter(sender As Object, e As EventArgs) Handles grp_tarjeta.Enter
 
     End Sub
 
@@ -325,7 +311,7 @@ Public Class frm_federativas
     End Sub
 
 
-    Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_jubilado.CheckedChanged
+    Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
 
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
@@ -342,12 +328,12 @@ Public Class frm_federativas
         buscar_nombre(txt_apellido.Text)
     End Sub
 
-    Private Sub cmb_tarjeta_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmb_tarjeta.SelectedIndexChanged
+    Private Sub cmb_tarjeta_SelectedIndexChanged_1(sender As Object, e As EventArgs)
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
-    Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
-
+    Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_competicion.CheckedChanged
+        importe = calcula_importe()
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
@@ -359,17 +345,23 @@ Public Class frm_federativas
 
     End Sub
 
-    Private Sub cmb_prov_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_comite.SelectedIndexChanged
+    Private Sub cmb_prov_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_compite.SelectedIndexChanged
         Try
-            Select Case cmb_comite.SelectedItem
-                Case "CANTABRIA"
-                    cmb_localidad.Items.Clear()
-                    For i = 0 To lista_localidades.Count - 1
-                        cmb_localidad.Items.Add(lista_localidades(i).Nombre)
-                    Next
-                Case Else
-                    cmb_localidad.Items.Clear()
+            Select Case cmb_compite.SelectedItem
+                Case "SI"
+                    cmb_modalidad.Enabled = True
+                    rdo_competicion.Checked = True
+                    cmb_modalidad.Items.Clear()
+                    cmb_modalidad.Items.Add("LANCE")
+                    cmb_modalidad.Items.Add("MOSCA")
+
+                Case "NO"
+                    rdo_normal.Checked = True
+                    cmb_modalidad.Items.Clear()
+                    cmb_modalidad.Enabled = False
+
             End Select
+            calcula_importe()
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
@@ -416,10 +408,9 @@ Public Class frm_federativas
             txt_coment.ResetText()
             lbl_importe.ResetText()
 
-            rdo_normal.Checked = True
-            cmb_tarjeta.SelectedIndex = -1
+            rdo_competicion.Checked = True
             cmb_localidad.SelectedIndex = -1
-            cmb_comite.SelectedIndex = -1
+            cmb_compite.SelectedIndex = -1
             cmb_modalidad.SelectedIndex = -1
 
         Catch ex As Exception
@@ -434,7 +425,7 @@ Public Class frm_federativas
     End Sub
 
     Private Sub btn_socios_Click(sender As Object, e As EventArgs) Handles btn_socios.Click
-        frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(0)
+        frm_busqueda.DataGridView1.DataSource = bbdd.ds_club.Tables(2)
 
         frm_busqueda.ShowDialog()
         'frm_busqueda.btn_usar.Visible = False
@@ -442,21 +433,21 @@ Public Class frm_federativas
 
     Private Sub btn_insertar_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
         Try
-            If rdo_normal.Checked Then
+            If rdo_competicion.Checked Then
                 tipo = "NORMAL"
             End If
-            If rdo_jubilado.Checked Then
+            If rdo_normal.Checked Then
                 tipo = "JUBILADO"
             End If
-            If rdo_otros.Checked Then
+            If rdo_gratis.Checked Then
                 tipo = "OTROS"
             End If
 
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_comite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, tipo.ToString, txt_coment.Text)) Then
                 Dim importe As String
                 importe = calcula_importe().ToString().Replace(",", ".")
 
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_comite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, importe, txt_coment.Text)
+                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, tipo.ToString, importe, txt_coment.Text, "")
                 bbdd.cargar()
 
 
@@ -469,18 +460,18 @@ Public Class frm_federativas
 
     Private Sub btn_modificar_Click(sender As Object, e As EventArgs) Handles btn_modificar.Click
         Try
-            If rdo_normal.Checked Then
+            If rdo_competicion.Checked Then
                 tipo = "NORMAL"
             End If
-            If rdo_jubilado.Checked Then
+            If rdo_normal.Checked Then
                 tipo = "JUBILADO"
             End If
-            If rdo_otros.Checked Then
+            If rdo_gratis.Checked Then
                 tipo = "OTROS"
             End If
 
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_comite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, txt_coment.Text)) Then
-                modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_comite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, tipo.ToString, txt_coment.Text)) Then
+                modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, (cmb_compite.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
                 bbdd.cargar()
             End If
         Catch ex As Exception
@@ -490,7 +481,7 @@ Public Class frm_federativas
 
     Private Sub btn_eliminar_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
         Try
-            eliminar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_comite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, (cmb_tarjeta.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
+            eliminar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, (cmb_compite.SelectedIndex + 1).ToString, tipo.ToString, pago.ToString, txt_coment.Text)
             bbdd.cargar()
         Catch ex As Exception
             MsgBox(ex.ToString())
