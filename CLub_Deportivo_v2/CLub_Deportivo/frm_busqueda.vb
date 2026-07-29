@@ -20,6 +20,21 @@
                 frm_socio.cmb_pais.SelectedItem = DataGridView1.SelectedRows(0).Cells(8).Value.ToString()
                 frm_socio.txt_email.Text = DataGridView1.SelectedRows(0).Cells(10).Value.ToString()
                 frm_socio.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value) - 1)
+
+
+                frm_federativas.reset()
+
+                frm_federativas.txt_nsocio.Text = DataGridView1.SelectedRows(0).Cells(0).Value.ToString()
+                frm_federativas.txt_nombre.Text = DataGridView1.SelectedRows(0).Cells(1).Value.ToString()
+                frm_federativas.txt_apellido.Text = DataGridView1.SelectedRows(0).Cells(2).Value.ToString()
+                frm_federativas.txt_dni.Text = DataGridView1.SelectedRows(0).Cells(3).Value.ToString()
+                frm_federativas.txt_direcc.Text = DataGridView1.SelectedRows(0).Cells(4).Value.ToString()
+                frm_federativas.txt_cp.Text = DataGridView1.SelectedRows(0).Cells(5).Value.ToString()
+                frm_federativas.cmb_localidad.Text = ""
+                frm_federativas.cmb_localidad.Text = DataGridView1.SelectedRows(0).Cells(6).Value.ToString()
+                frm_federativas.cmb_tarjeta.SelectedIndex = (CInt(DataGridView1.SelectedRows(0).Cells(11).Value) - 1)
+
+
                 Select Case DataGridView1.SelectedRows(0).Cells(12).Value.ToString()
                     Case "NORMAL"
                         frm_socio.rdo_normal.Checked = True
@@ -35,12 +50,16 @@
                     'fechanac = CDate(DataGridView1.SelectedRows(0).Cells(9).Value.ToString())
                     'MsgBox(fechanac.ToShortDateString())
                     frm_socio.dtpk_fecha_nac.Value = fechanac.Date
+                    frm_federativas.dtpk_fecha_nac.Value = fechanac.Date
                     'MsgBox(Calcula_edad(fechanac).Year.ToString())
                     If (Calcula_edad(fechanac) >= 65) Then
                         frm_socio.rdo_jubilado.Checked = True
+                        frm_federativas.rdo_jubilado.Checked = True
                     End If
                 Else
                     frm_socio.dtpk_fecha_nac.Value = "2000/01/01"
+                    frm_federativas.dtpk_fecha_nac.Value = "2000/01/01"
+
                 End If
 
             End If

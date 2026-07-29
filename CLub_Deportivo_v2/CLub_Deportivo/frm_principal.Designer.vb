@@ -38,6 +38,10 @@ Partial Class frm_principal
         Me.NuevoSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModificarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EliminarSocioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FederativasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NuevaTarjetaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ModificarTarjetaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EliminarTarjetaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -87,76 +91,102 @@ Partial Class frm_principal
         Me.ArchivoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GuardarToolStripMenuItem, Me.ExportarToolStripMenuItem, Me.ActuaizarBBDDToolStripMenuItem, Me.ConfiguraciónToolStripMenuItem, Me.SalirToolStripMenuItem})
         Me.ArchivoToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ArchivoToolStripMenuItem.Name = "ArchivoToolStripMenuItem"
-        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
+        Me.ArchivoToolStripMenuItem.Size = New System.Drawing.Size(86, 29)
         Me.ArchivoToolStripMenuItem.Text = "Archivo"
         '
         'GuardarToolStripMenuItem
         '
         Me.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem"
-        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.GuardarToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.GuardarToolStripMenuItem.Text = "Guardar"
         '
         'ExportarToolStripMenuItem
         '
         Me.ExportarToolStripMenuItem.Name = "ExportarToolStripMenuItem"
-        Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.ExportarToolStripMenuItem.Text = "Exportar"
         '
         'ActuaizarBBDDToolStripMenuItem
         '
         Me.ActuaizarBBDDToolStripMenuItem.Name = "ActuaizarBBDDToolStripMenuItem"
-        Me.ActuaizarBBDDToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.ActuaizarBBDDToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.ActuaizarBBDDToolStripMenuItem.Text = "Actualizar BBDD"
         '
         'ConfiguraciónToolStripMenuItem
         '
         Me.ConfiguraciónToolStripMenuItem.Name = "ConfiguraciónToolStripMenuItem"
-        Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.ConfiguraciónToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.ConfiguraciónToolStripMenuItem.Text = "Configuración"
         '
         'SalirToolStripMenuItem
         '
         Me.SalirToolStripMenuItem.Name = "SalirToolStripMenuItem"
-        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(235, 30)
+        Me.SalirToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.SalirToolStripMenuItem.Text = "Salir"
         '
         'GestionToolStripMenuItem
         '
-        Me.GestionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SociosToolStripMenuItem, Me.ListadosToolStripMenuItem})
+        Me.GestionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SociosToolStripMenuItem, Me.FederativasToolStripMenuItem, Me.ListadosToolStripMenuItem})
         Me.GestionToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GestionToolStripMenuItem.Name = "GestionToolStripMenuItem"
-        Me.GestionToolStripMenuItem.Size = New System.Drawing.Size(90, 29)
+        Me.GestionToolStripMenuItem.Size = New System.Drawing.Size(86, 29)
         Me.GestionToolStripMenuItem.Text = "Gestion"
         '
         'SociosToolStripMenuItem
         '
         Me.SociosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoSocioToolStripMenuItem, Me.ModificarSocioToolStripMenuItem, Me.EliminarSocioToolStripMenuItem})
         Me.SociosToolStripMenuItem.Name = "SociosToolStripMenuItem"
-        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
+        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.SociosToolStripMenuItem.Text = "Socios"
         '
         'NuevoSocioToolStripMenuItem
         '
         Me.NuevoSocioToolStripMenuItem.Name = "NuevoSocioToolStripMenuItem"
-        Me.NuevoSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.NuevoSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.NuevoSocioToolStripMenuItem.Text = "Nuevo socio"
         '
         'ModificarSocioToolStripMenuItem
         '
         Me.ModificarSocioToolStripMenuItem.Name = "ModificarSocioToolStripMenuItem"
-        Me.ModificarSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.ModificarSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.ModificarSocioToolStripMenuItem.Text = "Modificar socio"
         '
         'EliminarSocioToolStripMenuItem
         '
         Me.EliminarSocioToolStripMenuItem.Name = "EliminarSocioToolStripMenuItem"
-        Me.EliminarSocioToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.EliminarSocioToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.EliminarSocioToolStripMenuItem.Text = "Eliminar socio"
+        '
+        'FederativasToolStripMenuItem
+        '
+        Me.FederativasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevaTarjetaToolStripMenuItem, Me.ModificarTarjetaToolStripMenuItem, Me.EliminarTarjetaToolStripMenuItem})
+        Me.FederativasToolStripMenuItem.Enabled = False
+        Me.FederativasToolStripMenuItem.Name = "FederativasToolStripMenuItem"
+        Me.FederativasToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.FederativasToolStripMenuItem.Text = "Federativas"
+        '
+        'NuevaTarjetaToolStripMenuItem
+        '
+        Me.NuevaTarjetaToolStripMenuItem.Name = "NuevaTarjetaToolStripMenuItem"
+        Me.NuevaTarjetaToolStripMenuItem.Size = New System.Drawing.Size(227, 30)
+        Me.NuevaTarjetaToolStripMenuItem.Text = "Nueva tarjeta"
+        '
+        'ModificarTarjetaToolStripMenuItem
+        '
+        Me.ModificarTarjetaToolStripMenuItem.Name = "ModificarTarjetaToolStripMenuItem"
+        Me.ModificarTarjetaToolStripMenuItem.Size = New System.Drawing.Size(227, 30)
+        Me.ModificarTarjetaToolStripMenuItem.Text = "Modificar tarjeta"
+        '
+        'EliminarTarjetaToolStripMenuItem
+        '
+        Me.EliminarTarjetaToolStripMenuItem.Name = "EliminarTarjetaToolStripMenuItem"
+        Me.EliminarTarjetaToolStripMenuItem.Size = New System.Drawing.Size(227, 30)
+        Me.EliminarTarjetaToolStripMenuItem.Text = "Eliminar tarjeta"
         '
         'ListadosToolStripMenuItem
         '
         Me.ListadosToolStripMenuItem.Name = "ListadosToolStripMenuItem"
-        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(166, 30)
+        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
         Me.ListadosToolStripMenuItem.Text = "Listados"
         '
         'AyudaToolStripMenuItem
@@ -164,13 +194,13 @@ Partial Class frm_principal
         Me.AyudaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AcercaDeToolStripMenuItem})
         Me.AyudaToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 10.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AyudaToolStripMenuItem.Name = "AyudaToolStripMenuItem"
-        Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(79, 29)
+        Me.AyudaToolStripMenuItem.Size = New System.Drawing.Size(77, 29)
         Me.AyudaToolStripMenuItem.Text = "Ayuda"
         '
         'AcercaDeToolStripMenuItem
         '
         Me.AcercaDeToolStripMenuItem.Name = "AcercaDeToolStripMenuItem"
-        Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(198, 30)
+        Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(192, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
         '
         'frm_principal
@@ -214,4 +244,8 @@ Partial Class frm_principal
     Friend WithEvents ConfiguraciónToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents ActuaizarBBDDToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FederativasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NuevaTarjetaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ModificarTarjetaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EliminarTarjetaToolStripMenuItem As ToolStripMenuItem
 End Class

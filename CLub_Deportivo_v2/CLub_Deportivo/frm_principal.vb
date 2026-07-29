@@ -5,11 +5,12 @@
     End Sub
 
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        bbdd.leer_configuracion()
-
-        bbdd.cargar()
-
+        Try
+            bbdd.leer_configuracion()
+            bbdd.cargar()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
     End Sub
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
@@ -91,5 +92,15 @@
 
     Private Sub ActuaizarBBDDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActuaizarBBDDToolStripMenuItem.Click
         frm_actualizar_bbdd.ShowDialog()
+    End Sub
+
+    Private Sub NuevaTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaTarjetaToolStripMenuItem.Click
+        frm_federativas.MdiParent = Me
+        frm_federativas.Show()
+        frm_federativas.btn_buscar_nsocio.Visible = True
+        frm_federativas.btn_buscar_dni.Visible = True
+        frm_federativas.btn_buscar_apell.Visible = True
+        frm_federativas.btn_eliminar.Visible = False
+        frm_federativas.btn_modificar.Visible = False
     End Sub
 End Class
