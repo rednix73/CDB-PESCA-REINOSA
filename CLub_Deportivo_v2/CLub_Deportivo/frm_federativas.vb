@@ -6,6 +6,8 @@ Public Class frm_federativas
     Dim importe As Decimal = 0
     Dim precio_competicion As Decimal = 50
     Dim precio_tarjeta As Decimal = 30
+    ' Declaración a nivel de clase
+    Private updating As Boolean = False
     Private Sub frm_federativas_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.MdiParent = frm_principal
         Try
@@ -156,7 +158,7 @@ Public Class frm_federativas
     ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
-    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, fechanac As String, telefono As String, comentarios As String) As Boolean
+    Public Function validar_federativa(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, fechanac As String, telefono As String, comentarios As String) As Boolean
 
         Dim msg As String = "Debe completar obligatoriamente, al menos los siguientes datos: "
         Dim contador As Integer = 0
@@ -202,19 +204,32 @@ Public Class frm_federativas
         If (contador > 0) Then
             MsgBox(msg)
             Return False
-        Else
-            Return True
         End If
+
+        ' Nueva comprobación: si en cmb_compite está "SI" entonces cmb_modalidad debe ser LANCE o MOSCA
+        If cmb_compite.SelectedItem?.ToString()?.ToUpper() = "SI" Then
+            If cmb_modalidad.Items.Count = 0 OrElse cmb_modalidad.SelectedIndex < 0 Then
+                MsgBox("Debe seleccionar una modalidad (LANCE o MOSCA) cuando 'COMPITE' está en SI.")
+                cmb_modalidad.Focus()
+                Return False
+            End If
+
+            Dim modalidad As String = cmb_modalidad.SelectedItem?.ToString()
+            If String.IsNullOrEmpty(modalidad) OrElse (modalidad.ToUpper() <> "LANCE" AndAlso modalidad.ToUpper() <> "MOSCA") Then
+                MsgBox("La modalidad seleccionada no es válida. Elija LANCE o MOSCA.")
+                cmb_modalidad.Focus()
+                Return False
+            End If
+        End If
+
+        Return True
 
     End Function
 
     Private Sub txt_buscar_nsocio_Click(sender As Object, e As EventArgs) Handles btn_buscar_nsocio.Click
         buscar_nsocio(txt_nsocio.Text)
     End Sub
-    Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
 
-        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
-    End Sub
 
     Private Sub btn_buscar_dni_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_dni.Click
         buscar_dni(txt_dni.Text)
@@ -228,8 +243,22 @@ Public Class frm_federativas
     End Sub
 
     Private Sub rdo_normal_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_competicion.CheckedChanged
-        importe = calcula_importe()
-        lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+        If updating Then Return
+        Try
+            updating = True
+            If cmb_compite.Items.Count >= 1 AndAlso cmb_compite.SelectedIndex <> 0 Then
+                cmb_compite.SelectedIndex = 0
+                cmb_modalidad.Enabled = True
+                cmb_modalidad.Items.Clear()
+                cmb_modalidad.Items.Add("LANCE")
+                cmb_modalidad.Items.Add("MOSCA")
+            End If
+            importe = calcula_importe()
+            lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+        Finally
+            updating = False
+        End Try
+
     End Sub
 
 
@@ -294,7 +323,7 @@ Public Class frm_federativas
         Try
             ' Validación (usar la función existente)
             Dim fechaValidacion As String = dtpk_fecha_nac.Value.ToString("yyyy-MM-dd")
-            If validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, fechaValidacion, txt_telefono.Text, txt_coment.Text) Then
+            If validar_federativa(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, fechaValidacion, txt_telefono.Text, txt_coment.Text) Then
                 Dim importeStr As String = calcula_importe().ToString().Replace(",", ".")
                 ' Pasamos apellido2 vacío: bbdd.inserta_federativa separa si hace falta
                 bbdd.inserta_federativa(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, String.Empty, txt_dni.Text, dtpk_fecha_nac.Value.ToString("dd/MM/yyyy"), txt_direcc.Text, cmb_localidad.Text, txt_cp.Text, cmb_modalidad.Text, importeStr, txt_telefono.Text, txt_coment.Text)
@@ -309,7 +338,7 @@ Public Class frm_federativas
         Try
             ' Validar campos (usa la función existente con 10 parámetros)
             Dim fechaValidacion As String = dtpk_fecha_nac.Value.Year.ToString & "-" & dtpk_fecha_nac.Value.Month.ToString & "-" & dtpk_fecha_nac.Value.Day.ToString
-            If Not validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, fechaValidacion, txt_telefono.Text, txt_coment.Text) Then
+            If Not validar_federativa(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, fechaValidacion, txt_telefono.Text, txt_coment.Text) Then
                 Return
             End If
 
@@ -399,27 +428,58 @@ Public Class frm_federativas
     End Sub
 
     Private Sub cmb_compite_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_compite.SelectedIndexChanged
+        If updating Then Return
         Try
-            Select Case cmb_compite.SelectedItem?.ToString()
-                Case "SI"
-                    cmb_modalidad.Enabled = True
-                    rdo_competicion.Checked = True
-                    cmb_modalidad.Items.Clear()
-                    cmb_modalidad.Items.Add("LANCE")
-                    cmb_modalidad.Items.Add("MOSCA")
-                Case "NO"
-                    rdo_normal.Checked = True
-                    cmb_modalidad.Items.Clear()
-                    cmb_modalidad.Enabled = False
-                    cmb_modalidad.SelectedIndex = -1
-            End Select
-            calcula_importe()
-        Catch ex As Exception
-            MsgBox(ex.ToString())
+            updating = True
+            Try
+                Select Case cmb_compite.SelectedItem?.ToString()
+                    Case "SI"
+                        cmb_modalidad.Enabled = True
+                        rdo_competicion.Checked = True
+                        cmb_modalidad.Items.Clear()
+                        cmb_modalidad.Items.Add("LANCE")
+                        cmb_modalidad.Items.Add("MOSCA")
+                    Case "NO"
+                        rdo_normal.Checked = True
+                        cmb_modalidad.Items.Clear()
+                        cmb_modalidad.Enabled = False
+                        cmb_modalidad.SelectedIndex = -1
+                End Select
+
+                If cmb_compite.SelectedItem?.ToString() = "SI" Then
+                    If Not rdo_competicion.Checked Then rdo_competicion.Checked = True
+                ElseIf cmb_compite.SelectedItem?.ToString() = "NO" Then
+                    If Not rdo_normal.Checked Then rdo_normal.Checked = True
+                End If
+                calcula_importe()
+            Catch ex As Exception
+                MsgBox(ex.ToString())
+            End Try
+        Finally
+            updating = False
         End Try
     End Sub
 
     Private Sub cmb_modalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_modalidad.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub rdo_normal_CheckedChanged_1(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
+        If updating Then Return
+        Try
+            updating = True
+            If cmb_compite.Items.Count >= 1 AndAlso cmb_compite.SelectedIndex <> 1 Then
+                cmb_compite.SelectedIndex = 1
+                cmb_modalidad.Items.Clear()
+                cmb_modalidad.Enabled = False
+                cmb_modalidad.SelectedIndex = -1
+            End If
+
+            importe = calcula_importe()
+            lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
+        Finally
+            updating = False
+        End Try
 
     End Sub
 End Class

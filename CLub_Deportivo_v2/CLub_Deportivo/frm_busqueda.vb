@@ -117,8 +117,8 @@
             Dim email = GetCellString(10)
             Dim tipo_tarjeta_val = GetCellString(11)
             Dim tipo_socio = If(12 < row.Cells.Count, GetCellString(12), String.Empty)
-            Dim comentarios = If(13 < row.Cells.Count, GetCellString(13), String.Empty)
-            Dim telefono = If(14 < row.Cells.Count, GetCellString(14), String.Empty)
+            Dim comentarios = If(13 < row.Cells.Count, GetCellString(14), String.Empty)
+            '''Dim telefono = If(14 < row.Cells.Count, GetCellString(13), String.Empty)
 
             ' Rellenar frm_socio
             Try
@@ -207,7 +207,7 @@
                 frm_federativas.txt_direcc.Text = direccion
                 frm_federativas.txt_cp.Text = cp
                 frm_federativas.cmb_localidad.Text = localidad
-                frm_federativas.txt_telefono.Text = telefono
+                '''frm_federativas.txt_telefono.Text = telefono
                 frm_federativas.txt_coment.Text = comentarios
                 frm_federativas.dtpk_fecha_nac.Value = fechanac
 
