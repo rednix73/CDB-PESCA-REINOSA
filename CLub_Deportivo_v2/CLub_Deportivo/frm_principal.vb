@@ -48,6 +48,7 @@
 
                 desconectar()
                 ds_club.AcceptChanges()
+                bbdd.cargar()
             End If
         Catch ex As Exception
 

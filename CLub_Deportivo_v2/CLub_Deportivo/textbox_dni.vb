@@ -28,22 +28,21 @@ Public Class textbox_dni
 
     Protected Overrides Sub OnLostFocus(e As System.EventArgs)
         MyBase.OnLostFocus(e)
-        If MyBase.Text.Length < 8 Then
-            MsgBox("El número de caracteres para poder calcular la letra del NIF introducido debe ser de ocho")
-            'MyBase.Focus()
-        Else
-            Dim nif As String
-            nif = CalculaNIF(MyBase.Text)
-            MyBase.Text = nif
 
+        ' Evitar ejecutar lógica en tiempo de diseño
+        If System.ComponentModel.LicenseManager.UsageMode = System.ComponentModel.LicenseUsageMode.Designtime Then
+            MyBase.BackColor = Color.White
+            Return
         End If
 
+        If MyBase.Text.Length < 8 Then
+            MsgBox("El número de caracteres para poder calcular la letra del NIF introducido debe ser de ocho")
+        Else
+            Dim nif As String = CalculaNIF(MyBase.Text)
+            MyBase.Text = nif
+        End If
 
         MyBase.BackColor = Color.White
-
-
-
-
     End Sub
 
     Protected Overrides Sub OnGotFocus(e As System.EventArgs)
