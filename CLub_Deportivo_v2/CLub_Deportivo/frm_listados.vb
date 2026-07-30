@@ -31,6 +31,7 @@
     Private Sub cmb_bd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_bd.SelectedIndexChanged
         Select Case cmb_bd.SelectedIndex
             Case 1
+                cmb_tipo.Enabled = True
                 Select Case cmb_tipo.SelectedIndex
                     Case 0
                         dw_bdsocios.RowFilter = ""
@@ -40,6 +41,7 @@
 
                 DataGridView1.DataSource = dw_bdsocios
             Case 0
+                cmb_tipo.Enabled = True
                 Select Case cmb_tipo.SelectedIndex
                     Case 0
                         dw_socios.RowFilter = ""
@@ -48,6 +50,9 @@
                 End Select
 
                 DataGridView1.DataSource = dw_socios
+            Case 2
+                DataGridView1.DataSource = dw_federa
+                cmb_tipo.Enabled = False
             Case Else
 
         End Select

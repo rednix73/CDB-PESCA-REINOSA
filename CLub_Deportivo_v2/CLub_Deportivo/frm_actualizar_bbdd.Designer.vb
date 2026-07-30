@@ -38,7 +38,7 @@ Partial Class frm_actualizar_bbdd
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.RowTemplate.Height = 24
         Me.DataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView1.Size = New System.Drawing.Size(524, 304)
+        Me.DataGridView1.Size = New System.Drawing.Size(735, 303)
         Me.DataGridView1.TabIndex = 0
         '
         'frm_actualizar_bbdd

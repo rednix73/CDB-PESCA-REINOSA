@@ -83,7 +83,7 @@ Partial Class frm_listados
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(0, 86)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(97, 17)
+        Me.Label1.Size = New System.Drawing.Size(93, 16)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "Tipo de socio:"
         '
@@ -100,7 +100,7 @@ Partial Class frm_listados
         'cmb_bd
         '
         Me.cmb_bd.FormattingEnabled = True
-        Me.cmb_bd.Items.AddRange(New Object() {"TEMPORADA ACTUAL", "BASE DE DATOS DE SOCIOS"})
+        Me.cmb_bd.Items.AddRange(New Object() {"TEMPORADA ACTUAL", "BASE DE DATOS DE SOCIOS", "TARJETAS FEDERATIVAS"})
         Me.cmb_bd.Location = New System.Drawing.Point(104, 56)
         Me.cmb_bd.Name = "cmb_bd"
         Me.cmb_bd.Size = New System.Drawing.Size(220, 24)
@@ -112,7 +112,7 @@ Partial Class frm_listados
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(0, 56)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(103, 17)
+        Me.Label2.Size = New System.Drawing.Size(98, 16)
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Base de datos:"
         '
