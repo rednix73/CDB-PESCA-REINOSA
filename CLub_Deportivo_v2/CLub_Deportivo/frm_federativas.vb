@@ -6,7 +6,6 @@ Public Class frm_federativas
     Dim importe As Decimal = 0
     Dim precio_competicion As Decimal = 50
     Dim precio_tarjeta As Decimal = 30
-
     Private Sub frm_federativas_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.MdiParent = frm_principal
         Try
@@ -23,7 +22,7 @@ Public Class frm_federativas
         End Try
 
     End Sub
-    Private Function calcula_importe() As Decimal
+    Public Function calcula_importe() As Decimal
 
         Try
             If rdo_competicion.Checked Then
@@ -101,10 +100,6 @@ Public Class frm_federativas
         buscar_dni(txt_dni.Text)
     End Sub
 
-    Private Sub txt_nsocio_TextChanged(sender As Object, e As EventArgs) Handles txt_nsocio.TextChanged
-
-    End Sub
-
     Private Sub txt_nsocio_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txt_nsocio.KeyPress
         If Char.IsNumber(e.KeyChar) Or Asc(e.KeyChar) = Keys.Back Then
 
@@ -140,7 +135,7 @@ Public Class frm_federativas
     ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
-    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tipo_socio As String, comentarios As String) As Boolean
+    Public Function validar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, fechanac As String, telefono As String, comentarios As String) As Boolean
 
         Dim msg As String = "Debe completar obligatoriamente, al menos los siguientes datos: "
         Dim contador As Integer = 0
@@ -172,17 +167,12 @@ Public Class frm_federativas
             msg += "Localidad, "
             contador += 1
         End If
-        If (provincia = "") Then
-            msg += "Provincia, "
+        If (fechanac = "") Then
+            msg += "Fecha de nacimiento, "
             contador += 1
         End If
-        If (pais = "") Then
-            msg += "Pais, "
-            contador += 1
-        End If
-        If (tipo_socio = "") Then
-            msg += "Tipo socio, "
-            contador += 1
+        If (telefono = "") Then
+            txt_telefono.Text = " "
         End If
         If (comentarios = "") Then
             txt_coment.Text = " "
@@ -191,10 +181,8 @@ Public Class frm_federativas
         If (contador > 0) Then
             MsgBox(msg)
             Return False
-
         Else
             Return True
-
         End If
 
     End Function
@@ -202,115 +190,6 @@ Public Class frm_federativas
     Private Sub txt_buscar_nsocio_Click(sender As Object, e As EventArgs) Handles btn_buscar_nsocio.Click
         buscar_nsocio(txt_nsocio.Text)
     End Sub
-
-    Private Sub grp_socio_Enter(sender As Object, e As EventArgs) Handles grp_tarjeta.Enter
-
-    End Sub
-
-    Private Sub TabPage1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_cp_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-
-
-        frm_imprimir.ShowDialog()
-
-    End Sub
-
-    Private Sub grp_commnent_Enter(sender As Object, e As EventArgs) Handles grp_commnent.Enter
-
-    End Sub
-
-    Private Sub grp_estado_Enter(sender As Object, e As EventArgs) Handles grp_estado.Enter
-
-    End Sub
-
-    Private Sub Label13_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub cmb_pais_SelectedIndexChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub cmb_tarjeta_SelectedIndexChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_email_TextChanged(sender As Object, e As EventArgs) Handles txt_telefono.TextChanged
-
-    End Sub
-
-    Private Sub Label10_Click(sender As Object, e As EventArgs) Handles Label10.Click
-
-    End Sub
-
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_direcc_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label8_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label7_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_dni_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub btn_letranif_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_apellido_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label6_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txt_nombre_TextChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-
     Private Sub rdo_jubilado_CheckedChanged(sender As Object, e As EventArgs) Handles rdo_normal.CheckedChanged
 
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
@@ -319,11 +198,6 @@ Public Class frm_federativas
     Private Sub btn_buscar_dni_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_dni.Click
         buscar_dni(txt_dni.Text)
     End Sub
-
-    Private Sub btn_letranif_Click_1(sender As Object, e As EventArgs) Handles btn_letranif.Click
-
-    End Sub
-
     Private Sub btn_buscar_apell_Click_1(sender As Object, e As EventArgs) Handles btn_buscar_apell.Click
         buscar_nombre(txt_apellido.Text)
     End Sub
@@ -337,36 +211,6 @@ Public Class frm_federativas
         lbl_importe.Text = "Importe: " + calcula_importe().ToString() + "€"
     End Sub
 
-    Private Sub rdo_pagado_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub rdo_nopagado_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub cmb_prov_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_compite.SelectedIndexChanged
-        Try
-            Select Case cmb_compite.SelectedItem
-                Case "SI"
-                    cmb_modalidad.Enabled = True
-                    rdo_competicion.Checked = True
-                    cmb_modalidad.Items.Clear()
-                    cmb_modalidad.Items.Add("LANCE")
-                    cmb_modalidad.Items.Add("MOSCA")
-
-                Case "NO"
-                    rdo_normal.Checked = True
-                    cmb_modalidad.Items.Clear()
-                    cmb_modalidad.Enabled = False
-
-            End Select
-            calcula_importe()
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-        End Try
-
-    End Sub
 
     Private Sub cmb_localidad_SelectedIndexChanged_1(sender As Object, e As EventArgs) Handles cmb_localidad.SelectedIndexChanged
         Try
@@ -382,11 +226,6 @@ Public Class frm_federativas
 
 
     End Sub
-
-    Private Sub txt_cp_TextChanged_1(sender As Object, e As EventArgs) Handles txt_cp.TextChanged
-
-    End Sub
-
     Private Sub btn_cerrar_Click(sender As Object, e As EventArgs) Handles btn_cerrar.Click
 
         Me.Close()
@@ -408,7 +247,7 @@ Public Class frm_federativas
             txt_coment.ResetText()
             lbl_importe.ResetText()
 
-            rdo_competicion.Checked = True
+            rdo_normal.Checked = True
             cmb_localidad.SelectedIndex = -1
             cmb_compite.SelectedIndex = -1
             cmb_modalidad.SelectedIndex = -1
@@ -433,50 +272,44 @@ Public Class frm_federativas
 
     Private Sub btn_insertar_Click(sender As Object, e As EventArgs) Handles btn_insertar.Click
         Try
-            If rdo_competicion.Checked Then
-                tipo = "NORMAL"
-            End If
-            If rdo_normal.Checked Then
-                tipo = "JUBILADO"
-            End If
-            If rdo_gratis.Checked Then
-                tipo = "OTROS"
-            End If
+            ' Formatear fecha para la validación
+            Dim fechaValidacion As String = dtpk_fecha_nac.Value.Year.ToString & "-" & dtpk_fecha_nac.Value.Month.ToString & "-" & dtpk_fecha_nac.Value.Day.ToString
 
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, tipo.ToString, txt_coment.Text)) Then
-                Dim importe As String
-                importe = calcula_importe().ToString().Replace(",", ".")
+            ' LLAMADA A validar_socio: exactamente 10 parámetros
+            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, fechaValidacion, txt_telefono.Text, txt_coment.Text)) Then
+                Dim importe As String = calcula_importe().ToString().Replace(",", ".")
+                ' Llamar al método específico de federativas en bbdd
+                bbdd.inserta_federativa(
+                txt_nsocio.Text,
+                txt_nombre.Text,
+                txt_apellido.Text,   ' pasamos todo en apellido1; bbdd separa si hace falta
+                "",                  ' apellido2 vacío (bbdd hará separación si procede)
+                txt_dni.Text,
+                dtpk_fecha_nac.Value.ToString("dd/MM/yyyy"),
+                txt_direcc.Text,
+                cmb_localidad.Text,
+                txt_cp.Text,
+                cmb_modalidad.Text,
+                importe,
+                txt_telefono.Text,
+                txt_coment.Text)
 
-                insertar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, tipo.ToString, importe, txt_coment.Text, "")
                 bbdd.cargar()
-
-
             End If
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
-
     End Sub
 
     Private Sub btn_modificar_Click(sender As Object, e As EventArgs) Handles btn_modificar.Click
-        Try
-            If rdo_competicion.Checked Then
-                tipo = "NORMAL"
-            End If
-            If rdo_normal.Checked Then
-                tipo = "JUBILADO"
-            End If
-            If rdo_gratis.Checked Then
-                tipo = "OTROS"
-            End If
-
-            If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, tipo.ToString, txt_coment.Text)) Then
-                modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, (cmb_compite.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
-                bbdd.cargar()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-        End Try
+        'Try
+        '    If (validar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Year.ToString + "-" + dtpk_fecha_nac.Value.Month.ToString + "-" + dtpk_fecha_nac.Value.Day.ToString, txt_telefono.Text, tipo.ToString, txt_coment.Text)) Then
+        '        modificar_socio(txt_nsocio.Text, txt_nombre.Text, txt_apellido.Text, txt_dni.Text, txt_direcc.Text, txt_cp.Text, cmb_localidad.Text, cmb_compite.Text, cmb_modalidad.Text, dtpk_fecha_nac.Value.Day.ToString + "/" + dtpk_fecha_nac.Value.Month.ToString + "/" + dtpk_fecha_nac.Value.Year.ToString, txt_telefono.Text, (cmb_compite.SelectedIndex + 1).ToString, tipo.ToString, calcula_importe().ToString, txt_coment.Text)
+        '        bbdd.cargar()
+        '    End If
+        'Catch ex As Exception
+        '    MsgBox(ex.ToString())
+        'End Try
     End Sub
 
     Private Sub btn_eliminar_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
@@ -486,5 +319,31 @@ Public Class frm_federativas
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
+    End Sub
+
+    Private Sub cmb_compite_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_compite.SelectedIndexChanged
+        Try
+            Select Case cmb_compite.SelectedItem
+                Case "SI"
+                    cmb_modalidad.Enabled = True
+                    rdo_competicion.Checked = True
+                    cmb_modalidad.Items.Clear()
+                    cmb_modalidad.Items.Add("LANCE")
+                    cmb_modalidad.Items.Add("MOSCA")
+
+                Case "NO"
+                    rdo_normal.Checked = True
+                    cmb_modalidad.Items.Clear()
+                    cmb_modalidad.Enabled = False
+
+            End Select
+            calcula_importe()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+    End Sub
+
+    Private Sub cmb_modalidad_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_modalidad.SelectedIndexChanged
+
     End Sub
 End Class

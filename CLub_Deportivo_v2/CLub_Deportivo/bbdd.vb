@@ -653,6 +653,91 @@ Module bbdd
 
 
 
+
+    ''' <summary>
+    ''' Inserta un socio en la tabla socios de la base de datos.
+    ''' </summary>
+    ''' <param name="nsocio"></param>
+    ''' <param name="nombre"></param>
+    ''' <param name="apellidos"></param>
+    ''' <param name="dni"></param>
+    ''' <param name="direcc"></param>
+    ''' <param name="cp"></param>
+    ''' <param name="localidad"></param>
+    ''' <param name="provincia"></param>
+    ''' <param name="pais"></param>
+    ''' <param name="fechanac"></param>
+    ''' <param name="email"></param>
+    ''' <param name="tarjeta"></param>
+    ''' <param name="tipo_socio"></param>
+    ''' <param name="import"></param>
+    ''' <param name="comentarios"></param>
+    Public Sub inserta_federativa(nsocio As String, nombre As String, apellido1 As String, apellido2 As String, dni As String, fechanac As String, domicilio As String, localidad As String, cp As String, modalidad As String, precio As String, telefono As String, comentarios As String)
+        Try
+            ' Normalizar y separar apellidos si sólo viene uno
+            apellido1 = If(apellido1, String.Empty).Trim()
+            apellido2 = If(apellido2, String.Empty).Trim()
+
+            If String.IsNullOrWhiteSpace(apellido2) AndAlso Not String.IsNullOrWhiteSpace(apellido1) Then
+                ' Separar en dos partes: primer token = apellido1, resto = apellido2
+                Dim partes As String() = apellido1.Split(New Char() {" "c}, 2, StringSplitOptions.RemoveEmptyEntries)
+                If partes.Length = 1 Then
+                    apellido1 = partes(0)
+                    apellido2 = String.Empty
+                Else
+                    apellido1 = partes(0)
+                    apellido2 = partes(1)
+                End If
+            End If
+
+            ' Escapar comillas simples para evitar romper la query
+            Dim E As Func(Of String, String) = Function(s As String) If(String.IsNullOrEmpty(s), "", s.Replace("'", "''"))
+
+            conectar()
+            Select Case tp
+                Case tipobd.Excel_ODBC
+                    consulta2 = New OdbcCommand()
+                    consulta2.Connection = conn2
+                    If Not conn2.State = ConnectionState.Open Then
+                        conectar()
+                    End If
+
+                    ' Comprobación de DNI duplicado
+                    Dim sql_txt2 As String = "SELECT * FROM " & tabla_federa_xls & " WHERE nif='" & E(dni) & "'"
+                    consulta2.CommandText = sql_txt2
+                    dr4 = consulta2.ExecuteReader()
+                    If (dr4.HasRows) Then
+                        MsgBox("DNI no válido. Ya existe otra tarjeta federativa en la temporada actual con el mismo DNI.")
+                        dr4.Close()
+                    Else
+                        dr4.Close()
+                        ' Consulta de inserción (valores escapados)
+                        Dim sql_txt3 As String = "INSERT INTO " & tabla_federa_xls &
+                        " (numero,nombre,apellido1,apellido2,nif,fechanac,domicilio,localidad,cp,modalidad,precio,telefono,comentarios) " &
+                        "VALUES(" & E(nsocio) & ",'" & E(nombre) & "','" & E(apellido1) & "','" & E(apellido2) & "','" & E(dni) & "','" & E(fechanac) & "', '" & E(domicilio) & "','" & E(localidad) & "'," & E(cp) & ",'" & E(modalidad) & "','" & E(precio) & "','" & E(telefono) & "','" & E(comentarios) & "')"
+
+                        consulta2.CommandText = sql_txt3
+                        Dim salida3 As Integer = consulta2.ExecuteNonQuery()
+                        If (salida3 > 0) Then
+                            MsgBox("Tarjeta federativa insertada correctamente")
+                            ' Si quieres resetear frm_federativas, usa frm_federativas.reset()
+                            If TypeOf frm_socio Is Form Then
+                                ' no tocar si tu intención era usar frm_socio.reset(); aquí preferible reset del propio formulario
+                            End If
+                        End If
+                    End If
+
+                Case tipobd.MySQL
+                    ' De momento no se usa MySQL para federativas - implementar si hace falta.
+            End Select
+
+            desconectar()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+    End Sub
+
+
     ''' <summary>
     ''' Inserta un socio en la tabla socios de la base de datos. Revisado con Claude AI. Da errores.
     ''' </summary>
@@ -837,143 +922,277 @@ Module bbdd
     ''' <param name="tarjeta"></param>
     ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
-    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
+    'Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
 
+    '    Try
+    '        conectar()
+    '        Select Case tp
+    '            Case tipobd.MySQL
+    '                consulta1 = New MySqlCommand()
+    '                consulta1.Connection = conn1
+    '                If (Not conn1.State = ConnectionState.Open) Then
+    '                    conectar()
+    '                End If
+    '                'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
+    '                'Se muestran los socios con el mismo número.
+    '                Dim sql_txt As String
+    '                sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
+    '                consulta1.CommandText = sql_txt
+    '                dr1 = consulta1.ExecuteReader
+    '                Dim n_reg As Integer = 0
+    '                Dim socios As String = ""
+    '                If (dr1.HasRows) Then
+    '                    While (dr1.Read())
+    '                        n_reg += 1
+    '                        socios += dr1(0).ToString + vbCrLf
+    '                    End While
+    '                    dr1.Close()
+    '                    If (n_reg > 1) Then
+    '                        MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+    '                    End If
+    '                Else
+    '                    dr1.Close()
+    '                End If
+
+    '                'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
+    '                Dim sql_txt2 As String
+    '                sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
+    '                consulta1.CommandText = sql_txt2
+    '                dr2 = consulta1.ExecuteReader
+    '                n_reg = 0
+    '                socios = ""
+    '                If (dr2.HasRows) Then
+    '                    While (dr1.Read())
+    '                        n_reg += 1
+    '                        socios += dr1(0) + vbCrLf
+    '                    End While
+    '                    If (n_reg > 1) Then
+    '                        MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+    '                    End If
+    '                    MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+    '                    dr2.Close()
+    '                Else
+    '                    dr2.Close()
+    '                End If
+
+    '                'Consulta de modificacion.
+    '                Dim sql_txt3 As String = "UPDATE socios SET n_socio=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
+    '                        "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
+    '                        "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', comentarios='" + comentarios + "'" +
+    '                    "WHERE dni=" + dni
+
+    '                consulta1.CommandText = sql_txt3
+
+    '                Dim salida3 As Integer = consulta1.ExecuteNonQuery
+    '                If (salida3 > 0) Then
+    '                    MsgBox("Socio modificado correctamente")
+    '                End If
+
+    '            Case tipobd.Excel_ODBC
+
+    '                consulta2 = New OdbcCommand()
+    '                consulta2.Connection = conn2
+    '                If (Not conn1.State = ConnectionState.Open) Then
+    '                    conectar()
+    '                End If
+    '                'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
+    '                'Se muestran los socios con el mismo número.
+    '                Dim sql_txt As String
+    '                sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
+    '                consulta2.CommandText = sql_txt
+    '                dr3 = consulta2.ExecuteReader
+    '                Dim n_reg As Integer = 0
+    '                Dim socios As String = ""
+    '                If (dr3.HasRows) Then
+    '                    While (dr3.Read())
+    '                        n_reg += 1
+    '                        socios += dr3(0).ToString + vbCrLf
+    '                    End While
+    '                    dr3.Close()
+    '                    If (n_reg > 1) Then
+    '                        MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+    '                    End If
+    '                Else
+    '                    dr3.Close()
+    '                End If
+
+    '                'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
+    '                Dim sql_txt2 As String
+    '                sql_txt2 = "SELECT * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+    '                consulta2.CommandText = sql_txt2
+    '                dr4 = consulta2.ExecuteReader
+    '                n_reg = 0
+    '                socios = ""
+    '                If (dr4.HasRows) Then
+    '                    While (dr4.Read())
+    '                        n_reg += 1
+    '                        socios += dr4(0).ToString + vbCrLf
+    '                    End While
+    '                    If (n_reg > 1) Then
+    '                        MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+    '                    End If
+    '                    MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+    '                    dr4.Close()
+    '                Else
+    '                    dr4.Close()
+    '                End If
+
+    '                'Consulta de modificacion.
+    '                Dim sql_txt3 As String = "UPDATE " + tabla_socios_xls + " SET numero=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
+    '                        "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
+    '                        "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', importe=" + import + ", comentarios='" + comentarios + "'" +
+    '                    " WHERE dni='" + dni + "'"
+
+    '                consulta2.CommandText = sql_txt3
+
+    '                Dim salida3 As Integer = consulta2.ExecuteNonQuery
+    '                If (salida3 > 0) Then
+    '                    MsgBox("Socio modificado correctamente")
+    '                End If
+    '            Case Else
+    '        End Select
+
+    '        desconectar()
+
+    '    Catch ex As Exception
+    '        MsgBox(ex.ToString())
+    '    End Try
+
+    'End Sub
+
+
+    ''' <summary>
+    ''' Modifica un socio existente en la fuente de datos (MySQL o Excel ODBC).
+    ''' Antes de actualizar comprueba si existe el registro (por DNI o por número) y solicita confirmación al usuario.
+    ''' Usa consultas parametrizadas para evitar problemas de concatenación o inyección.
+    ''' </summary>
+    ''' <param name="nsocio">Número de socio a establecer.</param>
+    ''' <param name="nombre">Nombre del socio.</param>
+    ''' <param name="apellidos">Apellidos del socio.</param>
+    ''' <param name="dni">DNI/NIF del socio (se usa para comprobación y/o búsqueda).</param>
+    ''' <param name="direcc">Dirección postal.</param>
+    ''' <param name="cp">Código postal.</param>
+    ''' <param name="localidad">Localidad.</param>
+    ''' <param name="provincia">Provincia.</param>
+    ''' <param name="pais">País.</param>
+    ''' <param name="fechanac">Fecha de nacimiento (texto).</param>
+    ''' <param name="email">Correo electrónico.</param>
+    ''' <param name="tarjeta">Tipo de tarjeta (numérico o texto según origen).</param>
+    ''' <param name="tipo_socio">Tipo de socio (texto).</param>
+    ''' <param name="import">Importe (texto).</param>
+    ''' <param name="comentarios">Comentarios.</param>
+    Public Sub modificar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
         Try
             conectar()
+
             Select Case tp
                 Case tipobd.MySQL
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    If (Not conn1.State = ConnectionState.Open) Then
-                        conectar()
-                    End If
-                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
-                    'Se muestran los socios con el mismo número.
-                    Dim sql_txt As String
-                    sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
-                    consulta1.CommandText = sql_txt
-                    dr1 = consulta1.ExecuteReader
-                    Dim n_reg As Integer = 0
-                    Dim socios As String = ""
-                    If (dr1.HasRows) Then
-                        While (dr1.Read())
-                            n_reg += 1
-                            socios += dr1(0).ToString + vbCrLf
-                        End While
-                        dr1.Close()
-                        If (n_reg > 1) Then
-                            MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+                    ' Comprobar existencia (buscar por dni o por número)
+                    Using chk As New MySqlCommand("SELECT n_socio FROM " & tabla_socios_mysql & " WHERE dni = @dni OR n_socio = @n LIMIT 1", conn1)
+                        chk.Parameters.AddWithValue("@dni", dni)
+                        chk.Parameters.AddWithValue("@n", nsocio)
+                        Dim existing = chk.ExecuteScalar()
+                        If existing Is Nothing OrElse IsDBNull(existing) Then
+                            MsgBox("Registro no encontrado (ni por DNI ni por número). No se realizará la modificación.")
+                            Return
                         End If
-                    Else
-                        dr1.Close()
-                    End If
 
-                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
-                    Dim sql_txt2 As String
-                    sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
-                    consulta1.CommandText = sql_txt2
-                    dr2 = consulta1.ExecuteReader
-                    n_reg = 0
-                    socios = ""
-                    If (dr2.HasRows) Then
-                        While (dr1.Read())
-                            n_reg += 1
-                            socios += dr1(0) + vbCrLf
-                        End While
-                        If (n_reg > 1) Then
-                            MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+                        Dim existingNsocio = existing.ToString()
+
+                        ' Pedir confirmación al usuario
+                        Dim resp = MsgBox("Se va a actualizar el socio con número " & existingNsocio & " (DNI: " & dni & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar modificación")
+                        If resp <> vbYes Then
+                            Return
                         End If
-                        MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
-                        dr2.Close()
-                    Else
-                        dr2.Close()
-                    End If
 
-                    'Consulta de modificacion.
-                    Dim sql_txt3 As String = "UPDATE socios SET n_socio=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
-                            "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
-                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', comentarios='" + comentarios + "'" +
-                        "WHERE dni=" + dni
-
-                    consulta1.CommandText = sql_txt3
-
-                    Dim salida3 As Integer = consulta1.ExecuteNonQuery
-                    If (salida3 > 0) Then
-                        MsgBox("Socio modificado correctamente")
-                    End If
+                        ' Ejecutar UPDATE parametrizado
+                        Using cmd As New MySqlCommand("UPDATE " & tabla_socios_mysql & " SET n_socio=@n, nombre=@nom, apellidos=@ape, dni=@dni, direccion=@dir, cp=@cp, localidad=@loc, provincia=@prov, pais=@pais, fechanac=@fna, email=@email, tarjeta=@tarj, tipo_socio=@tipo, importe=@imp, comentarios=@com WHERE n_socio=@whereN", conn1)
+                            cmd.Parameters.AddWithValue("@n", nsocio)
+                            cmd.Parameters.AddWithValue("@nom", nombre)
+                            cmd.Parameters.AddWithValue("@ape", apellidos)
+                            cmd.Parameters.AddWithValue("@dni", dni)
+                            cmd.Parameters.AddWithValue("@dir", direcc)
+                            cmd.Parameters.AddWithValue("@cp", cp)
+                            cmd.Parameters.AddWithValue("@loc", localidad)
+                            cmd.Parameters.AddWithValue("@prov", provincia)
+                            cmd.Parameters.AddWithValue("@pais", pais)
+                            cmd.Parameters.AddWithValue("@fna", fechanac)
+                            cmd.Parameters.AddWithValue("@email", email)
+                            cmd.Parameters.AddWithValue("@tarj", tarjeta)
+                            cmd.Parameters.AddWithValue("@tipo", tipo_socio)
+                            cmd.Parameters.AddWithValue("@imp", import)
+                            cmd.Parameters.AddWithValue("@com", comentarios)
+                            cmd.Parameters.AddWithValue("@whereN", existingNsocio)
+                            Dim rows = cmd.ExecuteNonQuery()
+                            If rows > 0 Then MsgBox("Socio modificado correctamente")
+                        End Using
+                    End Using
 
                 Case tipobd.Excel_ODBC
+                    ' Normalizar nombre de hoja/rango Excel
+                    Dim normalizeTable = Function(t As String) As String
+                                             If String.IsNullOrWhiteSpace(t) Then Throw New ArgumentException("Nombre de tabla Excel vacío")
+                                             Dim s = t.Trim()
+                                             If s.StartsWith("[") AndAlso s.EndsWith("]") Then Return s
+                                             If s.EndsWith("$") Then Return "[" & s & "]"
+                                             Return "[" & s & "$]"
+                                         End Function
 
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    If (Not conn1.State = ConnectionState.Open) Then
-                        conectar()
-                    End If
-                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
-                    'Se muestran los socios con el mismo número.
-                    Dim sql_txt As String
-                    sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO=" + nsocio
-                    consulta2.CommandText = sql_txt
-                    dr3 = consulta2.ExecuteReader
-                    Dim n_reg As Integer = 0
-                    Dim socios As String = ""
-                    If (dr3.HasRows) Then
-                        While (dr3.Read())
-                            n_reg += 1
-                            socios += dr3(0).ToString + vbCrLf
-                        End While
-                        dr3.Close()
-                        If (n_reg > 1) Then
-                            MsgBox("Ya existe otro/s socios con el mismo Número.Socios con el número: " + nsocio + ". " + vbCrLf + socios + vbCrLf + ". Cambie el número de socio asignado.")
+                    Dim tableName As String = normalizeTable(tabla_socios_xls)
+
+                    ' Comprobar existencia en Excel (ODBC)
+                    Using chk As New OdbcCommand("SELECT numero FROM " & tableName & " WHERE dni = ? OR numero = ?", conn2)
+                        chk.Parameters.AddWithValue("p1", dni)
+                        chk.Parameters.AddWithValue("p2", nsocio)
+                        Dim existingObj = chk.ExecuteScalar()
+                        If existingObj Is Nothing OrElse IsDBNull(existingObj) Then
+                            MsgBox("Registro no encontrado (ni por DNI ni por número) en la hoja Excel. No se realizará la modificación.")
+                            Return
                         End If
-                    Else
-                        dr3.Close()
-                    End If
+                        Dim existingNsocio = existingObj.ToString()
 
-                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
-                    Dim sql_txt2 As String
-                    sql_txt2 = "SELECT * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
-                    consulta2.CommandText = sql_txt2
-                    dr4 = consulta2.ExecuteReader
-                    n_reg = 0
-                    socios = ""
-                    If (dr4.HasRows) Then
-                        While (dr4.Read())
-                            n_reg += 1
-                            socios += dr4(0).ToString + vbCrLf
-                        End While
-                        If (n_reg > 1) Then
-                            MsgBox("Ya existe otro/s socios con el mismo DNI:" + vbCrLf + socios + vbCrLf + ". Compruebe que es correcto el DNI asignado, ó elimine duplicados.")
+                        Dim resp = MsgBox("Se va a actualizar el socio con número " & existingNsocio & " (DNI: " & dni & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar modificación")
+                        If resp <> vbYes Then
+                            Return
                         End If
-                        MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
-                        dr4.Close()
-                    Else
-                        dr4.Close()
-                    End If
 
-                    'Consulta de modificacion.
-                    Dim sql_txt3 As String = "UPDATE " + tabla_socios_xls + " SET numero=" + nsocio + ", nombre='" + nombre + "', apellidos='" + apellidos +
-                            "', dni='" + dni + "', direccion='" + direcc + "', cp='" + cp + "', localidad='" + localidad + "', provincia='" + provincia + "', pais='" + pais +
-                            "', fechanac='" + fechanac + "', email='" + email + "', tarjeta=" + tarjeta + ", tipo_socio='" + tipo_socio + "', importe=" + import + ", comentarios='" + comentarios + "'" +
-                        " WHERE dni='" + dni + "'"
+                        ' UPDATE con placeholders ? en orden
+                        Dim sql As String = "UPDATE " & tableName & " SET numero = ?, nombre = ?, apellidos = ?, dni = ?, direccion = ?, cp = ?, localidad = ?, provincia = ?, pais = ?, fechanac = ?, email = ?, tarjeta = ?, tipo_socio = ?, importe = ?, comentarios = ? WHERE numero = ?"
+                        Using cmd As New OdbcCommand(sql, conn2)
+                            cmd.Parameters.AddWithValue("p1", nsocio)
+                            cmd.Parameters.AddWithValue("p2", nombre)
+                            cmd.Parameters.AddWithValue("p3", apellidos)
+                            cmd.Parameters.AddWithValue("p4", dni)
+                            cmd.Parameters.AddWithValue("p5", direcc)
+                            cmd.Parameters.AddWithValue("p6", cp)
+                            cmd.Parameters.AddWithValue("p7", localidad)
+                            cmd.Parameters.AddWithValue("p8", provincia)
+                            cmd.Parameters.AddWithValue("p9", pais)
+                            cmd.Parameters.AddWithValue("p10", fechanac)
+                            cmd.Parameters.AddWithValue("p11", email)
+                            cmd.Parameters.AddWithValue("p12", tarjeta)
+                            cmd.Parameters.AddWithValue("p13", tipo_socio)
+                            cmd.Parameters.AddWithValue("p14", import)
+                            cmd.Parameters.AddWithValue("p15", comentarios)
+                            ' WHERE numero = existingNsocio
+                            cmd.Parameters.AddWithValue("p16", existingNsocio)
 
-                    consulta2.CommandText = sql_txt3
-
-                    Dim salida3 As Integer = consulta2.ExecuteNonQuery
-                    If (salida3 > 0) Then
-                        MsgBox("Socio modificado correctamente")
-                    End If
-                Case Else
+                            Dim rows = cmd.ExecuteNonQuery()
+                            If rows > 0 Then MsgBox("Socio modificado correctamente")
+                        End Using
+                    End Using
             End Select
 
-            desconectar()
-
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error en modificar_socio: " & ex.Message)
+        Finally
+            Try
+                desconectar()
+            Catch
+            End Try
         End Try
-
     End Sub
+
     ''' <summary>
     ''' Elimina un registro existente en la tabla socios.
     ''' </summary>
@@ -992,47 +1211,114 @@ Module bbdd
     ''' <param name="tipo_socio"></param>
     ''' <param name="pago"></param>
     ''' <param name="comentarios"></param>
-    Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
+    'Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
 
+    '    Try
+    '        conectar()
+
+    '        Select Case tp
+    '            Case tipobd.Excel_ODBC
+    '                consulta2 = New OdbcCommand()
+    '                consulta2.Connection = conn2
+    '                If (Not conn2.State = ConnectionState.Open) Then
+    '                    conectar()
+    '                End If
+
+    '                'Consulta de eliminacion.
+    '                Dim sql_txt3 As String = "DELETE * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+
+    '                consulta2.CommandText = sql_txt3
+    '                MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta2.ExecuteNonQuery.ToString + " registros.")
+
+    '            Case tipobd.MySQL
+    '                consulta1 = New MySqlCommand()
+    '                consulta1.Connection = conn1
+    '                If (Not conn1.State = ConnectionState.Open) Then
+    '                    conectar()
+    '                End If
+
+    '                'Consulta de eliminacion.
+    '                Dim sql_txt3 As String = "DELETE FROM socios WHERE dni='" + dni + "'"
+
+    '                consulta1.CommandText = sql_txt3
+    '                MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta1.ExecuteNonQuery.ToString + " registros.")
+    '        End Select
+
+    '        desconectar()
+    '    Catch ex As Exception
+    '        MsgBox(ex.ToString())
+    '    End Try
+
+    'End Sub
+
+
+    ''' <summary>
+    ''' Elimina un socio del origen de datos (Excel ODBC o MySQL) buscando por DNI.
+    ''' Solicita confirmación al usuario antes de ejecutar la operación.
+    ''' </summary>
+    ''' <param name="nsocio">Número de socio (opcional, no usado para la eliminación actual).</param>
+    ''' <param name="nombre">Nombre (informativo).</param>
+    ''' <param name="apellidos">Apellidos (informativo).</param>
+    ''' <param name="dni">DNI/NIF utilizado en la cláusula WHERE para identificar el registro a eliminar.</param>
+    ''' <param name="direcc">Dirección (informativo).</param>
+    ''' <param name="cp">Código postal (informativo).</param>
+    ''' <param name="localidad">Localidad (informativo).</param>
+    ''' <param name="provincia">Provincia (informativo).</param>
+    ''' <param name="pais">País (informativo).</param>
+    ''' <param name="fechanac">Fecha de nacimiento (informativo).</param>
+    ''' <param name="email">Email (informativo).</param>
+    ''' <param name="tarjeta">Tarjeta (informativo).</param>
+    ''' <param name="tipo_socio">Tipo de socio (informativo).</param>
+    ''' <param name="pago">Pago (informativo).</param>
+    ''' <param name="comentarios">Comentarios (informativo).
+    Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
         Try
+            ' Confirmación del usuario antes de borrar
+            Dim respuesta = MsgBox("Va a eliminar al socio con DNI: " & dni & ". ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar eliminación")
+            If respuesta <> vbYes Then Return
+
             conectar()
 
             Select Case tp
                 Case tipobd.Excel_ODBC
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    If (Not conn2.State = ConnectionState.Open) Then
-                        conectar()
-                    End If
+                    ' Normalizar nombre de hoja/rango Excel
+                    Dim normalizeTable = Function(t As String) As String
+                                             If String.IsNullOrWhiteSpace(t) Then Throw New ArgumentException("Nombre de tabla Excel vacío")
+                                             Dim s = t.Trim()
+                                             If s.StartsWith("[") AndAlso s.EndsWith("]") Then Return s
+                                             If s.EndsWith("$") Then Return "[" & s & "]"
+                                             Return "[" & s & "$]"
+                                         End Function
 
-                    'Consulta de eliminacion.
-                    Dim sql_txt3 As String = "DELETE * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
+                    Dim tableName As String = normalizeTable(tabla_socios_xls)
 
-                    consulta2.CommandText = sql_txt3
-                    MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta2.ExecuteNonQuery.ToString + " registros.")
+                    ' ODBC: usar parámetros (?) en orden
+                    Using cmd As New OdbcCommand("DELETE FROM " & tableName & " WHERE dni = ?", conn2)
+                        cmd.Parameters.AddWithValue("p1", dni)
+                        Dim deleted As Integer = cmd.ExecuteNonQuery()
+                        MsgBox("Socio eliminado correctamente. Se han eliminado: " & deleted.ToString() & " registros.")
+                    End Using
 
                 Case tipobd.MySQL
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    If (Not conn1.State = ConnectionState.Open) Then
-                        conectar()
-                    End If
+                    Using cmd As New MySqlCommand("DELETE FROM " & tabla_socios_mysql & " WHERE dni = @dni", conn1)
+                        cmd.Parameters.AddWithValue("@dni", dni)
+                        Dim deleted As Integer = cmd.ExecuteNonQuery()
+                        MsgBox("Socio eliminado correctamente. Se han eliminado: " & deleted.ToString() & " registros.")
+                    End Using
 
-                    'Consulta de eliminacion.
-                    Dim sql_txt3 As String = "DELETE FROM socios WHERE dni='" + dni + "'"
-
-                    consulta1.CommandText = sql_txt3
-                    MsgBox("Socio eliminado correctamente. Se han eliminado: " + consulta1.ExecuteNonQuery.ToString + " registros.")
+                Case Else
+                    MsgBox("Tipo de BBDD no soportado para eliminación.")
             End Select
 
-            desconectar()
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error al eliminar socio: " & ex.Message)
+        Finally
+            Try
+                desconectar()
+            Catch
+            End Try
         End Try
-
     End Sub
-
-
 
 
 
