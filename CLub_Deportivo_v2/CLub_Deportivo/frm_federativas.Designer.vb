@@ -47,12 +47,9 @@ Partial Class frm_federativas
         Me.btn_socios = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txt_nombre = New CLub_Deportivo.textbox_club()
-        Me.txt_apellido = New CLub_Deportivo.textbox_club()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btn_buscar_apell = New System.Windows.Forms.Button()
-        Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmb_localidad = New System.Windows.Forms.ComboBox()
@@ -67,6 +64,9 @@ Partial Class frm_federativas
         Me.btn_cerrar = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.btn_reset = New System.Windows.Forms.Button()
+        Me.txt_nombre = New CLub_Deportivo.textbox_club()
+        Me.txt_apellido = New CLub_Deportivo.textbox_club()
+        Me.txt_dni = New CLub_Deportivo.textbox_dni()
         Me.grp_tarjeta.SuspendLayout()
         Me.grp_estado.SuspendLayout()
         Me.grp_commnent.SuspendLayout()
@@ -344,24 +344,6 @@ Partial Class frm_federativas
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos personales"
         '
-        'txt_nombre
-        '
-        Me.txt_nombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_nombre.Location = New System.Drawing.Point(83, 33)
-        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_nombre.Name = "txt_nombre"
-        Me.txt_nombre.Size = New System.Drawing.Size(208, 27)
-        Me.txt_nombre.TabIndex = 56
-        '
-        'txt_apellido
-        '
-        Me.txt_apellido.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_apellido.Location = New System.Drawing.Point(83, 73)
-        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_apellido.Name = "txt_apellido"
-        Me.txt_apellido.Size = New System.Drawing.Size(250, 27)
-        Me.txt_apellido.TabIndex = 57
-        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -391,17 +373,6 @@ Partial Class frm_federativas
         Me.btn_buscar_apell.TabIndex = 55
         Me.btn_buscar_apell.Text = "BUSCAR"
         Me.btn_buscar_apell.UseVisualStyleBackColor = True
-        '
-        'txt_dni
-        '
-        Me.txt_dni.BackColor = System.Drawing.Color.White
-        Me.txt_dni.Foco = System.Drawing.Color.Empty
-        Me.txt_dni.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
-        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
-        Me.txt_dni.Name = "txt_dni"
-        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
-        Me.txt_dni.TabIndex = 43
         '
         'GroupBox3
         '
@@ -564,6 +535,35 @@ Partial Class frm_federativas
         Me.btn_reset.TabIndex = 50
         Me.btn_reset.Text = "RESETEAR"
         Me.btn_reset.UseVisualStyleBackColor = True
+        '
+        'txt_nombre
+        '
+        Me.txt_nombre.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_nombre.Location = New System.Drawing.Point(83, 33)
+        Me.txt_nombre.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_nombre.Name = "txt_nombre"
+        Me.txt_nombre.Size = New System.Drawing.Size(208, 27)
+        Me.txt_nombre.TabIndex = 56
+        '
+        'txt_apellido
+        '
+        Me.txt_apellido.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_apellido.Location = New System.Drawing.Point(83, 73)
+        Me.txt_apellido.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_apellido.Name = "txt_apellido"
+        Me.txt_apellido.Size = New System.Drawing.Size(250, 27)
+        Me.txt_apellido.TabIndex = 57
+        '
+        'txt_dni
+        '
+        Me.txt_dni.BackColor = System.Drawing.Color.White
+        Me.txt_dni.Foco = System.Drawing.Color.Empty
+        Me.txt_dni.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_dni.Location = New System.Drawing.Point(341, 33)
+        Me.txt_dni.Margin = New System.Windows.Forms.Padding(4)
+        Me.txt_dni.Name = "txt_dni"
+        Me.txt_dni.Size = New System.Drawing.Size(148, 27)
+        Me.txt_dni.TabIndex = 43
         '
         'frm_federativas
         '
