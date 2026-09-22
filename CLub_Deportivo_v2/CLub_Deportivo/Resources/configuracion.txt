@@ -11,7 +11,7 @@ Excel_ODBC
 
 ----Excel-ODBC----
 Archivo de base de datos:
-D:\Usuarios\roberto\OneDrive - Educantabria\Documentos\tarjetas_socio_2027.xls
+C:\Users\roberto\Downloads\tarjetas_socio_2027_purge.xls
 DSN:
 cdb-pesca-xlsx
 Tabla de socios:
@@ -22,6 +22,7 @@ Tabla de tarjetas federativas:
 [federativas_2027$]
 
 ----MySQL----
+Servidor:
 Servidor:
 Puerto:
 Puerto:
@@ -35,6 +36,5 @@ Tabla de socios:
 Tabla de socios:
 Tabla de base de datos de socios:
 Tabla de base de datos de socios:
-
 Tabla de tarjetas federativas:
 

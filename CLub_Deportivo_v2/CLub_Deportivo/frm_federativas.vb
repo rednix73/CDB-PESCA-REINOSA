@@ -151,11 +151,7 @@ Public Class frm_federativas
     ''' <param name="direcc">dirección postal de socio (texto)</param>
     ''' <param name="cp">codigo postal del socio (texto)</param>
     ''' <param name="localidad"></param>
-    ''' <param name="provincia"></param>
-    ''' <param name="pais"></param>
     ''' <param name="fechanac"></param>
-    ''' <param name="email"></param>
-    ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
     Public Function validar_federativa(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, fechanac As String, telefono As String, comentarios As String) As Boolean
@@ -386,8 +382,12 @@ Public Class frm_federativas
 
     Private Sub btn_eliminar_Click(sender As Object, e As EventArgs) Handles btn_eliminar.Click
         Try
-            ' Confirmación del usuario
-            Dim resp = MsgBox("Va a eliminar la tarjeta federativa con NIF: " & txt_dni.Text & " o número: " & txt_nsocio.Text & ". ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar eliminación")
+            If String.IsNullOrWhiteSpace(txt_dni.Text) Then
+                MsgBox("Indique el NIF de la tarjeta federativa a eliminar (use Buscar para cargarla).")
+                Return
+            End If
+            ' Confirmación del usuario (única: bbdd.eliminar_federativa ya no vuelve a preguntar)
+            Dim resp = MsgBox("Va a eliminar la tarjeta federativa de " & txt_nombre.Text & " " & txt_apellido.Text & " (NIF: " & txt_dni.Text & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar eliminación")
             If resp <> vbYes Then Return
 
             ' Separar apellidos como información (no necesario para la eliminación, pero la firma lo requiere)
@@ -420,8 +420,9 @@ Public Class frm_federativas
             txt_telefono.Text,
             txt_coment.Text)
 
-            ' Refrescar datos en memoria
+            ' Refrescar datos en memoria y limpiar el formulario
             bbdd.cargar()
+            Me.reset()
         Catch ex As Exception
             MsgBox("Error en eliminación: " & ex.Message)
         End Try

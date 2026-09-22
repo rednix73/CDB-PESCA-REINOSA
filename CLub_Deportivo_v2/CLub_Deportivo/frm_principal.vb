@@ -7,6 +7,13 @@
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             bbdd.leer_configuracion()
+            ' Vaciar la "papelera" de federativas AL ARRANCAR: es el único momento en que el
+            ' controlador ODBC todavía no ha abierto el .xls. Una vez usado, lo mantiene
+            ' bloqueado hasta que se cierra el programa y Excel no puede modificarlo.
+            Dim purgadas As Integer = bbdd.PurgeDeletedFederativas(False)
+            If purgadas > 0 Then
+                MsgBox("Se han eliminado definitivamente del Excel " & purgadas.ToString() & " tarjeta(s) federativa(s) borradas en la sesión anterior.")
+            End If
             bbdd.cargar()
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -15,7 +22,9 @@
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
 
-        End
+        ' Cierre ordenado ("End" terminaba el proceso de golpe, sin eventos de cierre).
+        ' La purga de federativas se hace al arrancar la aplicación (ver frm_principal_Load).
+        Me.Close()
 
     End Sub
 
@@ -105,5 +114,27 @@
         frm_federativas.btn_buscar_apell.Visible = True
         frm_federativas.btn_eliminar.Visible = False
         frm_federativas.btn_modificar.Visible = False
+    End Sub
+
+    Private Sub ModificarTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModificarTarjetaToolStripMenuItem.Click
+        frm_federativas.MdiParent = Me
+        frm_federativas.Show()
+        frm_federativas.btn_buscar_nsocio.Visible = True
+        frm_federativas.btn_buscar_dni.Visible = True
+        frm_federativas.btn_buscar_apell.Visible = True
+        frm_federativas.btn_eliminar.Visible = False
+        frm_federativas.btn_modificar.Visible = True
+        frm_federativas.btn_insertar.Visible = False
+    End Sub
+
+    Private Sub EliminarTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EliminarTarjetaToolStripMenuItem.Click
+        frm_federativas.MdiParent = Me
+        frm_federativas.Show()
+        frm_federativas.btn_buscar_nsocio.Visible = True
+        frm_federativas.btn_buscar_dni.Visible = True
+        frm_federativas.btn_buscar_apell.Visible = True
+        frm_federativas.btn_eliminar.Visible = True
+        frm_federativas.btn_modificar.Visible = False
+        frm_federativas.btn_insertar.Visible = False
     End Sub
 End Class

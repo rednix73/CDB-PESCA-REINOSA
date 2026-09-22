@@ -171,6 +171,7 @@
     <Compile Include="mapa_tarjetas.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="My Project\ApplicationEvents.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

@@ -102,100 +102,159 @@
                                     Return def
                                 End Function
 
-            ' Mapear columnas (ajustar índices si tu DataGridView difiere)
-            Dim numero = GetCellString(0)
-            Dim nombre = GetCellString(1)
-            Dim apellidos = GetCellString(2)
-            Dim dni = GetCellString(3)
-            Dim direccion = GetCellString(4)
-            Dim cp = GetCellString(5)
-            Dim localidad = GetCellString(6)
-            Dim provincia = GetCellString(7)
-            Dim pais = GetCellString(8)
-            Dim fechanacObj = If(9 < row.Cells.Count, row.Cells(9).Value, Nothing)
-            Dim fechanac = ParseDateSafe(fechanacObj)
-            Dim email = GetCellString(10)
-            Dim tipo_tarjeta_val = GetCellString(11)
-            Dim tipo_socio = If(12 < row.Cells.Count, GetCellString(12), String.Empty)
-            Dim comentarios = If(13 < row.Cells.Count, GetCellString(14), String.Empty)
-            '''Dim telefono = If(14 < row.Cells.Count, GetCellString(13), String.Empty)
+            ' Detectar si el DataGridView contiene la tabla de federativas (columnas como "nif" o "modalidad")
+            Dim cols = DataGridView1.Columns.Cast(Of DataGridViewColumn)().ToList()
+            Dim headerTexts = cols.Select(Function(c) If(String.IsNullOrEmpty(c.HeaderText), c.Name, c.HeaderText).ToLower()).ToList()
+            Dim isFederativas = headerTexts.Any(Function(h) h.Contains("nif") OrElse h.Contains("modalidad") OrElse h.Contains("precio"))
 
-            ' Rellenar frm_socio
-            Try
-                frm_socio.reset()
-                frm_socio.txt_nsocio.Text = numero
-                frm_socio.txt_nombre.Text = nombre
-                frm_socio.txt_apellido.Text = apellidos
-                frm_socio.txt_dni.Text = dni
-                frm_socio.txt_direcc.Text = direccion
-                frm_socio.txt_cp.Text = cp
-                frm_socio.txt_email.Text = email
-                frm_socio.txt_coment.Text = comentarios
+            Dim numero As String = String.Empty
+            Dim nombre As String = String.Empty
+            Dim apellidos As String = String.Empty
+            Dim dni As String = String.Empty
+            Dim direccion As String = String.Empty
+            Dim cp As String = String.Empty
+            Dim localidad As String = String.Empty
+            Dim provincia As String = String.Empty
+            Dim pais As String = String.Empty
+            Dim fechanac As Date = New Date(2000, 1, 1)
+            Dim email As String = String.Empty
+            Dim tipo_tarjeta_val As String = String.Empty
+            Dim tipo_socio As String = String.Empty
+            Dim comentarios As String = String.Empty
 
-                ' Provincia primero (dispara población de localidades)
-                If Not String.IsNullOrEmpty(provincia) Then
-                    Dim provIdx = frm_socio.cmb_prov.FindStringExact(provincia)
-                    If provIdx >= 0 Then
-                        frm_socio.cmb_prov.SelectedIndex = provIdx
+            ' Buscar columnas POR NOMBRE (DataPropertyName / Name / HeaderText). Antes se hacía por
+            ' posición y, si el orden de columnas de la hoja Excel era distinto, se cargaban datos en
+            ' la casilla equivocada (p. ej. un apellido en el NIF). La posición solo se usa como reserva.
+            Dim ColIdx = Function(nombres As String()) As Integer
+                             For Each c As DataGridViewColumn In DataGridView1.Columns
+                                 For Each n In nombres
+                                     If String.Equals(c.DataPropertyName, n, StringComparison.OrdinalIgnoreCase) OrElse
+                                        String.Equals(c.Name, n, StringComparison.OrdinalIgnoreCase) OrElse
+                                        String.Equals(c.HeaderText, n, StringComparison.OrdinalIgnoreCase) Then Return c.Index
+                                 Next
+                             Next
+                             Return -1
+                         End Function
+            Dim CampoIdx = Function(nombres As String(), reserva As Integer) As Integer
+                               Dim i = ColIdx(nombres)
+                               Return If(i >= 0, i, reserva)
+                           End Function
+            Dim Campo = Function(nombres As String(), reserva As Integer) As String
+                            Return GetCellString(CampoIdx(nombres, reserva))
+                        End Function
+
+            If isFederativas Then
+                ' Columnas de federativas: numero,nombre,apellido1,apellido2,nif,fechanac,domicilio,localidad,cp,modalidad,precio,telefono,comentarios
+                numero = Campo({"numero"}, 0)
+                nombre = Campo({"nombre"}, 1)
+                Dim apellido1 = Campo({"apellido1"}, 2)
+                Dim apellido2 = Campo({"apellido2"}, 3)
+                apellidos = If(String.IsNullOrEmpty(apellido2), apellido1, (apellido1 & " " & apellido2).Trim())
+                dni = Campo({"nif", "dni"}, 4)
+                fechanac = ParseDateSafe(GetCellValue(CampoIdx({"fechanac"}, 5)))
+                direccion = Campo({"domicilio", "direccion"}, 6)
+                localidad = Campo({"localidad"}, 7)
+                cp = Campo({"cp"}, 8)
+                tipo_tarjeta_val = Campo({"modalidad"}, 9)
+                comentarios = Campo({"comentarios"}, 12)
+            Else
+                ' Columnas de socios: numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta,tipo_socio,importe,comentarios
+                numero = Campo({"numero"}, 0)
+                nombre = Campo({"nombre"}, 1)
+                apellidos = Campo({"apellidos"}, 2)
+                dni = Campo({"dni", "nif"}, 3)
+                direccion = Campo({"direccion", "domicilio"}, 4)
+                cp = Campo({"cp"}, 5)
+                localidad = Campo({"localidad"}, 6)
+                provincia = Campo({"provincia"}, 7)
+                pais = Campo({"pais"}, 8)
+                fechanac = ParseDateSafe(GetCellValue(CampoIdx({"fechanac"}, 9)))
+                email = Campo({"email"}, 10)
+                tipo_tarjeta_val = Campo({"tarjeta"}, 11)
+                tipo_socio = Campo({"tipo_socio"}, 12)
+                comentarios = Campo({"comentarios"}, 14)
+            End If
+
+            'Dim telefono = If(14 < row.Cells.Count, GetCellString(14), String.Empty)
+
+            ' Rellenar frm_socio (solo si no estamos manejando la tabla federativas)
+            If Not isFederativas Then
+                Try
+                    frm_socio.reset()
+                    frm_socio.txt_nsocio.Text = numero
+                    frm_socio.txt_nombre.Text = nombre
+                    frm_socio.txt_apellido.Text = apellidos
+                    frm_socio.txt_dni.Text = dni
+                    frm_socio.txt_direcc.Text = direccion
+                    frm_socio.txt_cp.Text = cp
+                    frm_socio.txt_email.Text = email
+                    frm_socio.txt_coment.Text = comentarios
+
+                    ' Provincia primero (dispara población de localidades)
+                    If Not String.IsNullOrEmpty(provincia) Then
+                        Dim provIdx = frm_socio.cmb_prov.FindStringExact(provincia)
+                        If provIdx >= 0 Then
+                            frm_socio.cmb_prov.SelectedIndex = provIdx
+                        Else
+                            frm_socio.cmb_prov.SelectedItem = provincia
+                        End If
+                    End If
+
+                    ' Localidad: intentar seleccionar si existe en items, si no, asignar texto
+                    If Not String.IsNullOrEmpty(localidad) Then
+                        If frm_socio.cmb_localidad.Items.Count = 0 Then
+                            ' intentar poblar si lista global existe y provincia es CANTABRIA
+                            Try
+                                If frm_socio.cmb_prov.SelectedItem IsNot Nothing AndAlso frm_socio.cmb_prov.SelectedItem.ToString().ToUpper() = "CANTABRIA" Then
+                                    frm_socio.cmb_localidad.Items.Clear()
+                                    For i = 0 To lista_localidades.Count - 1
+                                        frm_socio.cmb_localidad.Items.Add(lista_localidades(i).Nombre)
+                                    Next
+                                End If
+                            Catch
+                            End Try
+                        End If
+                        Dim locIdx = frm_socio.cmb_localidad.FindStringExact(localidad)
+                        If locIdx >= 0 Then frm_socio.cmb_localidad.SelectedIndex = locIdx Else frm_socio.cmb_localidad.Text = localidad
+                    End If
+
+                    ' País
+                    If Not String.IsNullOrEmpty(pais) Then
+                        Dim pIdx = frm_socio.cmb_pais.FindStringExact(pais)
+                        If pIdx >= 0 Then frm_socio.cmb_pais.SelectedIndex = pIdx Else frm_socio.cmb_pais.Text = pais
+                    End If
+
+                    ' Fecha
+                    frm_socio.dtpk_fecha_nac.Value = fechanac
+
+                    ' Tipo tarjeta: si viene número (tipo_tarjeta) usar índice = valor-1, si viene texto buscar
+                    If Not String.IsNullOrEmpty(tipo_tarjeta_val) Then
+                        Dim idxNum As Integer
+                        If Integer.TryParse(tipo_tarjeta_val, idxNum) Then
+                            idxNum = Math.Max(0, idxNum - 1)
+                            If idxNum >= 0 AndAlso idxNum < frm_socio.cmb_tarjeta.Items.Count Then frm_socio.cmb_tarjeta.SelectedIndex = idxNum
+                        Else
+                            Dim idxText = frm_socio.cmb_tarjeta.FindStringExact(tipo_tarjeta_val)
+                            If idxText >= 0 Then frm_socio.cmb_tarjeta.SelectedIndex = idxText Else
+                            Dim idxPartial = frm_socio.cmb_tarjeta.FindString(tipo_tarjeta_val)
+                            If idxPartial >= 0 Then frm_socio.cmb_tarjeta.SelectedIndex = idxPartial
+                        End If
+                    End If
+
+
+                    ' Tipo socio -> radios: >=65 jubilado, <16 otros
+                    Dim edad = Calcula_edad(fechanac)
+                    If edad >= 65 Then
+                        frm_socio.rdo_jubilado.Checked = True
+                    ElseIf edad < 16 Then
+                        frm_socio.rdo_otros.Checked = True
                     Else
-                        frm_socio.cmb_prov.SelectedItem = provincia
+                        frm_socio.rdo_normal.Checked = True
                     End If
-                End If
-
-                ' Localidad: intentar seleccionar si existe en items, si no, asignar texto
-                If Not String.IsNullOrEmpty(localidad) Then
-                    If frm_socio.cmb_localidad.Items.Count = 0 Then
-                        ' intentar poblar si lista global existe y provincia es CANTABRIA
-                        Try
-                            If frm_socio.cmb_prov.SelectedItem IsNot Nothing AndAlso frm_socio.cmb_prov.SelectedItem.ToString().ToUpper() = "CANTABRIA" Then
-                                frm_socio.cmb_localidad.Items.Clear()
-                                For i = 0 To lista_localidades.Count - 1
-                                    frm_socio.cmb_localidad.Items.Add(lista_localidades(i).Nombre)
-                                Next
-                            End If
-                        Catch
-                        End Try
-                    End If
-                    Dim locIdx = frm_socio.cmb_localidad.FindStringExact(localidad)
-                    If locIdx >= 0 Then frm_socio.cmb_localidad.SelectedIndex = locIdx Else frm_socio.cmb_localidad.Text = localidad
-                End If
-
-                ' País
-                If Not String.IsNullOrEmpty(pais) Then
-                    Dim pIdx = frm_socio.cmb_pais.FindStringExact(pais)
-                    If pIdx >= 0 Then frm_socio.cmb_pais.SelectedIndex = pIdx Else frm_socio.cmb_pais.Text = pais
-                End If
-
-                ' Fecha
-                frm_socio.dtpk_fecha_nac.Value = fechanac
-
-                ' Tipo tarjeta: si viene número (tipo_tarjeta) usar índice = valor-1, si viene texto buscar
-                If Not String.IsNullOrEmpty(tipo_tarjeta_val) Then
-                    Dim idxNum As Integer
-                    If Integer.TryParse(tipo_tarjeta_val, idxNum) Then
-                        idxNum = Math.Max(0, idxNum - 1)
-                        If idxNum >= 0 AndAlso idxNum < frm_socio.cmb_tarjeta.Items.Count Then frm_socio.cmb_tarjeta.SelectedIndex = idxNum
-                    Else
-                        Dim idxText = frm_socio.cmb_tarjeta.FindStringExact(tipo_tarjeta_val)
-                        If idxText >= 0 Then frm_socio.cmb_tarjeta.SelectedIndex = idxText Else
-                        Dim idxPartial = frm_socio.cmb_tarjeta.FindString(tipo_tarjeta_val)
-                        If idxPartial >= 0 Then frm_socio.cmb_tarjeta.SelectedIndex = idxPartial
-                    End If
-                End If
-
-
-                ' Tipo socio -> radios: >=65 jubilado, <16 otros
-                Dim edad = Calcula_edad(fechanac)
-                If edad >= 65 Then
-                    frm_socio.rdo_jubilado.Checked = True
-                ElseIf edad < 16 Then
-                    frm_socio.rdo_otros.Checked = True
-                Else
-                    frm_socio.rdo_normal.Checked = True
-                End If
-            Catch ex As Exception
-                MsgBox("Error asignando datos a frm_socio: " & ex.Message)
-            End Try
+                Catch ex As Exception
+                    MsgBox("Error asignando datos a frm_socio: " & ex.Message)
+                End Try
+            End If
 
             ' Rellenar frm_federativas
             Try
@@ -207,7 +266,7 @@
                 frm_federativas.txt_direcc.Text = direccion
                 frm_federativas.txt_cp.Text = cp
                 frm_federativas.cmb_localidad.Text = localidad
-                '''frm_federativas.txt_telefono.Text = telefono
+                'frm_federativas.txt_telefono.Text = telefono
                 frm_federativas.txt_coment.Text = comentarios
                 frm_federativas.dtpk_fecha_nac.Value = fechanac
 
