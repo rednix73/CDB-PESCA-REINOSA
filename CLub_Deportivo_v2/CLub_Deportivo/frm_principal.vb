@@ -15,8 +15,22 @@
 
     Private Sub SalirToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalirToolStripMenuItem.Click
 
+        ' Antes de salir, intentar purgar los registros marcados (silencioso si falla)
+        Try
+            bbdd.PurgeDeletedFederativas()
+        Catch
+        End Try
+
         End
 
+    End Sub
+
+    Private Sub frm_principal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        ' Llamar a la purga también cuando se cierra la ventana principal (X, Alt+F4, etc.)
+        Try
+            bbdd.PurgeDeletedFederativas()
+        Catch
+        End Try
     End Sub
 
     Private Sub ListadosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListadosToolStripMenuItem.Click
@@ -48,6 +62,11 @@
 
                 desconectar()
                 ds_club.AcceptChanges()
+                ' Después de guardar, ofrecer purga física si hay eliminaciones lógicas
+                Try
+                    bbdd.PurgeDeletedFederativas()
+                Catch
+                End Try
                 bbdd.cargar()
             End If
         Catch ex As Exception
@@ -105,5 +124,27 @@
         frm_federativas.btn_buscar_apell.Visible = True
         frm_federativas.btn_eliminar.Visible = False
         frm_federativas.btn_modificar.Visible = False
+    End Sub
+
+    Private Sub ModificarTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModificarTarjetaToolStripMenuItem.Click
+        frm_federativas.MdiParent = Me
+        frm_federativas.Show()
+        frm_federativas.btn_buscar_nsocio.Visible = True
+        frm_federativas.btn_buscar_dni.Visible = True
+        frm_federativas.btn_buscar_apell.Visible = True
+        frm_federativas.btn_eliminar.Visible = False
+        frm_federativas.btn_modificar.Visible = True
+        frm_federativas.btn_insertar.Visible = False
+    End Sub
+
+    Private Sub EliminarTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EliminarTarjetaToolStripMenuItem.Click
+        frm_federativas.MdiParent = Me
+        frm_federativas.Show()
+        frm_federativas.btn_buscar_nsocio.Visible = True
+        frm_federativas.btn_buscar_dni.Visible = True
+        frm_federativas.btn_buscar_apell.Visible = True
+        frm_federativas.btn_eliminar.Visible = True
+        frm_federativas.btn_modificar.Visible = False
+        frm_federativas.btn_insertar.Visible = False
     End Sub
 End Class

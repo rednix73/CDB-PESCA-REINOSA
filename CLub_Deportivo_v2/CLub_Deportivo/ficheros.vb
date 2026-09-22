@@ -9,9 +9,34 @@ Module ficheros
     Public lista_provincias As New List(Of String)
     Public Sub leer()
         Try
-            sr1 = New StreamReader(My.Settings.ruta_recursos + "/cantabria_localidades.txt")
-            sr2 = New StreamReader(My.Settings.ruta_recursos + "/cantabria_cp.txt")
-            sr3 = New StreamReader(My.Settings.ruta_recursos + "/provincias.txt")
+            Dim baseRes As String = My.Settings.ruta_recursos
+            Dim file1 As String = Path.Combine(baseRes, "cantabria_localidades.txt")
+            Dim file2 As String = Path.Combine(baseRes, "cantabria_cp.txt")
+            Dim file3 As String = Path.Combine(baseRes, "provincias.txt")
+
+            ' Si no existen en la ruta configurada, probar la carpeta Resources junto al ejecutable
+            Dim appRes As String = Path.Combine(Application.StartupPath, "Resources")
+            If Not File.Exists(file1) Then
+                Dim alt = Path.Combine(appRes, "cantabria_localidades.txt")
+                If File.Exists(alt) Then file1 = alt
+            End If
+            If Not File.Exists(file2) Then
+                Dim alt = Path.Combine(appRes, "cantabria_cp.txt")
+                If File.Exists(alt) Then file2 = alt
+            End If
+            If Not File.Exists(file3) Then
+                Dim alt = Path.Combine(appRes, "provincias.txt")
+                If File.Exists(alt) Then file3 = alt
+            End If
+
+            ' Abrir solo si existen, si no, lanzar excepción para informar
+            If Not File.Exists(file1) Or Not File.Exists(file2) Or Not File.Exists(file3) Then
+                Throw New FileNotFoundException("Faltan archivos de recursos en '" & baseRes & "' y en '" & appRes & "'.")
+            End If
+
+            sr1 = New StreamReader(file1)
+            sr2 = New StreamReader(file2)
+            sr3 = New StreamReader(file3)
 
             While Not sr1.EndOfStream
                 Dim Loc As New localidad

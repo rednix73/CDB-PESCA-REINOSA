@@ -78,6 +78,18 @@
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\ztools.other.MySql.Data.6.9.8\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI.Core">
+      <HintPath>lib\NPOI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>lib\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>lib\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>lib\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -107,6 +119,7 @@
     <Compile Include="Acerca_de.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="bbdd_npoi.vb" />
     <Compile Include="frm_actualizar_bbdd.Designer.vb">
       <DependentUpon>frm_actualizar_bbdd.vb</DependentUpon>
     </Compile>
@@ -171,6 +184,7 @@
     <Compile Include="mapa_tarjetas.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="My Project\ApplicationEvents.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -249,61 +263,97 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\cantabria_cp.txt" />
+    <None Include="Resources\cantabria_cp.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cantabria_localidades.txt" />
+    <None Include="Resources\cantabria_localidades.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\comunidades.txt" />
+    <None Include="Resources\comunidades.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\provincias.txt" />
+    <None Include="Resources\provincias.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\alevines1.jpg" />
+    <None Include="Resources\alevines1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\alevines.png" />
+    <None Include="Resources\alevines.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\alevines2.png" />
+    <None Include="Resources\alevines2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\alevin-trucha.png" />
+    <None Include="Resources\alevin-trucha.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bogas saltando en el medidor de aforos.jpg" />
+    <None Include="Resources\bogas saltando en el medidor de aforos.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cola rata.jpg" />
+    <None Include="Resources\cola rata.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Huevas.JPG" />
+    <None Include="Resources\Huevas.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\alevines21.png" />
+    <None Include="Resources\alevines21.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CDB-PESCAREINOSA.gif" />
+    <None Include="Resources\CDB-PESCAREINOSA.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icono_cdb.ico" />
+    <None Include="Resources\icono_cdb.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CDB-PESCAREINOSA-WEB.ico" />
+    <None Include="Resources\CDB-PESCAREINOSA-WEB.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\configuracion.txt" />
+    <None Include="Resources\configuracion.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tarjeta_socio_reverso.jpg" />
+    <None Include="Resources\tarjeta_socio_reverso.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tarjeta_socio_anverso.gif" />
+    <None Include="Resources\tarjeta_socio_anverso.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
