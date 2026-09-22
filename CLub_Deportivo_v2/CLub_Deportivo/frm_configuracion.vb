@@ -1,4 +1,6 @@
 ﻿Imports System.IO
+Imports System.Drawing
+Imports System.Windows.Forms
 Public Class frm_configuracion
     Private Sub cmb_bd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmb_bd.SelectedIndexChanged
         If cmb_bd.SelectedIndex = 1 Then
@@ -15,13 +17,101 @@ Public Class frm_configuracion
 
     End Sub
     Private Sub carga_configuracion()
-
         'Pestaña general
         cmb_temporada.SelectedItem = bbdd.temporada
         txt_tarjeta_salmon.Text = bbdd.precio_salmon.ToString()
         txt_tarjeta_trucha.Text = bbdd.precio_trucha.ToString()
-        pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso)
-        pctbox_tsocio_reverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso)
+
+        ' --- Asegurar carpeta de recursos del usuario y normalizar ruta ---
+        Dim settingRes As String = My.Settings.ruta_recursos
+        Dim userRes As String
+        If String.IsNullOrWhiteSpace(settingRes) Then
+            userRes = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CDB-PESCA-REINOSA", "Resources")
+        ElseIf Path.IsPathRooted(settingRes) Then
+            userRes = settingRes
+        Else
+            ' Si la ruta es relativa (p.e. "../../Resources" del entorno de desarrollo),
+            ' convertirla a absoluta relativa al directorio de la aplicación en tiempo de ejecución.
+            Try
+                userRes = Path.GetFullPath(Path.Combine(Application.StartupPath, settingRes))
+            Catch
+                userRes = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CDB-PESCA-REINOSA", "Resources")
+            End Try
+        End If
+        Directory.CreateDirectory(userRes)
+
+        ' Ruta de recursos empaquetados junto al ejecutable (fallback). Si no existe,
+        ' buscar hacia arriba en el árbol de carpetas un directorio "Resources" (útil en desarrollo).
+        Dim appRes As String = Path.Combine(Application.StartupPath, "Resources")
+        If Not Directory.Exists(appRes) Then
+            Dim probe As String = Application.StartupPath
+            For i As Integer = 0 To 6
+                probe = Path.GetDirectoryName(probe)
+                If String.IsNullOrEmpty(probe) Then Exit For
+                Dim cand = Path.Combine(probe, "Resources")
+                If Directory.Exists(cand) Then
+                    appRes = cand
+                    Exit For
+                End If
+            Next
+        End If
+
+        ' Migrar archivos que existan en la carpeta de la aplicación pero falten en userRes
+        Try
+            If Directory.Exists(appRes) Then
+                For Each src In Directory.GetFiles(appRes)
+                    Try
+                        Dim fn = Path.GetFileName(src)
+                        Dim dst As String = Path.Combine(userRes, fn)
+                        If Not File.Exists(dst) Then
+                            File.Copy(src, dst, True)
+                        End If
+                    Catch
+                        ' Ignorar errores de copia por archivo
+                    End Try
+                Next
+            End If
+        Catch
+            ' Ignorar errores generales de migración
+        End Try
+
+        ' Guardar la ruta de recursos del usuario (asegurar persistencia)
+        My.Settings.ruta_recursos = userRes
+        Try
+            My.Settings.Save()
+        Catch
+            ' Ignorar si no se puede guardar settings
+        End Try
+
+        ' Cargar las imágenes comprobando existencia y usando fallback si hace falta
+        Dim anversoPath As String = Path.Combine(userRes, bbdd.tarjeta_socio_anverso)
+        Dim reversoPath As String = Path.Combine(userRes, bbdd.tarjeta_socio_reverso)
+
+        If File.Exists(anversoPath) Then
+            Dim bytes() As Byte = File.ReadAllBytes(anversoPath)
+            Using ms As New MemoryStream(bytes)
+                Using img As Image = Image.FromStream(ms)
+                    pctbox_tsocio_anverso.Image = New Bitmap(img)
+                End Using
+            End Using
+        ElseIf File.Exists(Path.Combine(appRes, bbdd.tarjeta_socio_anverso)) Then
+            pctbox_tsocio_anverso.Image = Image.FromFile(Path.Combine(appRes, bbdd.tarjeta_socio_anverso))
+        Else
+            pctbox_tsocio_anverso.Image = Nothing
+        End If
+
+        If File.Exists(reversoPath) Then
+            Dim bytes2() As Byte = File.ReadAllBytes(reversoPath)
+            Using ms2 As New MemoryStream(bytes2)
+                Using img2 As Image = Image.FromStream(ms2)
+                    pctbox_tsocio_reverso.Image = New Bitmap(img2)
+                End Using
+            End Using
+        ElseIf File.Exists(Path.Combine(appRes, bbdd.tarjeta_socio_reverso)) Then
+            pctbox_tsocio_reverso.Image = Image.FromFile(Path.Combine(appRes, bbdd.tarjeta_socio_reverso))
+        Else
+            pctbox_tsocio_reverso.Image = Nothing
+        End If
 
         ' Pestaña Base de datos
         'ODBC-excel
@@ -43,9 +133,44 @@ Public Class frm_configuracion
     End Sub
     Private Sub OpenFile_reverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_reverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_reverso.FileName)
-        pctbox_tsocio_reverso.Image = Nothing
-        File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso, True)
-        pctbox_tsocio_reverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_reverso)
+        Try
+            ' Liberar imagen actual si existe
+            If pctbox_tsocio_reverso.Image IsNot Nothing Then
+                Dim old = pctbox_tsocio_reverso.Image
+                pctbox_tsocio_reverso.Image = Nothing
+                old.Dispose()
+            End If
+
+            ' Usar carpeta de AppData para recursos para evitar problemas de permisos en carpetas de programa
+            Dim appData As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CDB-PESCA-REINOSA")
+            Dim destDir As String = Path.Combine(appData, "Resources")
+            Directory.CreateDirectory(destDir)
+            Dim dest As String = Path.Combine(destDir, bbdd.tarjeta_socio_reverso)
+
+            ' Si existe, asegurarse de quitar atributo readonly
+            If File.Exists(dest) Then
+                File.SetAttributes(dest, FileAttributes.Normal)
+            End If
+
+            File.Copy(f.FullName, dest, True)
+
+            ' Cargar la imagen en memoria para no bloquear el archivo en disco
+            Dim imgBytes() As Byte = File.ReadAllBytes(dest)
+            Using ms As New MemoryStream(imgBytes)
+                Using img As Image = Image.FromStream(ms)
+                    pctbox_tsocio_reverso.Image = New Bitmap(img)
+                End Using
+            End Using
+
+            ' Actualizar la ruta de recursos en configuración para próximas cargas
+            My.Settings.ruta_recursos = destDir
+            My.Settings.Save()
+
+        Catch ua As UnauthorizedAccessException
+            MessageBox.Show("Acceso denegado al copiar la imagen. Elija otra ubicación o ejecute con permisos adecuados." & vbCrLf & ua.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show("Error al copiar/cargar la imagen: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -110,10 +235,43 @@ Public Class frm_configuracion
 
     Private Sub OpenFile_anverso_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_anverso.FileOk
         Dim f As FileInfo = New FileInfo(OpenFile_anverso.FileName)
-        pctbox_tsocio_anverso.Image.Dispose()
-        pctbox_tsocio_anverso.Image = Nothing
-        File.Copy(f.FullName, My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso, True)
-        pctbox_tsocio_anverso.Image = Image.FromFile(My.Settings.ruta_recursos & "\" & bbdd.tarjeta_socio_anverso)
+        Try
+            ' Liberar imagen actual si existe
+            If pctbox_tsocio_anverso.Image IsNot Nothing Then
+                Dim old = pctbox_tsocio_anverso.Image
+                pctbox_tsocio_anverso.Image = Nothing
+                old.Dispose()
+            End If
+
+            ' Usar carpeta de AppData para recursos para evitar problemas de permisos en carpetas de programa
+            Dim appData As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CDB-PESCA-REINOSA")
+            Dim destDir As String = Path.Combine(appData, "Resources")
+            Directory.CreateDirectory(destDir)
+            Dim dest As String = Path.Combine(destDir, bbdd.tarjeta_socio_anverso)
+
+            If File.Exists(dest) Then
+                File.SetAttributes(dest, FileAttributes.Normal)
+            End If
+
+            File.Copy(f.FullName, dest, True)
+
+            ' Cargar la imagen en memoria para no bloquear el archivo en disco
+            Dim imgBytes() As Byte = File.ReadAllBytes(dest)
+            Using ms As New MemoryStream(imgBytes)
+                Using img As Image = Image.FromStream(ms)
+                    pctbox_tsocio_anverso.Image = New Bitmap(img)
+                End Using
+            End Using
+
+            ' Actualizar la ruta de recursos en configuración para próximas cargas
+            My.Settings.ruta_recursos = destDir
+            My.Settings.Save()
+
+        Catch ua As UnauthorizedAccessException
+            MessageBox.Show("Acceso denegado al copiar la imagen. Elija otra ubicación o ejecute con permisos adecuados." & vbCrLf & ua.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Catch ex As Exception
+            MessageBox.Show("Error al copiar/cargar la imagen: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub btn_anverso_Click(sender As Object, e As EventArgs) Handles btn_anverso.Click

@@ -151,11 +151,7 @@ Public Class frm_federativas
     ''' <param name="direcc">dirección postal de socio (texto)</param>
     ''' <param name="cp">codigo postal del socio (texto)</param>
     ''' <param name="localidad"></param>
-    ''' <param name="provincia"></param>
-    ''' <param name="pais"></param>
     ''' <param name="fechanac"></param>
-    ''' <param name="email"></param>
-    ''' <param name="tipo_socio"></param>
     ''' <param name="comentarios"></param>
     ''' <returns>Devuelve true si no hay campos vacíos. En caso de que que haya algún campo vacío devuelve false.</returns>
     Public Function validar_federativa(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, fechanac As String, telefono As String, comentarios As String) As Boolean
