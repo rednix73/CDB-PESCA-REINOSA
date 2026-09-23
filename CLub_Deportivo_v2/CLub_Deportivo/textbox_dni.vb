@@ -1,7 +1,18 @@
 ﻿Imports System.Text
+Imports System.Text.RegularExpressions
 
+''' <summary>
+''' Cuadro de texto para el documento de identidad. Admite:
+'''  - DNI: 8 (o 7) números + letra  -> se formatea como 12345678-Z
+'''  - NIE: X/Y/Z + 7 números + letra -> se formatea como X-1234567-L
+'''  - Pasaporte u otro documento extranjero: letras y números libres (sin formato)
+''' La letra del DNI/NIE se calcula sola al salir del cuadro o con el botón CALCULA LETRA.
+''' </summary>
 Public Class textbox_dni
     Inherits TextBox
+
+    Private Const LETRAS As String = "TRWAGMYFPDXBNJZSQVHLCKE"
+
     Dim _foco As Color
     Public Property Foco As Color
         Get
@@ -11,18 +22,13 @@ Public Class textbox_dni
             _foco = value
         End Set
     End Property
+
     Protected Overrides Sub OnKeyPress(e As System.Windows.Forms.KeyPressEventArgs)
-        ' Sobreescribimos el evento OnKeyPress para que el textbox solamente admita 
-        ' numeros y un número máximo de 8 caracteres.
-        If MyBase.Text.Length > 7 Then
+        ' Letras, números, guion y teclas de control (Retroceso, Ctrl+C, Ctrl+V...).
+        ' Antes solo se admitían números, así que no se podía escribir un NIE ni un pasaporte.
+        If Not (Char.IsControl(e.KeyChar) OrElse Char.IsLetterOrDigit(e.KeyChar) OrElse e.KeyChar = "-"c) Then
             e.Handled = True
-        Else
-            If Not Char.IsNumber(e.KeyChar) Then
-                e.Handled = True
-            End If
-
         End If
-
         MyBase.OnKeyPress(e)
     End Sub
 
@@ -35,67 +41,73 @@ Public Class textbox_dni
             Return
         End If
 
-        If MyBase.Text.Length < 8 Then
-            MsgBox("El número de caracteres para poder calcular la letra del NIF introducido debe ser de ocho")
-        Else
-            Dim nif As String = CalculaNIF(MyBase.Text)
-            MyBase.Text = nif
-        End If
+        ' Si es un DNI o NIE se completa/corrige la letra; si es otro documento se deja tal cual.
+        Dim doc = CalcularLetra()
+        If doc <> "" Then MyBase.Text = doc
 
         MyBase.BackColor = Color.White
     End Sub
 
     Protected Overrides Sub OnGotFocus(e As System.EventArgs)
         MyBase.BackColor = Foco
-
         MyBase.OnGotFocus(e)
-
     End Sub
 
+    ''' <summary>
+    ''' Devuelve el DNI o NIE escrito, con su letra y formateado ("12345678-Z" / "X-1234567-L"),
+    ''' o cadena vacía si lo escrito no es un DNI ni un NIE (p. ej. un pasaporte).
+    ''' </summary>
+    Public Function CalcularLetra() As String
+        Return FormatearDocumento(MyBase.Text)
+    End Function
 
-    Private Function CalculaNIF(ByVal strA As String) As String
-        '----------------------------------------------------------------------
-        ' Calcular la letra del NIF
-        ' Código original adaptado a Visual Basic                   (13/Sep/95)
-        ' Adaptado a Visual Basic .NET (VB 9.0/2008)                (09/May/08)
-        ' y convertido en función que devuelve el NIF correcto
-        '----------------------------------------------------------------------
-        Const cCADENA As String = "TRWAGMYFPDXBNJZSQVHLCKE"
-        Const cNUMEROS As String = "0123456789"
-        Dim a, b, c, NIF As Integer
-        Dim sb As New StringBuilder
+    ''' <summary>"DNI", "NIE", "OTRO" (pasaporte u otro documento) o "" si está vacío.</summary>
+    Public Shared Function TipoDocumento(s As String) As String
+        Dim t = Limpio(s)
+        If t = "" Then Return ""
+        If Regex.IsMatch(t, "^\d{7,8}[A-Z]?$") Then Return "DNI"   ' también DNI antiguos de 7 números
+        If Regex.IsMatch(t, "^[XYZ]\d{7}[A-Z]?$") Then Return "NIE"
+        Return "OTRO"
+    End Function
 
-        strA = Trim(strA)
-        If Len(strA) = 0 Then Return ""
+    ''' <summary>True si es un DNI o NIE con la letra correcta.</summary>
+    Public Shared Function LetraCorrecta(s As String) As Boolean
+        Dim t = Limpio(s)
+        If Not Regex.IsMatch(t, "^(\d{7,8}|[XYZ]\d{7})[A-Z]$") Then Return False
+        Return t.EndsWith(LetraDe(t.Substring(0, t.Length - 1)))
+    End Function
 
-        ' Dejar sólo los números
-        For i As Integer = 0 To strA.Length - 1
-            If cNUMEROS.IndexOf(strA(i)) > -1 Then
-                sb.Append(strA(i))
-            End If
-        Next
+    ''' <summary>Formatea un DNI/NIE con la letra calculada; "" si no es DNI ni NIE.</summary>
+    Public Shared Function FormatearDocumento(s As String) As String
+        Dim t = Limpio(s)
+        Select Case TipoDocumento(t)
+            Case "DNI"
+                Dim num = t.Substring(0, 8)
+                Return num & "-" & LetraDe(num)
+            Case "NIE"
+                Dim cuerpo = t.Substring(0, 8)          ' X1234567
+                Return cuerpo.Substring(0, 1) & "-" & cuerpo.Substring(1) & "-" & LetraDe(cuerpo)
+            Case Else
+                Return ""
+        End Select
+    End Function
 
-        strA = sb.ToString
-        a = 0
-        NIF = CInt(Val(strA))
-        Do
-            b = CInt(Int(NIF / 24))
-            c = NIF - (24 * b)
-            a = a + c
-            NIF = b
-        Loop While b <> 0
-        b = CInt(Int(a / 23))
-        c = a - (23 * b)
+    ''' <summary>Letra de control. En el NIE la X, Y, Z valen 0, 1, 2.</summary>
+    Private Shared Function LetraDe(cuerpo As String) As String
+        Dim c = cuerpo.Replace("X", "0").Replace("Y", "1").Replace("Z", "2")
+        Return LETRAS.Chars(CInt(Long.Parse(c) Mod 23)).ToString()
+    End Function
 
-        Return strA & "-" & Mid(cCADENA, CInt(c + 1), 1)
-
+    ''' <summary>Mayúsculas y sin espacios ni guiones.</summary>
+    Private Shared Function Limpio(s As String) As String
+        Return Regex.Replace(If(s, "").ToUpperInvariant(), "[^A-Z0-9]", "")
     End Function
 
     Public Sub New()
         MyBase.BackColor = Color.White
         MyBase.Font = New Font("Arial", 10, FontStyle.Bold)
-
+        MyBase.CharacterCasing = CharacterCasing.Upper
+        MyBase.MaxLength = 20
     End Sub
-
 
 End Class

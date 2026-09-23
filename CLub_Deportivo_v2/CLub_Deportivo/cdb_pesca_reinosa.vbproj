@@ -178,6 +178,7 @@
     <Compile Include="localidad.vb" />
     <Compile Include="ficheros.vb" />
     <Compile Include="bbdd.vb" />
+    <Compile Include="actualizar_bd.vb" />
     <Compile Include="mapa_tarjetas.Designer.vb">
       <DependentUpon>mapa_tarjetas.vb</DependentUpon>
     </Compile>

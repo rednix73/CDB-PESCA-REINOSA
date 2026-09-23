@@ -19,8 +19,8 @@ Public Class frm_configuracion
     Private Sub carga_configuracion()
         'Pestaña general
         cmb_temporada.SelectedItem = bbdd.temporada
-        txt_tarjeta_salmon.Text = bbdd.precio_salmon.ToString()
-        txt_tarjeta_trucha.Text = bbdd.precio_trucha.ToString()
+        txt_tarjeta_salmon.Text = bbdd.precio_salmon.ToString("0.##")
+        txt_tarjeta_trucha.Text = bbdd.precio_trucha.ToString("0.##")
 
         ' --- Asegurar carpeta de recursos del usuario y normalizar ruta ---
         Dim settingRes As String = My.Settings.ruta_recursos
@@ -184,52 +184,78 @@ Public Class frm_configuracion
 
     Private Sub btn_guardar_Click(sender As Object, e As EventArgs) Handles btn_guardar.Click
         Try
-            Dim sw As New StreamWriter(My.Settings.ruta_recursos & "\" & "configuracion.txt", False)
-            sw.WriteLine("------Configuración - General------")
-            sw.WriteLine("Temporada:")
-            sw.WriteLine(cmb_temporada.SelectedItem.ToString())
-            sw.WriteLine("Precio tarjeta  de Salmon(€):")
-            sw.WriteLine(txt_tarjeta_salmon.Text)
-            sw.WriteLine("Precio tarjeta  de Trucha(€):")
-            sw.WriteLine(txt_tarjeta_trucha.Text)
-            sw.WriteLine("------Configuración - Bases de datos------")
-            sw.WriteLine("Tipo de base de datos:")
-            sw.WriteLine(cmb_bd.SelectedItem.ToString())
-            sw.WriteLine()
-            sw.WriteLine("----Excel-ODBC----")
-            sw.WriteLine("Archivo de base de datos:")
-            sw.WriteLine(txt_archivo_excel.Text)
-            sw.WriteLine("DSN:")
-            sw.WriteLine(txt_dsn.Text)
-            sw.WriteLine("Tabla de socios:")
-            sw.WriteLine(txt_tabla_socios_xls.Text)
-            sw.WriteLine("Tabla de base de datos de socios:")
-            sw.WriteLine(txt_tabla_bdsocios_xls.Text)
-            sw.WriteLine("Tabla de tarjetas federativas:")
-            sw.WriteLine(txt_tabla_federativas_xls.Text)
-            sw.WriteLine()
+            ' Validar ANTES de abrir el fichero: antes se abría (vaciándolo) y, si faltaba la
+            ' temporada o el tipo de base de datos, fallaba a mitad y la configuración quedaba borrada.
+            If cmb_temporada.SelectedItem Is Nothing Then
+                MsgBox("Seleccione la temporada.")
+                Return
+            End If
+            If cmb_bd.SelectedItem Is Nothing Then
+                MsgBox("Seleccione el tipo de base de datos.")
+                Return
+            End If
+            Dim salmon = bbdd.LeerPrecio(txt_tarjeta_salmon.Text)
+            Dim trucha = bbdd.LeerPrecio(txt_tarjeta_trucha.Text)
+            If salmon <= 0 OrElse trucha <= 0 Then
+                MsgBox("Los precios de las tarjetas deben ser números mayores que 0 (por ejemplo 17 o 17,50).")
+                Return
+            End If
 
-            sw.WriteLine("----MySQL----")
-            sw.WriteLine("Servidor:")
-            sw.WriteLine(txt_server.Text)
-            sw.WriteLine("Puerto:")
-            sw.WriteLine(txt_port.Text)
-            sw.WriteLine("Base de datos:")
-            sw.WriteLine(txt_bbdd.Text)
-            sw.WriteLine("Usuario:")
-            sw.WriteLine(txt_user.Text)
-            sw.WriteLine("Contraseña:")
-            sw.WriteLine(txt_password.Text)
-            sw.WriteLine("Tabla de socios:")
-            sw.WriteLine(txt_tabla_socios_mysql.Text)
-            sw.WriteLine("Tabla de base de datos de socios:")
-            sw.WriteLine(txt_tabla_bdsocios_mysql.Text)
-            sw.WriteLine("Tabla de tarjetas federativas:")
-            sw.WriteLine(txt_tabla_federativas_mysql.Text)
-            sw.Close()
-            MsgBox("Configuración guardada correctamente", MsgBoxStyle.Information)
+            Dim ruta As String = Path.Combine(My.Settings.ruta_recursos, "configuracion.txt")
+            Using sw As New StreamWriter(ruta, False)
+                sw.WriteLine("------Configuración - General------")
+                sw.WriteLine("Temporada:")
+                sw.WriteLine(cmb_temporada.SelectedItem.ToString())
+                sw.WriteLine("Precio tarjeta  de Salmon(€):")
+                sw.WriteLine(salmon.ToString("0.##"))
+                sw.WriteLine("Precio tarjeta  de Trucha(€):")
+                sw.WriteLine(trucha.ToString("0.##"))
+                sw.WriteLine("------Configuración - Bases de datos------")
+                sw.WriteLine("Tipo de base de datos:")
+                sw.WriteLine(cmb_bd.SelectedItem.ToString())
+                sw.WriteLine()
+                sw.WriteLine("----Excel-ODBC----")
+                sw.WriteLine("Archivo de base de datos:")
+                sw.WriteLine(txt_archivo_excel.Text.Trim())
+                sw.WriteLine("DSN:")
+                sw.WriteLine(txt_dsn.Text.Trim())
+                sw.WriteLine("Tabla de socios:")
+                sw.WriteLine(txt_tabla_socios_xls.Text.Trim())
+                sw.WriteLine("Tabla de base de datos de socios:")
+                sw.WriteLine(txt_tabla_bdsocios_xls.Text.Trim())
+                sw.WriteLine("Tabla de tarjetas federativas:")
+                sw.WriteLine(txt_tabla_federativas_xls.Text.Trim())
+                sw.WriteLine()
+                sw.WriteLine("----MySQL----")
+                sw.WriteLine("Servidor:")
+                sw.WriteLine(txt_server.Text)
+                sw.WriteLine("Puerto:")
+                sw.WriteLine(txt_port.Text)
+                sw.WriteLine("Base de datos:")
+                sw.WriteLine(txt_bbdd.Text)
+                sw.WriteLine("Usuario:")
+                sw.WriteLine(txt_user.Text)
+                sw.WriteLine("Contraseña:")
+                sw.WriteLine(txt_password.Text)
+                sw.WriteLine("Tabla de socios:")
+                sw.WriteLine(txt_tabla_socios_mysql.Text)
+                sw.WriteLine("Tabla de base de datos de socios:")
+                sw.WriteLine(txt_tabla_bdsocios_mysql.Text)
+                sw.WriteLine("Tabla de tarjetas federativas:")
+                sw.WriteLine(txt_tabla_federativas_mysql.Text)
+            End Using
+
+            ' Aplicar la configuración AHORA (antes los precios nuevos no se usaban hasta reiniciar)
+            bbdd.leer_configuracion()
+            bbdd.cargar()
+            ' Si el formulario de socios está abierto, recalcular su importe con los precios nuevos
+            For Each f In Application.OpenForms.OfType(Of frm_socio)()
+                f.RefrescarImporte()
+            Next
+
+            MsgBox("Configuración guardada y aplicada correctamente.", MsgBoxStyle.Information)
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error al guardar la configuración: " & ex.Message)
         End Try
     End Sub
 

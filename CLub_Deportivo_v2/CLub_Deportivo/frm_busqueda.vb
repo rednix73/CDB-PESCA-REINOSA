@@ -242,9 +242,17 @@
                     End If
 
 
-                    ' Tipo socio -> radios: >=65 jubilado, <16 otros
+                    ' Tipo socio -> radios: se usa el tipo GUARDADO (así se respeta "otros" para féminas, etc.).
+                    ' Solo si no hay tipo guardado se deduce por la edad (>=65 jubilado, <16 otros).
                     Dim edad = Calcula_edad(fechanac)
-                    If edad >= 65 Then
+                    Dim tipoGuardado = tipo_socio.Trim().ToUpperInvariant()
+                    If tipoGuardado = "JUBILADO" Then
+                        frm_socio.rdo_jubilado.Checked = True
+                    ElseIf tipoGuardado = "OTROS" Then
+                        frm_socio.rdo_otros.Checked = True
+                    ElseIf tipoGuardado = "NORMAL" Then
+                        frm_socio.rdo_normal.Checked = True
+                    ElseIf edad >= 65 Then
                         frm_socio.rdo_jubilado.Checked = True
                     ElseIf edad < 16 Then
                         frm_socio.rdo_otros.Checked = True
@@ -309,15 +317,11 @@
 
     End Sub
     Public Function Calcula_edad(fechanac1 As Date) As Integer
-        Dim ahora As New Date()
-        Dim edad_socio As Integer
-
-        ahora = Date.Now
-        Dim años As Integer = CInt(DateDiff(DateInterval.Year, fechanac1, ahora))
-        Dim meses As Integer = CInt(DateDiff(DateInterval.Month, fechanac1, ahora))
-        Dim dias As Integer = CInt(DateDiff(DateInterval.Day, fechanac1, ahora))
-        'MsgBox(años.ToString() + ";" + meses.ToString() + ";" + dias.ToString())
-        edad_socio = años.ToString()
-        Return edad_socio
+        ' Edad real: DateDiff por años solo resta los años del calendario
+        ' (alguien nacido en diciembre de 1961 salía con 65 años ya en enero de 2026).
+        Dim hoy = Date.Today
+        Dim anos = hoy.Year - fechanac1.Year
+        If fechanac1.Date > hoy.AddYears(-anos) Then anos -= 1
+        Return anos
     End Function
 End Class

@@ -34,6 +34,11 @@ Module ficheros
                 Throw New FileNotFoundException("Faltan archivos de recursos en '" & baseRes & "' y en '" & appRes & "'.")
             End If
 
+            ' Vaciar las listas: leer() se llama cada vez que se abre frm_socio o frm_federativas
+            ' y antes se añadían las localidades/provincias otra vez (aparecían duplicadas).
+            lista_localidades.Clear()
+            lista_provincias.Clear()
+
             sr1 = New StreamReader(file1)
             sr2 = New StreamReader(file2)
             sr3 = New StreamReader(file3)

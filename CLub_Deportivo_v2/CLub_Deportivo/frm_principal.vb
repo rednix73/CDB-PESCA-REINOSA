@@ -7,12 +7,12 @@
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             bbdd.leer_configuracion()
-            ' Vaciar la "papelera" de federativas AL ARRANCAR: es el único momento en que el
+            ' Vaciar las "papeleras" (socios y federativas) AL ARRANCAR: es el único momento en que el
             ' controlador ODBC todavía no ha abierto el .xls. Una vez usado, lo mantiene
             ' bloqueado hasta que se cierra el programa y Excel no puede modificarlo.
-            Dim purgadas As Integer = bbdd.PurgeDeletedFederativas(False)
+            Dim purgadas As Integer = bbdd.PurgarPapeleras(False)
             If purgadas > 0 Then
-                MsgBox("Se han eliminado definitivamente del Excel " & purgadas.ToString() & " tarjeta(s) federativa(s) borradas en la sesión anterior.")
+                MsgBox("Se han eliminado definitivamente del Excel " & purgadas.ToString() & " registro(s) (socios y/o tarjetas federativas) borrados en la sesión anterior.")
             End If
             bbdd.cargar()
         Catch ex As Exception
@@ -73,6 +73,7 @@
         frm_socio.btn_buscar_apell.Visible = True
         frm_socio.btn_eliminar.Visible = False
         frm_socio.btn_modificar.Visible = False
+        frm_socio.btn_insertar.Visible = True ' si antes se abrió en modo modificar/eliminar quedaba oculto
 
     End Sub
 
@@ -103,7 +104,10 @@
     End Sub
 
     Private Sub ActuaizarBBDDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActuaizarBBDDToolStripMenuItem.Click
-        frm_actualizar_bbdd.ShowDialog()
+        ' Ventana nueva cada vez: así la comparación se hace siempre con los datos actuales
+        Using f As New frm_actualizar_bbdd()
+            f.ShowDialog(Me)
+        End Using
     End Sub
 
     Private Sub NuevaTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NuevaTarjetaToolStripMenuItem.Click
@@ -114,6 +118,7 @@
         frm_federativas.btn_buscar_apell.Visible = True
         frm_federativas.btn_eliminar.Visible = False
         frm_federativas.btn_modificar.Visible = False
+        frm_federativas.btn_insertar.Visible = True ' si antes se abrió en modo modificar/eliminar quedaba oculto
     End Sub
 
     Private Sub ModificarTarjetaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModificarTarjetaToolStripMenuItem.Click

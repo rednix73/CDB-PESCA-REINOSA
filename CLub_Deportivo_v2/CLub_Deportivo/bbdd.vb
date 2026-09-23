@@ -15,8 +15,8 @@ Module bbdd
     ' ---------CONFIGURACIÓN------------------------------------------------------------
     ' General
     Public temporada As String '= "2023"
-    Public precio_salmon As Integer '= 16
-    Public precio_trucha As Integer '= 10
+    Public precio_salmon As Decimal '= 16 (Decimal: admite precios con céntimos)
+    Public precio_trucha As Decimal '= 10
     Public tarjeta_socio_anverso As String = "tarjeta_socio_anverso.gif"
     Public tarjeta_socio_reverso As String = "tarjeta_socio_reverso.jpg"
     Public ruta_recursos As String = My.Settings.ruta_recursos
@@ -144,39 +144,108 @@ Module bbdd
     End Sub
 
     ' =====================================================================================
-    '  ELIMINACIÓN DE FEDERATIVAS EN DOS FASES ("papelera")
-    '  1) eliminar_federativa: el driver ODBC de Excel NO admite DELETE, así que el NIF se
-    '     apunta en deleted_federativas.txt y cargar() oculta esa fila (borrado lógico).
-    '  2) PurgeDeletedFederativas: al guardar o salir se abre el libro con Excel (Interop)
-    '     y se borran físicamente las filas apuntadas (vaciar la papelera).
-    '  En el fichero se guarda SIEMPRE el NIF normalizado (NormalizeId): mayúsculas, sin
-    '  espacios ni guiones. Así la escritura, el filtro y la purga comparan lo mismo.
+    '  ELIMINACIÓN EN DOS FASES ("papelera") PARA FEDERATIVAS Y SOCIOS DE LA TEMPORADA
+    '  1) Al eliminar: el driver ODBC de Excel NO admite DELETE, así que el NIF/DNI se apunta
+    '     en un fichero de texto (la papelera) y cargar() oculta esas filas (borrado lógico).
+    '       - federativas_2027 -> deleted_federativas.txt (columna nif)
+    '       - socios_2027      -> deleted_socios.txt      (columna dni)
+    '     (bdsocios, la base histórica de socios, NO se toca: un socio que se da de baja en
+    '      la temporada sigue en el histórico).
+    '  2) Al ARRANCAR la aplicación (antes de que ODBC bloquee el .xls) se abre el libro con
+    '     Excel (Interop) y se borran físicamente todas las filas apuntadas (vaciar la papelera).
+    '  En los ficheros se guarda SIEMPRE el identificador normalizado (NormalizeId): mayúsculas,
+    '  sin espacios ni guiones. Así la escritura, el filtro y la purga comparan lo mismo.
     ' =====================================================================================
 
-    ''' <summary>Ruta completa del fichero de borrados lógicos (o cadena vacía si no hay ruta de recursos).</summary>
-    Private Function RutaFicheroBorrados() As String
+    Public Const PAPELERA_FEDERATIVAS As String = "deleted_federativas.txt"
+    Public Const PAPELERA_SOCIOS As String = "deleted_socios.txt"
+
+    ''' <summary>Ruta completa de un fichero de papelera (o cadena vacía si no hay ruta de recursos).</summary>
+    Private Function RutaPapelera(fichero As String) As String
         Dim base As String = My.Settings.ruta_recursos
         If String.IsNullOrWhiteSpace(base) Then Return String.Empty
-        Return Path.Combine(base, "deleted_federativas.txt")
+        Return Path.Combine(base, fichero)
     End Function
 
-    ''' <summary>Indica si un NIF está marcado como eliminado y pendiente de purga.</summary>
-    Public Function EstaMarcadaEliminada(nif As String) As Boolean
-        Dim k = NormalizeId(nif)
-        Return k <> "" AndAlso GetDeletedFederativasSet().Contains(k)
+    ''' <summary>Identificadores (normalizados) que hay en una papelera.</summary>
+    Public Function LeerPapelera(fichero As String) As System.Collections.Generic.HashSet(Of String)
+        Dim conjunto As New System.Collections.Generic.HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+        Try
+            Dim ruta As String = RutaPapelera(fichero)
+            If ruta = "" OrElse Not File.Exists(ruta) Then Return conjunto
+            For Each ln In File.ReadAllLines(ruta)
+                Dim k = NormalizeId(ln)
+                If k <> "" Then conjunto.Add(k)
+            Next
+        Catch
+        End Try
+        Return conjunto
     End Function
 
-    ''' <summary>Quita del fichero de borrados las claves indicadas (ya purgadas).</summary>
-    Public Sub QuitarDeBorrados(purgadas As System.Collections.Generic.ICollection(Of String))
-        Dim delFile = RutaFicheroBorrados()
-        If delFile = "" OrElse Not File.Exists(delFile) Then Return
-        Dim remaining As New System.Collections.Generic.List(Of String)()
-        For Each ln In File.ReadAllLines(delFile)
-            Dim k = NormalizeId(ln)
-            ' Comparamos la línea NORMALIZADA (antes se comparaba la línea tal cual y no se borraba nunca)
-            If k <> "" AndAlso Not purgadas.Contains(k) AndAlso Not remaining.Contains(k) Then remaining.Add(k)
+    ''' <summary>Indica si un identificador está en la papelera indicada.</summary>
+    Public Function EnPapelera(fichero As String, id As String) As Boolean
+        Dim k = NormalizeId(id)
+        Return k <> "" AndAlso LeerPapelera(fichero).Contains(k)
+    End Function
+
+    ''' <summary>Apunta un identificador en la papelera (si no estaba ya). Devuelve False si no se pudo.</summary>
+    Public Function AnotarEnPapelera(fichero As String, id As String) As Boolean
+        Dim ruta As String = RutaPapelera(fichero)
+        Dim k = NormalizeId(id)
+        If ruta = "" OrElse k = "" Then Return False
+        If Not LeerPapelera(fichero).Contains(k) Then
+            Using sw As New StreamWriter(ruta, True)
+                sw.WriteLine(k)
+            End Using
+        End If
+        Return True
+    End Function
+
+    ''' <summary>Quita de la papelera los identificadores indicados (ya purgados o recuperados).</summary>
+    Public Sub QuitarDePapelera(fichero As String, ids As System.Collections.Generic.IEnumerable(Of String))
+        Dim ruta As String = RutaPapelera(fichero)
+        If ruta = "" OrElse Not File.Exists(ruta) Then Return
+        Dim quitar As New System.Collections.Generic.HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+        For Each i In ids
+            quitar.Add(NormalizeId(i))
         Next
-        File.WriteAllLines(delFile, remaining.ToArray())
+        Dim quedan As New System.Collections.Generic.List(Of String)()
+        For Each ln In File.ReadAllLines(ruta)
+            Dim k = NormalizeId(ln)
+            If k <> "" AndAlso Not quitar.Contains(k) AndAlso Not quedan.Contains(k) Then quedan.Add(k)
+        Next
+        File.WriteAllLines(ruta, quedan.ToArray())
+    End Sub
+
+    ' --- Atajos usados por federativas y socios (mantienen los nombres que ya usaba el código) ---
+    Public Function EstaMarcadaEliminada(nif As String) As Boolean
+        Return EnPapelera(PAPELERA_FEDERATIVAS, nif)
+    End Function
+    Public Sub QuitarDeBorrados(purgadas As System.Collections.Generic.IEnumerable(Of String))
+        QuitarDePapelera(PAPELERA_FEDERATIVAS, purgadas)
+    End Sub
+    Private Function GetDeletedFederativasSet() As System.Collections.Generic.HashSet(Of String)
+        Return LeerPapelera(PAPELERA_FEDERATIVAS)
+    End Function
+    Public Function SocioEliminado(dni As String) As Boolean
+        Return EnPapelera(PAPELERA_SOCIOS, dni)
+    End Function
+
+    ''' <summary>
+    ''' Quita de una tabla en memoria las filas cuyo identificador está en la papelera.
+    ''' Se usa en cargar() para que los registros eliminados no aparezcan.
+    ''' </summary>
+    Private Sub OcultarEliminados(tabla As System.Data.DataTable, columna As String, fichero As String)
+        Try
+            Dim papelera = LeerPapelera(fichero)
+            If papelera.Count = 0 OrElse tabla Is Nothing OrElse Not tabla.Columns.Contains(columna) Then Return
+            For i As Integer = tabla.Rows.Count - 1 To 0 Step -1
+                Dim v = tabla.Rows(i)(columna)
+                If Not IsDBNull(v) AndAlso papelera.Contains(NormalizeId(v.ToString())) Then tabla.Rows.RemoveAt(i)
+            Next
+            tabla.AcceptChanges()
+        Catch
+        End Try
     End Sub
 
     ''' <summary>
@@ -202,40 +271,50 @@ Module bbdd
         Return ""
     End Function
 
-    ''' <summary>
-    ''' Purga físicamente del libro Excel las filas marcadas en deleted_federativas.txt.
-    ''' Crea una copia de seguridad antes de modificar el archivo.
-    ''' </summary>
-    ''' <param name="preguntar">Si es False no pide confirmación (se usa al reinsertar un NIF pendiente de purga).</param>
-    ''' <returns>Filas eliminadas, 0 si no había nada que purgar o -1 si hubo error / se canceló.</returns>
+    ''' <summary>Se mantiene por compatibilidad: ahora purga todas las papeleras (federativas y socios).</summary>
     Public Function PurgeDeletedFederativas(Optional preguntar As Boolean = True) As Integer
-        Try
-            Dim delFile As String = RutaFicheroBorrados()
-            If delFile = "" OrElse Not File.Exists(delFile) Then Return 0
-            Dim keys = GetDeletedFederativasSet()
-            If keys.Count = 0 Then Return 0 ' nada pendiente: no molestamos al usuario
+        Return PurgarPapeleras(preguntar)
+    End Function
 
-            ' El libro a purgar es EL MISMO al que apunta el DSN de ODBC (donde se guardan los datos),
-            ' no el de configuracion.txt, que puede no coincidir.
+    ''' <summary>
+    ''' Vacía las papeleras: borra físicamente del libro Excel (el del DSN) las filas apuntadas en
+    ''' deleted_federativas.txt y deleted_socios.txt, en UNA sola apertura de Excel.
+    ''' Debe llamarse al arrancar, antes de cargar(): después ODBC mantiene el .xls bloqueado.
+    ''' Crea una copia de seguridad del libro antes de modificarlo.
+    ''' </summary>
+    ''' <param name="preguntar">Si es True pide confirmación y muestra el resultado.</param>
+    ''' <returns>Filas eliminadas, 0 si no había nada que purgar o -1 si hubo error / se canceló.</returns>
+    Public Function PurgarPapeleras(Optional preguntar As Boolean = True) As Integer
+        Try
+            ' Trabajos: (hoja, columnas posibles del identificador, fichero de papelera, identificadores)
+            Dim trabajos As New System.Collections.Generic.List(Of Tuple(Of String, String(), String, System.Collections.Generic.HashSet(Of String)))
+            Dim fed = LeerPapelera(PAPELERA_FEDERATIVAS)
+            If fed.Count > 0 Then trabajos.Add(Tuple.Create(tabla_federa_xls, New String() {"nif", "dni"}, PAPELERA_FEDERATIVAS, fed))
+            Dim soc = LeerPapelera(PAPELERA_SOCIOS)
+            If soc.Count > 0 Then trabajos.Add(Tuple.Create(tabla_socios_xls, New String() {"dni", "nif"}, PAPELERA_SOCIOS, soc))
+            If trabajos.Count = 0 Then Return 0 ' nada pendiente: no molestamos al usuario
+
+            ' El libro a purgar es EL MISMO al que apunta el DSN de ODBC (donde se guardan los datos).
             Dim libro As String = RutaLibroDesdeDSN(DSN)
             If libro = "" Then libro = ruta_bd_excel
             If String.IsNullOrWhiteSpace(libro) OrElse Not File.Exists(libro) Then
                 MsgBox("Fichero Excel de datos no encontrado: " & libro)
                 Return -1
             End If
+            If Path.GetExtension(libro).ToLowerInvariant() <> ".xls" Then
+                MsgBox("La purga automática solo está disponible para libros .xls. No se ha eliminado nada.")
+                Return -1
+            End If
 
-            Dim dir = Path.GetDirectoryName(libro)
-            Dim bk = Path.Combine(dir, Path.GetFileNameWithoutExtension(libro) & "_backup_" & DateTime.Now.ToString("yyyyMMddHHmmss") & Path.GetExtension(libro))
+            Dim bk = Path.Combine(Path.GetDirectoryName(libro), Path.GetFileNameWithoutExtension(libro) & "_backup_" & DateTime.Now.ToString("yyyyMMddHHmmss") & Path.GetExtension(libro))
 
             If preguntar Then
-                Dim msg = "Hay " & keys.Count.ToString() & " tarjeta(s) federativa(s) marcadas para eliminar." & vbCrLf &
-                          "¿Desea eliminarlas definitivamente del libro Excel?" & vbCrLf & "(Se creará una copia de seguridad: " & bk & ")"
+                Dim msg = "Hay " & (fed.Count + soc.Count).ToString() & " registro(s) marcados para eliminar." & vbCrLf &
+                          "¿Desea eliminarlos definitivamente del libro Excel?" & vbCrLf & "(Se creará una copia de seguridad: " & bk & ")"
                 If MessageBox.Show(msg, "Confirmar purga", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then Return -1
             End If
 
-            ' --- CLAVE: soltar el fichero que mantiene abierto el pool de ODBC ---
-            ' conn2.Close() devuelve la conexión al pool, pero el driver de Excel sigue con el .xls
-            ' abierto. Si no se libera, Excel abre el libro en SOLO LECTURA y Save() falla.
+            ' Soltar el fichero por si ODBC lo tuviera abierto (al arrancar no debería)
             desconectar()
             System.Data.Odbc.OdbcConnection.ReleaseObjectPool()
             GC.Collect()
@@ -243,113 +322,76 @@ Module bbdd
 
             File.Copy(libro, bk)
 
-            Dim eliminadas As Integer
-            If Path.GetExtension(libro).ToLowerInvariant() = ".xls" Then
-                eliminadas = PurgarFederativasXls(libro, tabla_federa_xls, keys)
-                ' Recolección FUERA del método que usó COM: así los RCW ya no están referenciados
-                ' y EXCEL.EXE termina de verdad (en Debug las variables locales viven hasta el final del método).
-                GC.Collect()
-                GC.WaitForPendingFinalizers()
-                GC.Collect()
-                GC.WaitForPendingFinalizers()
-                If eliminadas >= 0 Then QuitarDeBorrados(keys)
-            Else
-                ' Solo se soporta .xls (Excel 2007 en el equipo destino). Se ha quitado la dependencia de
-                ' NPOI (bbdd_npoi.vb): no se usaba con .xls y le faltaban DLLs para funcionar con .xlsx.
-                MsgBox("La purga automática solo está disponible para libros .xls. No se ha eliminado nada.")
-                Return -1
-            End If
+            Dim eliminadas As Integer = PurgarHojasXls(libro, trabajos)
+            ' Recolección FUERA del método que usó COM: así EXCEL.EXE termina de verdad
+            GC.Collect()
+            GC.WaitForPendingFinalizers()
+            GC.Collect()
+            GC.WaitForPendingFinalizers()
 
-            If eliminadas >= 0 AndAlso preguntar Then
-                MsgBox("Purga completada. Filas eliminadas del Excel: " & eliminadas.ToString())
+            If eliminadas >= 0 Then
+                For Each t In trabajos
+                    QuitarDePapelera(t.Item3, t.Item4)
+                Next
+                If preguntar Then MsgBox("Purga completada. Filas eliminadas del Excel: " & eliminadas.ToString())
             End If
             Return eliminadas
 
         Catch ex As Exception
-            MsgBox("Error al purgar federativas: " & ex.Message)
+            MsgBox("Error al vaciar la papelera: " & ex.Message)
             Return -1
         End Try
     End Function
 
     ''' <summary>
-    ''' Borra con Excel (Interop) las filas de la hoja cuyo NIF (normalizado) está en <paramref name="keys"/>.
-    ''' Libera todos los objetos COM para que no quede EXCEL.EXE abierto con el fichero bloqueado.
+    ''' Abre el libro con Excel (Interop) y, en cada hoja indicada, borra las filas cuyo
+    ''' identificador (normalizado) está en su conjunto. Libera todos los objetos COM.
+    ''' Si falla cualquier hoja NO se guarda nada (todo o nada).
     ''' </summary>
-    ''' <returns>Filas eliminadas o -1 si hubo error.</returns>
-    Private Function PurgarFederativasXls(ruta As String, tabla As String, keys As System.Collections.Generic.HashSet(Of String)) As Integer
+    ''' <returns>Total de filas eliminadas o -1 si hubo error.</returns>
+    Private Function PurgarHojasXls(ruta As String, trabajos As System.Collections.Generic.List(Of Tuple(Of String, String(), String, System.Collections.Generic.HashSet(Of String)))) As Integer
         Dim xlApp As Microsoft.Office.Interop.Excel.Application = Nothing
         Dim libros As Microsoft.Office.Interop.Excel.Workbooks = Nothing
         Dim xlWb As Microsoft.Office.Interop.Excel.Workbook = Nothing
         Dim hojas As Microsoft.Office.Interop.Excel.Sheets = Nothing
-        Dim xlWs As Microsoft.Office.Interop.Excel.Worksheet = Nothing
-        Dim usado As Microsoft.Office.Interop.Excel.Range = Nothing
-        Dim eliminadas As Integer = 0
+        Dim total As Integer = 0
         Try
             xlApp = New Microsoft.Office.Interop.Excel.Application()
             xlApp.Visible = False
             xlApp.DisplayAlerts = False
             xlApp.ScreenUpdating = False
 
-            libros = xlApp.Workbooks                       ' evitar "doble punto" (xlApp.Workbooks.Open) que deja objetos COM sin liberar
+            libros = xlApp.Workbooks                       ' evitar "doble punto", que deja objetos COM sin liberar
             xlWb = libros.Open(ruta, 0, False)             ' UpdateLinks:=0, ReadOnly:=False
             If xlWb.ReadOnly Then
                 MsgBox("El libro Excel está abierto por otro programa (¿Excel abierto? ¿OneDrive sincronizando?)." & vbCrLf &
-                       "Ciérrelo y vuelva a intentarlo. No se ha eliminado nada.")
+                       "Ciérrelo y vuelva a abrir la aplicación. No se ha eliminado nada.")
                 xlWb.Close(False)
                 Return -1
             End If
-
-            Dim hoja As String = tabla.Replace("[", "").Replace("]", "").TrimEnd("$"c)
             hojas = xlWb.Worksheets
-            xlWs = CType(hojas.Item(hoja), Microsoft.Office.Interop.Excel.Worksheet) ' si no existe, error (nunca borrar en otra hoja)
 
-            usado = xlWs.UsedRange
-            Dim valores As Object = usado.Value2           ' toda la hoja de una vez: mucho más rápido que celda a celda
-            If Not TypeOf valores Is Object(,) Then
-                xlWb.Close(False)
-                Return 0
-            End If
-            Dim datos = DirectCast(valores, Object(,))
-            Dim filaInicio As Integer = usado.Row          ' UsedRange no tiene por qué empezar en la fila 1
-            Dim nFilas = datos.GetUpperBound(0), nCols = datos.GetUpperBound(1)
-
-            Dim colNif As Integer = -1
-            For c As Integer = 1 To nCols
-                Dim h = Convert.ToString(datos(1, c)).Trim().ToLowerInvariant()
-                If h = "nif" OrElse h = "dni" Then colNif = c : Exit For
-            Next
-            If colNif = -1 Then
-                MsgBox("No se encuentra la columna 'nif' en la hoja " & hoja & ". No se ha eliminado nada.")
-                xlWb.Close(False)
-                Return -1
-            End If
-
-            ' De abajo hacia arriba: al borrar una fila, las de debajo suben y no afectan a las que faltan por revisar
-            For f As Integer = nFilas To 2 Step -1
-                Dim nif = NormalizeId(Convert.ToString(datos(f, colNif)))
-                If nif <> "" AndAlso keys.Contains(nif) Then
-                    Dim fila = CType(xlWs.Rows(filaInicio + f - 1), Microsoft.Office.Interop.Excel.Range)
-                    fila.Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp)
-                    Marshal.ReleaseComObject(fila)
-                    eliminadas += 1
+            For Each t In trabajos
+                Dim n = BorrarFilasHoja(hojas, t.Item1, t.Item2, t.Item4)
+                If n < 0 Then
+                    xlWb.Close(False)                      ' no guardar nada si una hoja falla
+                    Return -1
                 End If
+                total += n
             Next
 
-            If eliminadas > 0 Then xlWb.Save()
+            If total > 0 Then xlWb.Save()
             xlWb.Close(False)
-            Return eliminadas
+            Return total
 
         Catch ex As Exception
-            MsgBox("Error al purgar .xls con Excel: " & ex.Message)
+            MsgBox("Error al purgar el libro con Excel: " & ex.Message)
             Try
                 If xlWb IsNot Nothing Then xlWb.Close(False)
             Catch
             End Try
             Return -1
         Finally
-            ' Liberar en orden inverso a como se obtuvieron
-            If usado IsNot Nothing Then Marshal.ReleaseComObject(usado)
-            If xlWs IsNot Nothing Then Marshal.ReleaseComObject(xlWs)
             If hojas IsNot Nothing Then Marshal.ReleaseComObject(hojas)
             If xlWb IsNot Nothing Then Marshal.ReleaseComObject(xlWb)
             If libros IsNot Nothing Then Marshal.ReleaseComObject(libros)
@@ -363,19 +405,51 @@ Module bbdd
         End Try
     End Function
 
-    ' Devuelve el conjunto de NIF (normalizados) marcados como eliminados en el fichero de borrados.
-    Private Function GetDeletedFederativasSet() As System.Collections.Generic.HashSet(Of String)
-        Dim deletedSet As New System.Collections.Generic.HashSet(Of String)(StringComparer.OrdinalIgnoreCase)
+    ''' <summary>Borra las filas de una hoja cuyo identificador está en <paramref name="ids"/>. Devuelve cuántas o -1.</summary>
+    Private Function BorrarFilasHoja(hojas As Microsoft.Office.Interop.Excel.Sheets, tabla As String, columnas As String(), ids As System.Collections.Generic.HashSet(Of String)) As Integer
+        Dim xlWs As Microsoft.Office.Interop.Excel.Worksheet = Nothing
+        Dim usado As Microsoft.Office.Interop.Excel.Range = Nothing
+        Dim eliminadas As Integer = 0
+        Dim hoja As String = tabla.Replace("[", "").Replace("]", "").TrimEnd("$"c)
         Try
-            Dim filePath As String = RutaFicheroBorrados()
-            If filePath = "" OrElse Not File.Exists(filePath) Then Return deletedSet
-            For Each ln In File.ReadAllLines(filePath)
-                Dim k = NormalizeId(ln)
-                If k <> "" Then deletedSet.Add(k)
+            xlWs = CType(hojas.Item(hoja), Microsoft.Office.Interop.Excel.Worksheet) ' si no existe, error (nunca borrar en otra hoja)
+            usado = xlWs.UsedRange
+            Dim valores As Object = usado.Value2           ' toda la hoja de una vez: mucho más rápido que celda a celda
+            If Not TypeOf valores Is Object(,) Then Return 0
+            Dim datos = DirectCast(valores, Object(,))
+            Dim filaInicio As Integer = usado.Row          ' UsedRange no tiene por qué empezar en la fila 1
+            Dim nFilas = datos.GetUpperBound(0), nCols = datos.GetUpperBound(1)
+
+            Dim col As Integer = -1
+            For Each nombre In columnas
+                For c As Integer = 1 To nCols
+                    If Convert.ToString(datos(1, c)).Trim().Equals(nombre, StringComparison.OrdinalIgnoreCase) Then col = c : Exit For
+                Next
+                If col <> -1 Then Exit For
             Next
-        Catch
+            If col = -1 Then
+                MsgBox("No se encuentra la columna '" & columnas(0) & "' en la hoja " & hoja & ". No se ha eliminado nada.")
+                Return -1
+            End If
+
+            ' De abajo hacia arriba: al borrar una fila, las de debajo suben y no afectan a las que faltan por revisar
+            For f As Integer = nFilas To 2 Step -1
+                Dim id = NormalizeId(Convert.ToString(datos(f, col)))
+                If id <> "" AndAlso ids.Contains(id) Then
+                    Dim fila = CType(xlWs.Rows(filaInicio + f - 1), Microsoft.Office.Interop.Excel.Range)
+                    fila.Delete(Microsoft.Office.Interop.Excel.XlDeleteShiftDirection.xlShiftUp)
+                    Marshal.ReleaseComObject(fila)
+                    eliminadas += 1
+                End If
+            Next
+            Return eliminadas
+        Catch ex As Exception
+            MsgBox("Error al purgar la hoja " & hoja & ": " & ex.Message)
+            Return -1
+        Finally
+            If usado IsNot Nothing Then Marshal.ReleaseComObject(usado)
+            If xlWs IsNot Nothing Then Marshal.ReleaseComObject(xlWs)
         End Try
-        Return deletedSet
     End Function
 
     ''' <summary>Normaliza un identificador: mayúsculas y solo letras/dígitos ("12345678-z " -> "12345678Z").</summary>
@@ -383,6 +457,26 @@ Module bbdd
         If String.IsNullOrWhiteSpace(s) Then Return String.Empty
         Return Regex.Replace(s.Trim().ToUpperInvariant(), "[^A-Z0-9]", "")
     End Function
+
+    ''' <summary>
+    ''' Convierte un texto a número para pasarlo como parámetro ODBC (evita ambigüedades con
+    ''' la coma/punto decimal). Si está vacío devuelve DBNull; si no es número, el propio texto.
+    ''' </summary>
+    Public Function ParamNumero(s As String) As Object
+        If String.IsNullOrWhiteSpace(s) Then Return DBNull.Value
+        Dim t = s.Trim().Replace(",", ".")
+        Dim d As Double
+        If Double.TryParse(t, Globalization.NumberStyles.Float, Globalization.CultureInfo.InvariantCulture, d) Then Return d
+        Return s.Trim()
+    End Function
+
+    ''' <summary>Añade parámetros ODBC (?) en orden.</summary>
+    Private Sub AddParams(cmd As OdbcCommand, ParamArray valores() As Object)
+        For i As Integer = 0 To valores.Length - 1
+            cmd.Parameters.AddWithValue("p" & (i + 1).ToString(), If(valores(i), DBNull.Value))
+        Next
+    End Sub
+
     ''' <summary>
     ''' Método que desconecta de la base de datos.
     ''' </summary>
@@ -425,21 +519,10 @@ Module bbdd
                 da_federa2 = New OdbcDataAdapter("SELECT * FROM " + tabla_federa_xls, conn2)
                 da_federa2.Fill(ds_club, "federativas")
                 cb_federa2 = New OdbcCommandBuilder(da_federa2)
-                ' Aplicar filtro de eliminados lógicos almacenados en fichero en ruta_recursos
-                Try
-                    Dim deletedSet = GetDeletedFederativasSet()
-                    If deletedSet IsNot Nothing AndAlso deletedSet.Count > 0 Then
-                        Dim dtFed As System.Data.DataTable = ds_club.Tables("federativas")
-                        For i As Integer = dtFed.Rows.Count - 1 To 0 Step -1
-                            Dim row = dtFed.Rows(i)
-                            Dim nifVal As String = String.Empty
-                            If dtFed.Columns.Contains("nif") AndAlso Not IsDBNull(row("nif")) Then nifVal = NormalizeId(row("nif").ToString())
-                            ' Comparar el NIF NORMALIZADO, igual que se guarda en el fichero de borrados
-                            If nifVal <> "" AndAlso deletedSet.Contains(nifVal) Then dtFed.Rows.RemoveAt(i)
-                        Next
-                    End If
-                Catch
-                End Try
+                ' Ocultar los registros que están en la papelera (borrado lógico pendiente de purga)
+                OcultarEliminados(ds_club.Tables("federativas"), "nif", PAPELERA_FEDERATIVAS)
+                OcultarEliminados(ds_club.Tables("socios"), "dni", PAPELERA_SOCIOS)
+                dw_socios = New DataView(ds_club.Tables(0))
                 dw_federa = New DataView(ds_club.Tables(2))
 
                 ''Conexión directa por OLEDB
@@ -479,58 +562,55 @@ Module bbdd
     ''' </summary>
     Public Sub leer_configuracion()
         Try
+            ' Mismo fichero que escribe frm_configuracion (carpeta de recursos de AppData)
+            Dim base As String = My.Settings.ruta_recursos
+            If String.IsNullOrWhiteSpace(base) Then base = ruta_recursos
+            Dim ruta As String = Path.Combine(base, "configuracion.txt")
+            If Not File.Exists(ruta) Then
+                MsgBox("No se encuentra el fichero de configuración: " & ruta & vbCrLf & "Revise la configuración (menú Configuración).")
+                Return
+            End If
 
-            Dim sr As New StreamReader(ruta_recursos + "/configuracion.txt")
-            Dim linea As String = ""
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            temporada = sr.ReadLine()
-            linea = sr.ReadLine()
-            precio_salmon = sr.ReadLine()
-            linea = sr.ReadLine()
-            precio_trucha = sr.ReadLine()
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            If (linea = tipobd.Excel_ODBC.ToString()) Then
-                tp = tipobd.Excel_ODBC
-            End If
-            If (linea = tipobd.MySQL.ToString()) Then
-                tp = tipobd.MySQL
-            End If
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            ruta_bd_excel = sr.ReadLine()
-            linea = sr.ReadLine()
-            DSN = sr.ReadLine()
-            linea = sr.ReadLine()
-            tabla_socios_xls = sr.ReadLine()
-            linea = sr.ReadLine()
-            tabla_bdsocios_xls = sr.ReadLine()
-            linea = sr.ReadLine()
-            tabla_federa_xls = sr.ReadLine()
-            linea = sr.ReadLine()
-            linea = sr.ReadLine()
-            server = sr.ReadLine()
-            linea = sr.ReadLine()
-            port = sr.ReadLine()
-            linea = sr.ReadLine()
-            bd_mysql = sr.ReadLine()
-            linea = sr.ReadLine()
-            user = sr.ReadLine()
-            linea = sr.ReadLine()
-            password = sr.ReadLine()
-            linea = sr.ReadLine()
-            tabla_socios_mysql = sr.ReadLine()
-            linea = sr.ReadLine()
-            tabla_bdsocios_mysql = sr.ReadLine()
-            sr.Close()
+            ' El fichero alterna líneas de título y de valor. Se lee entero y se cierra enseguida
+            ' (antes el StreamReader quedaba abierto si fallaba algo y Configuración no podía guardar).
+            Dim l As String() = File.ReadAllLines(ruta)
+            Dim V = Function(i As Integer) As String
+                        Return If(i < l.Length, l(i).Trim(), "")
+                    End Function
+
+            temporada = V(2)
+            precio_salmon = LeerPrecio(V(4))
+            precio_trucha = LeerPrecio(V(6))
+            If V(9) = tipobd.MySQL.ToString() Then tp = tipobd.MySQL Else tp = tipobd.Excel_ODBC
+            ruta_bd_excel = V(13)
+            DSN = V(15)
+            If V(17) <> "" Then tabla_socios_xls = V(17)
+            If V(19) <> "" Then tabla_bdsocios_xls = V(19)
+            If V(21) <> "" Then tabla_federa_xls = V(21)
+            ' MySQL: cada valor va DEBAJO de su título. Antes se leía una línea antes de tiempo
+            ' (el servidor tomaba el texto "Servidor:") y al guardar se duplicaban los títulos.
+            server = V(25)
+            port = V(27)
+            bd_mysql = V(29)
+            user = V(31)
+            password = V(33)
+            tabla_socios_mysql = V(35)
+            tabla_bdsocios_mysql = V(37)
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error leyendo la configuración: " & ex.Message)
         End Try
-
     End Sub
+
+    ''' <summary>
+    ''' Convierte el precio escrito en la configuración a número. Admite "17", "17,5", "17.5" o "17 €".
+    ''' Devuelve 0 si no es un número válido.
+    ''' </summary>
+    Public Function LeerPrecio(texto As String) As Decimal
+        Dim t = If(texto, "").Replace("€", "").Trim().Replace(",", ".")
+        Dim d As Decimal
+        If Decimal.TryParse(t, Globalization.NumberStyles.Number, Globalization.CultureInfo.InvariantCulture, d) AndAlso d >= 0 Then Return d
+        Return 0
+    End Function
     ''' <summary>
     ''' Método que busca en la base de datos los números de socios no utilizados y devuelve una lista con los mismos.
     ''' </summary>
@@ -538,237 +618,157 @@ Module bbdd
     ''' Devuelve una lista de enteros, con los números de socio no usados.
     ''' </returns>
     Public Function numeros_libres() As List(Of Integer)
+        ' Se calcula con las tablas ya cargadas en memoria (ds_club), sin volver a consultar el Excel.
+        ' Antes: se abría un lector ODBC por CADA número (muy lento en un PC de 2 GB), se dejaban
+        ' conexiones abiertas (ultimo() llamaba a conectar() otra vez), MAX(numero) devolvía DBNull
+        ' y fallaba, y los números de la temporada no se descartaban porque se comparaba un
+        ' Integer con un Double (Equals daba siempre False).
         Dim libres As New List(Of Integer)
-        Dim libres1 As New List(Of Integer)
-        Dim libres2 As New List(Of Integer)
-        Dim libre As Boolean = True
-        Dim ultimo_bd As Integer
-        Dim ultimo_soc As Integer
         Try
-            conectar()
-            libres.Clear()
-            libres1.Clear()
-            libres2.Clear()
-
-            Select Case tp
-                Case tipobd.Excel_ODBC
-                    ultimo_bd = ultimo(tabla_bdsocios_xls)
-                    ultimo_soc = ultimo(tabla_socios_xls)
-                    'consulta2 = New OdbcCommand()
-                    'consulta2.Connection = conn2
-                    ''Obtenemos el último número usado en la base de datos de socios.
-                    'consulta2.CommandText = "Select MAX(numero) from " + tabla_bdsocios_xls
-                    'ultimo_bd = consulta2.ExecuteScalar()
-                    'consulta2 = New OdbcCommand()
-                    'consulta2.Connection = conn2
-                    ''Obtenemos el último número usado en la tabla de socios actual.
-                    'consulta2.CommandText = "Select MAX(numero) from " + tabla_socios_xls
-                    'ultimo_soc = consulta2.ExecuteScalar()
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-                    consulta2.CommandText = "select numero from " + tabla_bdsocios_xls
-
-
-                    'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios.
-                    For index = 1 To ultimo_bd
-                        dr3 = consulta2.ExecuteReader()
-                        While dr3.Read
-
-                            If (Not IsDBNull(dr3(0))) Then
-                                If index = CInt(dr3(0)) Then
-                                    libre = False
-                                End If
-                            End If
-
-                        End While
-                        dr3.Close()
-
-                        If libre = True Then
-                            libres1.Add(index)
-                        End If
-                        libre = True
-                    Next
-
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
-                    consulta2.CommandText = "Select numero from " + tabla_socios_xls
-
-                    dr3 = consulta2.ExecuteReader()
-                    While dr3.Read
-                        If (Not IsDBNull(dr3(0))) Then
-                            libres2.Add(dr3(0))
-                        End If
-
-                    End While
-                    dr3.Close()
-
-                Case tipobd.MySQL
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    'Obtenemos el último número usado en la base de datos de socios.
-                    consulta1.CommandText = "Select MAX(n_socio) from " + tabla_bdsocios_mysql
-                    ultimo_bd = consulta1.ExecuteScalar
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    'Obtenemos el último número usado en la tabla de socios actual.
-                    consulta1.CommandText = "Select MAX(n_socio) from " + tabla_socios_mysql
-                    ultimo_soc = consulta1.ExecuteScalar
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    'Obtenemos todos los numeros usados en la tabla bd_socios (base de datos de socios).
-                    consulta1.CommandText = "Select n_socio from " + tabla_bdsocios_mysql
-                    'Recorremos todos los números desde el 1 hasta el último numero usado, y añadimos a la lista libres1 los numeros no usados en la tabla bdsocios (base de datos con todos los socios).
-                    For index = 1 To ultimo_bd
-                        dr1 = consulta1.ExecuteReader()
-                        While dr1.Read
-                            If index = dr1(0) Then
-                                libre = False
-                            End If
-                        End While
-                        dr1.Close()
-                        If libre = True Then
-                            libres1.Add(index)
-                        End If
-                        libre = True
-                    Next
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    'Obtenemos todos los numeros usados en la tabla socios (base de datos de socios de la temporada actual) y los añadimos a la lista libres2.
-                    consulta1.CommandText = "Select n_socio from " + tabla_socios_mysql
-                    dr1 = consulta1.ExecuteReader()
-                    While dr1.Read
-                        libres2.Add(dr1(0))
-                    End While
-                    dr1.Close()
-            End Select
-
-            'Recorremos la lista de numeros libres de la tabla bdsocios, y eliminamos de la lista de numeros libre los que estén usados en la tabla socios de la temporada actual.
-            For Each n2 In libres2
-                For i = (libres1.Count - 1) To 0 Step -1
-                    If (libres1(i).Equals(n2)) Then
-                        libres1.RemoveAt(i)
-                    End If
-                Next
+            Dim usados = NumerosUsados(TablaSocios(True))
+            usados.UnionWith(NumerosUsados(TablaSocios(False)))
+            If usados.Count = 0 Then Return libres
+            Dim maximo = usados.Max()
+            For n As Integer = 1 To maximo
+                If Not usados.Contains(n) Then libres.Add(n)
             Next
-            'Devolvemos la lista de numeros libres de la tabla bdsocios, eliminados los usados en la tabla socios.
-            libres = libres1
-            desconectar()
-            Return libres
         Catch ex As Exception
-            MsgBox(ex.ToString())
-            Return libres
+            MsgBox("Error calculando los números libres: " & ex.Message)
+        End Try
+        Return libres
+    End Function
+
+    ''' <summary>
+    ''' Último número de socio usado en la tabla indicada (base de datos de socios o temporada actual).
+    ''' </summary>
+    ''' <returns>El número más alto, o 0 si no hay ninguno.</returns>
+    Public Function ultimo(tabla As String) As Integer
+        Try
+            Dim esBd = String.Equals(tabla, tabla_bdsocios_xls, StringComparison.OrdinalIgnoreCase) OrElse
+                       String.Equals(tabla, tabla_bdsocios_mysql, StringComparison.OrdinalIgnoreCase)
+            Dim usados = NumerosUsados(TablaSocios(esBd))
+            Return If(usados.Count = 0, 0, usados.Max())
+        Catch ex As Exception
+            MsgBox("Error obteniendo el último número: " & ex.Message)
+            Return 0
         End Try
     End Function
+
+    ''' <summary>Tabla en memoria de la base de datos de socios (True) o de la temporada actual (False).</summary>
+    Private Function TablaSocios(baseDatos As Boolean) As System.Data.DataTable
+        Dim nombre = If(baseDatos, "bdsocios", "socios")
+        If ds_club Is Nothing OrElse Not ds_club.Tables.Contains(nombre) Then Return Nothing
+        Return ds_club.Tables(nombre)
+    End Function
+
     ''' <summary>
-    ''' Método que devuelve el último número de socio usado.
+    ''' Números de socio (enteros positivos) que aparecen en la tabla. Admite que Excel los
+    ''' devuelva como número o como texto e ignora las celdas vacías.
     ''' </summary>
-    ''' <returns>Develve un entero con el último número de socio en uso.</returns>
-    Public Function ultimo(tabla As String) As Integer
-        Dim ult As Integer
-        Try
-            conectar()
-            Select Case tp
-                Case tipobd.Excel_ODBC
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    'Obtenemos el último número usado.
-                    consulta2.CommandText = "Select MAX(numero) from " + tabla
-                    ult = consulta2.ExecuteScalar()
-                Case tipobd.MySQL
-                    consulta1 = New MySqlCommand()
-                    consulta1.Connection = conn1
-                    'Obtenemos el último número usado.
-                    consulta1.CommandText = "Select MAX(n_socio) from " + tabla
-                    ult = consulta1.ExecuteScalar()
-            End Select
-            Return ult
-            desconectar()
-        Catch ex As Exception
-            MsgBox(ex.ToString())
-            Return ult
-        End Try
+    Private Function NumerosUsados(tabla As System.Data.DataTable) As System.Collections.Generic.HashSet(Of Integer)
+        Dim usados As New System.Collections.Generic.HashSet(Of Integer)
+        If tabla Is Nothing Then Return usados
+        Dim col As String = If(tabla.Columns.Contains("numero"), "numero", If(tabla.Columns.Contains("n_socio"), "n_socio", ""))
+        If col = "" Then Return usados
+        For Each r As DataRow In tabla.Rows
+            Dim v = r(col)
+            If IsDBNull(v) OrElse v Is Nothing Then Continue For
+            Dim d As Double
+            If Double.TryParse(Convert.ToString(v).Trim(), Globalization.NumberStyles.Any, Globalization.CultureInfo.CurrentCulture, d) AndAlso d >= 1 AndAlso d = Math.Floor(d) AndAlso d < 1000000 Then
+                usados.Add(CInt(d))
+            End If
+        Next
+        Return usados
     End Function
     ''' <summary>
     ''' Método que filtra el dataview que contiene la tabla con la base de datos de socios por los apellidos del socio y muestra la tabla flitrada en un control datagridview que asu vez se muestra en el formulario: frm_busqueda.
     ''' </summary>
     ''' <param name="valor">texto con el apellido a buscar</param>
     Public Sub buscar_nombre(valor As String)
+        ' Primero en la temporada actual; si no está, en la base de datos histórica de socios
+        Dim filtro = "apellidos LIKE '%" & EscaparFiltro(valor) & "%'"
         Try
-            dw_bdsocios.RowFilter = "apellidos Like '%" + valor + "%'"
-            frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-            frm_busqueda.ShowDialog()
+            If String.IsNullOrWhiteSpace(valor) Then
+                ' Sin apellido: mostrar todos los socios de la base de datos (como hacía antes)
+                MostrarBusqueda(dw_bdsocios, "")
+                Return
+            End If
+            If MostrarBusqueda(dw_socios, filtro) Then Return
+            MsgBox("No encontrado en la temporada actual. Buscando en la base de datos de socios...")
+            If MostrarBusqueda(dw_bdsocios, filtro) Then Return
+            MsgBox("Socio no encontrado.")
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error en la búsqueda: " & ex.Message)
         End Try
     End Sub
 
     ''' <summary>
-    ''' Método que filtra el dataview que contiene la tabla con la base de datos de socios por el número de socio y muestra la tabla flitrada en un control datagridview que a su vez se muestra en el formulario: frm_busqueda.
+    ''' Busca por número de socio: primero en la temporada actual y, si no está, en la base de datos
+    ''' de socios. Si el número está vacío (o no se encuentra) muestra todos los socios de la base de datos.
     ''' </summary>
     ''' <param name="valor">numero de socio</param>
     Public Sub buscar_nsocio(valor As String)
         Try
-            If Not valor = "" Then
-                dw_socios.RowFilter = "numero=" + valor
-                dw_bdsocios.RowFilter = "numero=" + valor
-                frm_busqueda.DataGridView1.DataSource = dw_socios
-                frm_busqueda.ShowDialog()
-                If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
-                    frm_busqueda.Close()
-                    MsgBox("Número de socio no encontrado en temporada actual. Buscando en Base de datos...")
-                    frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-                    frm_busqueda.ShowDialog()
-                    If (frm_busqueda.DataGridView1.Rows.Count = 1) Then
-                        frm_busqueda.Close()
-                        MsgBox("Número de socio no encontrado. A continuacion se muestran todos los socios en la base de datos.")
-                        dw_bdsocios.RowFilter = ""
-                        frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-                        frm_busqueda.ShowDialog()
-                    End If
-                End If
-
-            Else
-                dw_bdsocios.RowFilter = ""
-                dw_socios.RowFilter = ""
-                frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-                frm_busqueda.ShowDialog()
-
+            Dim n As Integer
+            If String.IsNullOrWhiteSpace(valor) Then
+                ' Sin número: mostrar TODOS los socios de la base de datos para elegir uno
+                If Not MostrarBusqueda(dw_bdsocios, "") Then MsgBox("La base de datos de socios está vacía.")
+                Return
             End If
-
-
-
+            If Not Integer.TryParse(valor.Trim(), n) Then
+                MsgBox("El número de socio debe ser un número.")
+                Return
+            End If
+            Dim filtro = "numero = " & n.ToString()
+            If MostrarBusqueda(dw_socios, filtro) Then Return
+            MsgBox("Número de socio no encontrado en la temporada actual. Buscando en la base de datos de socios...")
+            If MostrarBusqueda(dw_bdsocios, filtro) Then Return
+            MsgBox("Número de socio no encontrado. A continuación se muestran todos los socios de la base de datos.")
+            MostrarBusqueda(dw_bdsocios, "")
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error en la búsqueda: " & ex.Message)
         End Try
     End Sub
+
     ''' <summary>
-    ''' Método que filtra por el dni del socio indicado en el parámetro el dataview que contiene la tabla con los socios de la temporada actual (dw_socios). En caso de no encontrarse el socio en la tabla de socios se busca en la tabla que contiene la base de datos (dw_bdsocios) de socios y se muestra la tabla filtrada en un control datagridview que a su vez se muestra en el formulario: frm_busqueda.
+    ''' Busca por DNI (o parte de él): primero en la temporada actual y, si no está, en la base de datos de socios.
     ''' </summary>
     ''' <param name="valor">texto que contiene el dni del socio</param>
     Public Sub buscar_dni(valor As String)
+        Dim filtro = "dni LIKE '%" & EscaparFiltro(valor) & "%'"
         Try
-            dw_socios.RowFilter = "dni like '%" + valor + "%'"
-            frm_busqueda.DataGridView1.DataSource = dw_socios
-            If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
-                frm_busqueda.ShowDialog()
-            Else
-                MsgBox("Socio no encontrado en temporada actual. Buscando en la base de datos de socios...")
-                dw_bdsocios.RowFilter = "dni like '%" + valor + "%'"
-                frm_busqueda.DataGridView1.DataSource = dw_bdsocios
-                If (frm_busqueda.DataGridView1.Rows.Count > 1) Then
-                    frm_busqueda.ShowDialog()
-                Else
-                    MsgBox("Socio no encontrado")
-                End If
-            End If
-
+            If MostrarBusqueda(dw_socios, filtro) Then Return
+            MsgBox("Socio no encontrado en la temporada actual. Buscando en la base de datos de socios...")
+            If MostrarBusqueda(dw_bdsocios, filtro) Then Return
+            MsgBox("Socio no encontrado.")
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error en la búsqueda: " & ex.Message)
         End Try
-
     End Sub
+
+    ''' <summary>
+    ''' Aplica el filtro a la vista y, si hay resultados, la muestra en frm_busqueda.
+    ''' Se cuenta con DataView.Count (antes se usaba DataGridView.Rows.Count, que incluye la
+    ''' fila vacía de "nuevo registro" y se comprobaba DESPUÉS de mostrar la ventana).
+    ''' </summary>
+    Private Function MostrarBusqueda(vista As DataView, filtro As String) As Boolean
+        If vista Is Nothing Then Return False
+        vista.RowFilter = filtro
+        If vista.Count = 0 Then Return False
+        frm_busqueda.DataGridView1.DataSource = vista
+        frm_busqueda.ShowDialog()
+        Return True
+    End Function
+
+    ''' <summary>Evita que una comilla o un comodín en el texto rompa el filtro (p. ej. apellido "D'Ors").</summary>
+    Private Function EscaparFiltro(v As String) As String
+        If String.IsNullOrEmpty(v) Then Return ""
+        Dim s = v.Trim().Replace("'", "''")
+        For Each c In New String() {"[", "]", "*", "%"}
+            s = s.Replace(c, "")
+        Next
+        Return s
+    End Function
 
     ''' <summary>
     ''' Inserta un socio en la tabla socios de la base de datos.
@@ -788,129 +788,132 @@ Module bbdd
     ''' <param name="tipo_socio"></param>
     ''' <param name="import"></param>
     ''' <param name="comentarios"></param>
-    Public Sub insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String)
+    Public Function insertar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, import As String, comentarios As String) As Boolean
         Try
             conectar()
             Select Case tp
                 Case tipobd.Excel_ODBC
-                    consulta2 = New OdbcCommand()
-                    consulta2.Connection = conn2
-                    If Not conn2.State = ConnectionState.Open Then
-                        conectar()
-                    End If
-                    'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de socio.
-                    Dim sql_txt As String
-                    sql_txt = "SELECT * FROM " + tabla_socios_xls + " WHERE NUMERO='" + nsocio + "'"
-                    consulta2.CommandText = sql_txt
-                    dr3 = consulta2.ExecuteReader
-                    If dr3.HasRows Then
-                        MsgBox("Número de socio no válido. Ya existe otro socio en la temporada actual con ese número asignado. Asigne otro número a este socio")
-                        dr3.Close()
-                    Else
-                        dr3.Close()
+                    dni = dni.Trim()
+                    nsocio = nsocio.Trim()
 
-                        'Comprobación de que no existe otro socio en la tabla de socios de la temporada actual con el mismo número de DNI.
-                        Dim sql_txt2 As String
-                        sql_txt2 = "SELECT * FROM " + tabla_socios_xls + " WHERE dni='" + dni + "'"
-                        consulta2.CommandText = sql_txt2
-                        dr4 = consulta2.ExecuteReader
-                        If (dr4.HasRows) Then
-                            MsgBox("DNI no válido. Ya existe otro socio en la temporada actual con el mismo DNI.")
-                            dr4.Close()
-                        Else
-                            dr4.Close()
-                            'Consulta de insercion.
-                            Dim sql_txt3 As String = "INSERT INTO " + tabla_socios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,importe,comentarios) 
-    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "'," + import + ",'" + comentarios + "')"
-                            consulta2.CommandText = sql_txt3
-                            Dim salida3 As Integer = consulta2.ExecuteNonQuery
-                            If (salida3 > 0) Then
-                                MsgBox("Socio insertado correctamente")
-                                frm_socio.reset()
-                            End If
+                    ' 1) El número no puede estar asignado a OTRO socio activo de la temporada
+                    '    (las filas en la papelera no cuentan: se borrarán en la próxima purga).
+                    For Each f In Consultar("SELECT dni, nombre, apellidos FROM " & tabla_socios_xls & " WHERE numero = ?", nsocio)
+                        Dim otroDni = Convert.ToString(f(0))
+                        If NormalizeId(otroDni) <> NormalizeId(dni) AndAlso Not SocioEliminado(otroDni) Then
+                            MsgBox("El número " & nsocio & " ya está asignado en la temporada actual a " & Convert.ToString(f(1)) & " " & Convert.ToString(f(2)) & " (DNI " & otroDni & ")." & vbCrLf & "Asigne otro número a este socio.")
+                            Return False
                         End If
-                    End If
+                    Next
 
-                    'Comprobación de que no existe otro socio en la base de datos de socios con el mismo número de socio.
-                    sql_txt = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE NUMERO=" + nsocio
-                    consulta2.CommandText = sql_txt
-                    dr3 = consulta2.ExecuteReader
-                    If (dr3.HasRows) Then
-                        MsgBox("Ya existe otro socio en la base de datos de socios con ese número asignado. Compruebe que es el mismo socio.")
-                        dr3.Close()
-                    Else
-                        dr3.Close()
-
-                        'Comprobación de que no existe otro socio en la base de datos de socios con el mismo DNI.
-                        Dim sql_txt2 As String
-                        sql_txt2 = "SELECT * FROM " + tabla_bdsocios_xls + " WHERE dni='" + dni + "'"
-                        consulta2.CommandText = sql_txt2
-                        dr4 = consulta2.ExecuteReader
-                        If (dr4.HasRows) Then
-                            MsgBox("DNI no válido. Ya existe otro socio en la base de datos de socios con el mismo DNI. Compruebe que es el mismo socio.")
-                            dr4.Close()
-                        Else
-                            dr4.Close()
-                            'Consulta de insercion de nuev socio en la base de datos de socios.
-                            Dim sql_txt3 As String = "INSERT INTO " + tabla_bdsocios_xls + " (numero,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio) 
-    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "')"
-                            consulta2.CommandText = sql_txt3
-                            Dim salida3 As Integer = consulta2.ExecuteNonQuery
-                            If (salida3 > 0) Then
-                                MsgBox("SOCIO NUEVO! Insertado correctamente en la base de datos de socios.")
-                                frm_socio.reset()
+                    ' 2) Si este DNI se eliminó en esta sesión, su fila sigue en el Excel (se purga al
+                    '    arrancar). No se puede borrar ahora, así que se REUTILIZA con los datos nuevos.
+                    If SocioEliminado(dni) Then
+                        Using cmd As New OdbcCommand("UPDATE " & tabla_socios_xls & " SET numero = ?, nombre = ?, apellidos = ?, direccion = ?, cp = ?, localidad = ?, provincia = ?, pais = ?, fechanac = ?, email = ?, tarjeta = ?, tipo_socio = ?, importe = ?, comentarios = ? WHERE dni = ?", conn2)
+                            AddParams(cmd, ParamNumero(nsocio), nombre, apellidos, direcc, ParamNumero(cp), localidad, provincia, pais, fechanac, email, ParamNumero(tarjeta), tipo_socio, ParamNumero(import), comentarios, dni)
+                            If cmd.ExecuteNonQuery() > 0 Then
+                                QuitarDePapelera(PAPELERA_SOCIOS, New String() {dni})
+                                MsgBox("Este socio se había eliminado en esta sesión. Se ha recuperado con los datos nuevos.")
+                                Return True
                             End If
-                        End If
+                        End Using
+                        MsgBox("Este DNI está pendiente de eliminar. Cierre y vuelva a abrir la aplicación antes de darlo de alta de nuevo.")
+                        Return False
                     End If
 
-                    ' NOTA IMPORTANTE: FALTA EL CODIGO DE INSERCION AUTOMATICA EN LA BASE DE DATOS PARA SOCIOS NUEVOS PARA BASE DE DATOS MYSQL.
+                    ' 3) El DNI no puede estar ya en la temporada
+                    If Consultar("SELECT numero FROM " & tabla_socios_xls & " WHERE dni = ?", dni).Count > 0 Then
+                        MsgBox("Ya existe un socio en la temporada actual con el DNI " & dni & ".")
+                        Return False
+                    End If
+
+                    ' 4) Base de datos histórica: ¿ese número pertenece a otra persona?
+                    For Each f In Consultar("SELECT dni, nombre, apellidos FROM " & tabla_bdsocios_xls & " WHERE numero = ?", nsocio)
+                        Dim otroDni = Convert.ToString(f(0))
+                        If NormalizeId(otroDni) <> NormalizeId(dni) Then
+                            Dim r = MsgBox("En la base de datos de socios el número " & nsocio & " pertenece a " & Convert.ToString(f(1)) & " " & Convert.ToString(f(2)) & " (DNI " & otroDni & ")." & vbCrLf & "¿Desea dar de alta igualmente a este socio con ese número?", vbYesNo + vbExclamation, "Número ya usado")
+                            If r <> vbYes Then Return False
+                            Exit For
+                        End If
+                    Next
+
+                    ' 5) Alta en la temporada (con parámetros: un apóstrofo en un apellido ya no rompe la consulta)
+                    Using cmd As New OdbcCommand("INSERT INTO " & tabla_socios_xls & " (numero, nombre, apellidos, dni, direccion, cp, localidad, provincia, pais, fechanac, email, tarjeta, tipo_socio, importe, comentarios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", conn2)
+                        AddParams(cmd, ParamNumero(nsocio), nombre, apellidos, dni, direcc, ParamNumero(cp), localidad, provincia, pais, fechanac, email, ParamNumero(tarjeta), tipo_socio, ParamNumero(import), comentarios)
+                        If cmd.ExecuteNonQuery() = 0 Then
+                            MsgBox("No se ha podido insertar el socio.")
+                            Return False
+                        End If
+                    End Using
+
+                    ' 6) Si es un socio nuevo (no está en la base histórica), añadirlo también allí
+                    Dim msg = "Socio insertado correctamente en la temporada actual."
+                    If Consultar("SELECT numero FROM " & tabla_bdsocios_xls & " WHERE dni = ?", dni).Count = 0 Then
+                        Using cmd As New OdbcCommand("INSERT INTO " & tabla_bdsocios_xls & " (numero, nombre, apellidos, dni, direccion, cp, localidad, provincia, pais, fechanac, email, tarjeta, tipo_socio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", conn2)
+                            AddParams(cmd, ParamNumero(nsocio), nombre, apellidos, dni, direcc, ParamNumero(cp), localidad, provincia, pais, fechanac, email, ParamNumero(tarjeta), tipo_socio)
+                            If cmd.ExecuteNonQuery() > 0 Then msg &= vbCrLf & "¡SOCIO NUEVO! Se ha añadido también a la base de datos de socios."
+                        End Using
+                    End If
+                    MsgBox(msg)
+                    Return True
 
                 Case tipobd.MySQL
+                    ' NOTA: rama MySQL sin cambios (no se usa actualmente).
                     consulta1 = New MySqlCommand()
                     consulta1.Connection = conn1
                     If (Not conn1.State = ConnectionState.Open) Then
                         conectar()
                     End If
-                    'Comprobación de que no existe otro socio en la base de datos con el mismo número de socio.
-                    Dim sql_txt As String
-                    sql_txt = "SELECT * FROM socios WHERE n_socio=" + nsocio
+                    Dim sql_txt As String = "SELECT * FROM socios WHERE n_socio=" + nsocio
                     consulta1.CommandText = sql_txt
                     dr1 = consulta1.ExecuteReader
                     If (dr1.HasRows) Then
                         MsgBox("Número de socio no válido. Ya existe otro socio con ese número asignado. Asigne otro número a este socio")
                         dr1.Close()
-                    Else
-                        dr1.Close()
-                        'Comprobación de que no existe otro socio en la base de datos con el mismo número de DNI.
-                        Dim sql_txt2 As String
-                        sql_txt2 = "SELECT * FROM socios WHERE dni='" + dni + "'"
-                        consulta1.CommandText = sql_txt2
-                        dr2 = consulta1.ExecuteReader
-                        If (dr2.HasRows) Then
-                            MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
-                            dr2.Close()
-                        Else
-                            dr2.Close()
-                            'Consulta de insercion.
-                            Dim sql_txt3 As String = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,comentarios) 
-    VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "','" + comentarios + "')"
-                            consulta1.CommandText = sql_txt3
-                            Dim salida3 As Integer = consulta1.ExecuteNonQuery
-                            If (salida3 > 0) Then
-                                MsgBox("Socio insertado correctamente")
-                                frm_socio.reset()
-                            End If
-                        End If
+                        Return False
                     End If
-
-
+                    dr1.Close()
+                    consulta1.CommandText = "SELECT * FROM socios WHERE dni='" + dni + "'"
+                    dr2 = consulta1.ExecuteReader
+                    If (dr2.HasRows) Then
+                        MsgBox("Socio no válido. Ya existe otro socio en la base de datos con el mismo DNI.")
+                        dr2.Close()
+                        Return False
+                    End If
+                    dr2.Close()
+                    consulta1.CommandText = "INSERT INTO socios(n_socio,nombre,apellidos,dni,direccion,cp,localidad,provincia,pais,fechanac,email,tarjeta, tipo_socio,comentarios) VALUES(" + nsocio + ",'" + nombre + "','" + apellidos + "','" + dni + "','" + direcc + "'," + cp + ", '" + localidad + "','" + provincia + "','" + pais + "','" + fechanac + "','" + email + "'," + tarjeta + ",'" + tipo_socio + "','" + comentarios + "')"
+                    If consulta1.ExecuteNonQuery > 0 Then
+                        MsgBox("Socio insertado correctamente")
+                        Return True
+                    End If
             End Select
-
-            desconectar()
+            Return False
         Catch ex As Exception
-            MsgBox(ex.ToString())
+            MsgBox("Error al insertar el socio: " & ex.Message)
+            Return False
+        Finally
+            desconectar()
         End Try
-    End Sub
+    End Function
+
+    ''' <summary>
+    ''' Ejecuta una consulta SELECT con parámetros (?) sobre la conexión ODBC abierta y devuelve
+    ''' las filas como arrays de valores. Cierra siempre el lector (antes quedaban abiertos si fallaba algo).
+    ''' </summary>
+    Private Function Consultar(sql As String, ParamArray valores() As Object) As System.Collections.Generic.List(Of Object())
+        Dim filas As New System.Collections.Generic.List(Of Object())
+        Using cmd As New OdbcCommand(sql, conn2)
+            AddParams(cmd, valores)
+            Using dr = cmd.ExecuteReader()
+                While dr.Read()
+                    Dim v(dr.FieldCount - 1) As Object
+                    dr.GetValues(v)
+                    filas.Add(v)
+                End While
+            End Using
+        End Using
+        Return filas
+    End Function
 
 
 
@@ -1050,7 +1053,7 @@ Module bbdd
 
             Select Case tp
                 Case tipobd.MySQL
-                    ' Comprobar existencia (buscar por dni o por número)
+                    ' NOTA: rama MySQL sin cambios (no se usa actualmente).
                     Using chk As New MySqlCommand("SELECT n_socio FROM " & tabla_socios_mysql & " WHERE dni = @dni OR n_socio = @n LIMIT 1", conn1)
                         chk.Parameters.AddWithValue("@dni", dni)
                         chk.Parameters.AddWithValue("@n", nsocio)
@@ -1059,16 +1062,9 @@ Module bbdd
                             MsgBox("Registro no encontrado (ni por DNI ni por número). No se realizará la modificación.")
                             Return
                         End If
-
                         Dim existingNsocio = existing.ToString()
-
-                        ' Pedir confirmación al usuario
                         Dim resp = MsgBox("Se va a actualizar el socio con número " & existingNsocio & " (DNI: " & dni & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar modificación")
-                        If resp <> vbYes Then
-                            Return
-                        End If
-
-                        ' Ejecutar UPDATE parametrizado
+                        If resp <> vbYes Then Return
                         Using cmd As New MySqlCommand("UPDATE " & tabla_socios_mysql & " SET n_socio=@n, nombre=@nom, apellidos=@ape, dni=@dni, direccion=@dir, cp=@cp, localidad=@loc, provincia=@prov, pais=@pais, fechanac=@fna, email=@email, tarjeta=@tarj, tipo_socio=@tipo, importe=@imp, comentarios=@com WHERE n_socio=@whereN", conn1)
                             cmd.Parameters.AddWithValue("@n", nsocio)
                             cmd.Parameters.AddWithValue("@nom", nombre)
@@ -1086,63 +1082,61 @@ Module bbdd
                             cmd.Parameters.AddWithValue("@imp", import)
                             cmd.Parameters.AddWithValue("@com", comentarios)
                             cmd.Parameters.AddWithValue("@whereN", existingNsocio)
-                            Dim rows = cmd.ExecuteNonQuery()
-                            If rows > 0 Then MsgBox("Socio modificado correctamente")
+                            If cmd.ExecuteNonQuery() > 0 Then MsgBox("Socio modificado correctamente")
                         End Using
                     End Using
 
                 Case tipobd.Excel_ODBC
-                    ' Normalizar nombre de hoja/rango Excel
-                    Dim normalizeTable = Function(t As String) As String
-                                             If String.IsNullOrWhiteSpace(t) Then Throw New ArgumentException("Nombre de tabla Excel vacío")
-                                             Dim s = t.Trim()
-                                             If s.StartsWith("[") AndAlso s.EndsWith("]") Then Return s
-                                             If s.EndsWith("$") Then Return "[" & s & "]"
-                                             Return "[" & s & "$]"
-                                         End Function
+                    dni = dni.Trim()
+                    nsocio = nsocio.Trim()
+                    If SocioEliminado(dni) Then
+                        MsgBox("El socio con DNI " & dni & " está eliminado. No se puede modificar.")
+                        Return
+                    End If
 
-                    Dim tableName As String = normalizeTable(tabla_socios_xls)
+                    ' Localizar el socio de la temporada: primero por DNI y, si no aparece (p. ej. se está
+                    ' corrigiendo el DNI), por número. Antes se buscaba "dni = ? OR numero = ?" y, si el DNI
+                    ' era de un socio y el número de otro, se podía modificar el que no era.
+                    Dim filas = Consultar("SELECT numero, dni FROM " & tabla_socios_xls & " WHERE dni = ?", dni)
+                    If filas.Count = 0 Then
+                        filas = Consultar("SELECT numero, dni FROM " & tabla_socios_xls & " WHERE numero = ?", nsocio)
+                        filas.RemoveAll(Function(f) SocioEliminado(Convert.ToString(f(1))))
+                    End If
+                    If filas.Count = 0 Then
+                        MsgBox("No existe ningún socio en la temporada actual con DNI " & dni & " ni con número " & nsocio & ". No se realizará la modificación.")
+                        Return
+                    End If
+                    If filas.Count > 1 Then
+                        MsgBox("Hay varios socios en la temporada con el número " & nsocio & ". Búsquelo por DNI y vuelva a intentarlo.")
+                        Return
+                    End If
+                    Dim numeroActual = Convert.ToString(filas(0)(0))
+                    Dim dniActual = Convert.ToString(filas(0)(1))
 
-                    ' Comprobar existencia en Excel (ODBC)
-                    Using chk As New OdbcCommand("SELECT numero FROM " & tableName & " WHERE dni = ? OR numero = ?", conn2)
-                        chk.Parameters.AddWithValue("p1", dni)
-                        chk.Parameters.AddWithValue("p2", nsocio)
-                        Dim existingObj = chk.ExecuteScalar()
-                        If existingObj Is Nothing OrElse IsDBNull(existingObj) Then
-                            MsgBox("Registro no encontrado (ni por DNI ni por número) en la hoja Excel. No se realizará la modificación.")
+                    ' El nuevo número no puede ser de OTRO socio activo
+                    For Each f In Consultar("SELECT dni, nombre, apellidos FROM " & tabla_socios_xls & " WHERE numero = ?", nsocio)
+                        Dim otroDni = Convert.ToString(f(0))
+                        If NormalizeId(otroDni) <> NormalizeId(dniActual) AndAlso Not SocioEliminado(otroDni) Then
+                            MsgBox("El número " & nsocio & " ya está asignado a " & Convert.ToString(f(1)) & " " & Convert.ToString(f(2)) & " (DNI " & otroDni & "). No se realizará la modificación.")
                             Return
                         End If
-                        Dim existingNsocio = existingObj.ToString()
+                    Next
+                    ' Si se cambia el DNI, el nuevo no puede ser de otro socio
+                    If NormalizeId(dni) <> NormalizeId(dniActual) AndAlso Consultar("SELECT numero FROM " & tabla_socios_xls & " WHERE dni = ?", dni).Count > 0 Then
+                        MsgBox("Ya existe otro socio en la temporada con el DNI " & dni & ". No se realizará la modificación.")
+                        Return
+                    End If
 
-                        Dim resp = MsgBox("Se va a actualizar el socio con número " & existingNsocio & " (DNI: " & dni & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar modificación")
-                        If resp <> vbYes Then
-                            Return
+                    Dim resp = MsgBox("Se va a modificar el socio número " & numeroActual & " (DNI: " & dniActual & "). ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar modificación")
+                    If resp <> vbYes Then Return
+
+                    Using cmd As New OdbcCommand("UPDATE " & tabla_socios_xls & " SET numero = ?, nombre = ?, apellidos = ?, dni = ?, direccion = ?, cp = ?, localidad = ?, provincia = ?, pais = ?, fechanac = ?, email = ?, tarjeta = ?, tipo_socio = ?, importe = ?, comentarios = ? WHERE dni = ?", conn2)
+                        AddParams(cmd, ParamNumero(nsocio), nombre, apellidos, dni, direcc, ParamNumero(cp), localidad, provincia, pais, fechanac, email, ParamNumero(tarjeta), tipo_socio, ParamNumero(import), comentarios, dniActual)
+                        If cmd.ExecuteNonQuery() > 0 Then
+                            MsgBox("Socio modificado correctamente.")
+                        Else
+                            MsgBox("No se ha modificado ningún registro.")
                         End If
-
-                        ' UPDATE con placeholders ? en orden
-                        Dim sql As String = "UPDATE " & tableName & " SET numero = ?, nombre = ?, apellidos = ?, dni = ?, direccion = ?, cp = ?, localidad = ?, provincia = ?, pais = ?, fechanac = ?, email = ?, tarjeta = ?, tipo_socio = ?, importe = ?, comentarios = ? WHERE numero = ?"
-                        Using cmd As New OdbcCommand(sql, conn2)
-                            cmd.Parameters.AddWithValue("p1", nsocio)
-                            cmd.Parameters.AddWithValue("p2", nombre)
-                            cmd.Parameters.AddWithValue("p3", apellidos)
-                            cmd.Parameters.AddWithValue("p4", dni)
-                            cmd.Parameters.AddWithValue("p5", direcc)
-                            cmd.Parameters.AddWithValue("p6", cp)
-                            cmd.Parameters.AddWithValue("p7", localidad)
-                            cmd.Parameters.AddWithValue("p8", provincia)
-                            cmd.Parameters.AddWithValue("p9", pais)
-                            cmd.Parameters.AddWithValue("p10", fechanac)
-                            cmd.Parameters.AddWithValue("p11", email)
-                            cmd.Parameters.AddWithValue("p12", tarjeta)
-                            cmd.Parameters.AddWithValue("p13", tipo_socio)
-                            cmd.Parameters.AddWithValue("p14", import)
-                            cmd.Parameters.AddWithValue("p15", comentarios)
-                            ' WHERE numero = existingNsocio
-                            cmd.Parameters.AddWithValue("p16", existingNsocio)
-
-                            Dim rows = cmd.ExecuteNonQuery()
-                            If rows > 0 Then MsgBox("Socio modificado correctamente")
-                        End Using
                     End Using
             End Select
 
@@ -1277,34 +1271,37 @@ Module bbdd
     ''' <param name="pago">Pago (informativo).</param>
     ''' <param name="comentarios">Comentarios (informativo).</param>
     Public Sub eliminar_socio(nsocio As String, nombre As String, apellidos As String, dni As String, direcc As String, cp As String, localidad As String, provincia As String, pais As String, fechanac As String, email As String, tarjeta As String, tipo_socio As String, pago As String, comentarios As String)
+        ' La confirmación se pide en frm_socio. Solo se usa el DNI; el resto de parámetros son informativos.
         Try
-            ' Confirmación del usuario antes de borrar
-            Dim respuesta = MsgBox("Va a eliminar al socio con DNI: " & dni & ". ¿Desea continuar?", vbYesNo + vbQuestion, "Confirmar eliminación")
-            If respuesta <> vbYes Then Return
-
-            conectar()
-
             Select Case tp
                 Case tipobd.Excel_ODBC
-                    ' Normalizar nombre de hoja/rango Excel
-                    Dim normalizeTable = Function(t As String) As String
-                                             If String.IsNullOrWhiteSpace(t) Then Throw New ArgumentException("Nombre de tabla Excel vacío")
-                                             Dim s = t.Trim()
-                                             If s.StartsWith("[") AndAlso s.EndsWith("]") Then Return s
-                                             If s.EndsWith("$") Then Return "[" & s & "]"
-                                             Return "[" & s & "$]"
-                                         End Function
-
-                    Dim tableName As String = normalizeTable(tabla_socios_xls)
-
-                    ' ODBC: usar parámetros (?) en orden
-                    Using cmd As New OdbcCommand("DELETE FROM " & tableName & " WHERE dni = ?", conn2)
-                        cmd.Parameters.AddWithValue("p1", dni)
-                        Dim deleted As Integer = cmd.ExecuteNonQuery()
-                        MsgBox("Socio eliminado correctamente. Se han eliminado: " & deleted.ToString() & " registros.")
-                    End Using
+                    ' El driver ODBC de Excel no admite DELETE: borrado lógico apuntando el DNI en la
+                    ' papelera. La fila se borra físicamente del Excel la próxima vez que se abra la aplicación.
+                    Dim key As String = NormalizeId(dni)
+                    If key = "" Then
+                        MsgBox("Indique el DNI del socio a eliminar.")
+                        Return
+                    End If
+                    ' Comprobar que ese DNI es de un socio de la temporada (tabla en memoria, ya sin eliminados)
+                    Dim existe As Boolean = False
+                    If ds_club.Tables.Contains("socios") AndAlso ds_club.Tables("socios").Columns.Contains("dni") Then
+                        For Each r As DataRow In ds_club.Tables("socios").Rows
+                            If Not IsDBNull(r("dni")) AndAlso NormalizeId(r("dni").ToString()) = key Then existe = True : Exit For
+                        Next
+                    End If
+                    If Not existe Then
+                        MsgBox("No existe ningún socio de la temporada actual con DNI '" & dni & "'. No se ha eliminado nada.")
+                        Return
+                    End If
+                    If AnotarEnPapelera(PAPELERA_SOCIOS, key) Then
+                        MsgBox("Socio con DNI " & dni & " eliminado de la temporada actual." & vbCrLf &
+                               "(Se borrará definitivamente del Excel la próxima vez que abra la aplicación.)")
+                    Else
+                        MsgBox("No se pudo registrar la eliminación (ruta de recursos no configurada).")
+                    End If
 
                 Case tipobd.MySQL
+                    conectar()
                     Using cmd As New MySqlCommand("DELETE FROM " & tabla_socios_mysql & " WHERE dni = @dni", conn1)
                         cmd.Parameters.AddWithValue("@dni", dni)
                         Dim deleted As Integer = cmd.ExecuteNonQuery()
@@ -1349,7 +1346,7 @@ Module bbdd
                 Case tipobd.Excel_ODBC
                     ' El driver ODBC de Excel no admite DELETE: borrado lógico apuntando el NIF.
                     ' No hace falta abrir la conexión ODBC para esto (y así no se bloquea el fichero).
-                    Dim filePath As String = RutaFicheroBorrados()
+                    Dim filePath As String = RutaPapelera(PAPELERA_FEDERATIVAS)
                     If filePath = "" Then
                         MsgBox("Ruta de recursos no configurada. No se puede eliminar.")
                         Return
