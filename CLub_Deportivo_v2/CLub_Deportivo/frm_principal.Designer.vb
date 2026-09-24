@@ -45,6 +45,7 @@ Partial Class frm_principal
         Me.ListadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AyudaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AcercaDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ListadoSociosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -102,6 +103,7 @@ Partial Class frm_principal
         '
         'ExportarToolStripMenuItem
         '
+        Me.ExportarToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ListadoSociosToolStripMenuItem})
         Me.ExportarToolStripMenuItem.Name = "ExportarToolStripMenuItem"
         Me.ExportarToolStripMenuItem.Size = New System.Drawing.Size(225, 30)
         Me.ExportarToolStripMenuItem.Text = "Exportar"
@@ -136,7 +138,7 @@ Partial Class frm_principal
         '
         Me.SociosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevoSocioToolStripMenuItem, Me.ModificarSocioToolStripMenuItem, Me.EliminarSocioToolStripMenuItem})
         Me.SociosToolStripMenuItem.Name = "SociosToolStripMenuItem"
-        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.SociosToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.SociosToolStripMenuItem.Text = "Socios"
         '
         'NuevoSocioToolStripMenuItem
@@ -161,7 +163,7 @@ Partial Class frm_principal
         '
         Me.FederativasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NuevaTarjetaToolStripMenuItem, Me.ModificarTarjetaToolStripMenuItem, Me.EliminarTarjetaToolStripMenuItem})
         Me.FederativasToolStripMenuItem.Name = "FederativasToolStripMenuItem"
-        Me.FederativasToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.FederativasToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.FederativasToolStripMenuItem.Text = "Federativas"
         '
         'NuevaTarjetaToolStripMenuItem
@@ -185,7 +187,7 @@ Partial Class frm_principal
         'ListadosToolStripMenuItem
         '
         Me.ListadosToolStripMenuItem.Name = "ListadosToolStripMenuItem"
-        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ListadosToolStripMenuItem.Size = New System.Drawing.Size(187, 30)
         Me.ListadosToolStripMenuItem.Text = "Listados"
         '
         'AyudaToolStripMenuItem
@@ -201,6 +203,12 @@ Partial Class frm_principal
         Me.AcercaDeToolStripMenuItem.Name = "AcercaDeToolStripMenuItem"
         Me.AcercaDeToolStripMenuItem.Size = New System.Drawing.Size(192, 30)
         Me.AcercaDeToolStripMenuItem.Text = "Acerca de ..."
+        '
+        'ListadoSociosToolStripMenuItem
+        '
+        Me.ListadoSociosToolStripMenuItem.Name = "ListadoSociosToolStripMenuItem"
+        Me.ListadoSociosToolStripMenuItem.Size = New System.Drawing.Size(224, 30)
+        Me.ListadoSociosToolStripMenuItem.Text = "Listado socios"
         '
         'frm_principal
         '
@@ -247,4 +255,5 @@ Partial Class frm_principal
     Friend WithEvents NuevaTarjetaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ModificarTarjetaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EliminarTarjetaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ListadoSociosToolStripMenuItem As ToolStripMenuItem
 End Class
