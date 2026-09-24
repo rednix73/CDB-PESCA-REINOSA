@@ -399,9 +399,10 @@ Partial Class frm_configuracion
         '
         Me.btn_odbc.Location = New System.Drawing.Point(302, 57)
         Me.btn_odbc.Name = "btn_odbc"
-        Me.btn_odbc.Size = New System.Drawing.Size(240, 32)
+        Me.btn_odbc.Size = New System.Drawing.Size(252, 32)
         Me.btn_odbc.TabIndex = 2
-        Me.btn_odbc.Text = "Administrador ODBC (32 bits)..."
+        Me.btn_odbc.Text = "Administrador ODBC (32 bits)"
+        Me.btn_odbc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.btn_odbc.UseVisualStyleBackColor = True
         '
         'lbl_estado_dsn

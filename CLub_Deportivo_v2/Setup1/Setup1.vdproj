@@ -15,32 +15,26 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3798EB269ED040FBBC0394A3EC4E482F"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_04B29AE68F6BBA730063323AA8891213"
+        "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_04B29AE68F6BBA730063323AA8891213"
+        "OwnerKey" = "8:_2E2077304D5CB1D5658EA0C71A830B7A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_3FFB9A19794248D283626A53887DC20A"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_04B29AE68F6BBA730063323AA8891213"
+        "OwnerKey" = "8:_2136905AF6A7B9BD034F09A217BFF8D1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7F3D35E8D43D4D59ADFF5045980564E3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4C406FD2F0D34D38A877E27055827937"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_04B29AE68F6BBA730063323AA8891213"
+        "OwnerKey" = "8:_5217931C4E2BEA460F2A4F0D232F6A7F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -57,7 +51,61 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_19E9378AB79E1038D3158209E47F2402"
+        "OwnerKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2136905AF6A7B9BD034F09A217BFF8D1"
+        "OwnerKey" = "8:_5217931C4E2BEA460F2A4F0D232F6A7F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2136905AF6A7B9BD034F09A217BFF8D1"
+        "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2136905AF6A7B9BD034F09A217BFF8D1"
+        "OwnerKey" = "8:_2E2077304D5CB1D5658EA0C71A830B7A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2E2077304D5CB1D5658EA0C71A830B7A"
+        "OwnerKey" = "8:_5217931C4E2BEA460F2A4F0D232F6A7F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2E2077304D5CB1D5658EA0C71A830B7A"
+        "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_306C081A1EEF44EE8BB2265893467FFD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3194FECA57392F474902B2B9C3173FEB"
+        "OwnerKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3798EB269ED040FBBC0394A3EC4E482F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3FFB9A19794248D283626A53887DC20A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -69,8 +117,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4C406FD2F0D34D38A877E27055827937"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4E5DD05D1CC149D7B53917ABCE24450C"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5217931C4E2BEA460F2A4F0D232F6A7F"
+        "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -93,6 +153,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_7F3D35E8D43D4D59ADFF5045980564E3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8A92A31E9ABFDF0778CE735EAD4567CD"
+        "OwnerKey" = "8:_A8412A58FC911853A25EF12A2D3A5111"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8A92A31E9ABFDF0778CE735EAD4567CD"
+        "OwnerKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_903FC01EC15146CFA4E05E8DB7D5C22A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -105,20 +183,32 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A8412A58FC911853A25EF12A2D3A5111"
+        "OwnerKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A90064C4AC2346648826CC0B7C6F9A74"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F6290AC2EE33B7BBEFF7DDBE45AB8A6C"
+        "MsmKey" = "8:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
         "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F6290AC2EE33B7BBEFF7DDBE45AB8A6C"
+        "MsmKey" = "8:_F6290AC2EE33B7BBEFF7DDBE45AB8A6C"
+        "OwnerKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -131,6 +221,42 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_62D28B5D491574AB152C10316FB91355"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F6290AC2EE33B7BBEFF7DDBE45AB8A6C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CBC9FA33EC418BD0791C20F3B4C5B708"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_3194FECA57392F474902B2B9C3173FEB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A8412A58FC911853A25EF12A2D3A5111"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8A92A31E9ABFDF0778CE735EAD4567CD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_19E9378AB79E1038D3158209E47F2402"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -228,10 +354,154 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3798EB269ED040FBBC0394A3EC4E482F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_04B29AE68F6BBA730063323AA8891213"
             {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_socios.txt"
-            "TargetName" = "8:deleted_socios.txt"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NPOI.Core, Version=2.6.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_04B29AE68F6BBA730063323AA8891213"
+                    {
+                    "Name" = "8:NPOI.Core.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NPOI.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18A0F43F02CA40E0A478322356CD8A01"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\provincias.txt"
+            "TargetName" = "8:provincias.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_19E9378AB79E1038D3158209E47F2402"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.Diagnostics.Tracing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_19E9378AB79E1038D3158209E47F2402"
+                    {
+                    "Name" = "8:System.Diagnostics.Tracing.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Diagnostics.Tracing.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2136905AF6A7B9BD034F09A217BFF8D1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NPOI.OpenXml4Net, Version=2.6.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_2136905AF6A7B9BD034F09A217BFF8D1"
+                    {
+                    "Name" = "8:NPOI.OpenXml4Net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NPOI.OpenXml4Net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2E2077304D5CB1D5658EA0C71A830B7A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NPOI.OpenXmlFormats, Version=2.6.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_2E2077304D5CB1D5658EA0C71A830B7A"
+                    {
+                    "Name" = "8:NPOI.OpenXmlFormats.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NPOI.OpenXmlFormats.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_306C081A1EEF44EE8BB2265893467FFD"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_anverso.gif"
+            "TargetName" = "8:tarjeta_socio_anverso.gif"
             "Tag" = "8:"
             "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
             "Condition" = "8:"
@@ -248,10 +518,41 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3194FECA57392F474902B2B9C3173FEB"
             {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_federativas.txt"
-            "TargetName" = "8:deleted_federativas.txt"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_3194FECA57392F474902B2B9C3173FEB"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3798EB269ED040FBBC0394A3EC4E482F"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_socios.txt"
+            "TargetName" = "8:deleted_socios.txt"
             "Tag" = "8:"
             "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
             "Condition" = "8:"
@@ -288,10 +589,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F3D35E8D43D4D59ADFF5045980564E3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40B3BCA422144DC0863FCE2537E95DF0"
             {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_anverso.gif"
-            "TargetName" = "8:tarjeta_socio_anverso.gif"
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\CDB-PESCAREINOSA-WEB.ico"
+            "TargetName" = "8:CDB-PESCAREINOSA-WEB.ico"
             "Tag" = "8:"
             "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
             "Condition" = "8:"
@@ -328,66 +629,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_18A0F43F02CA40E0A478322356CD8A01"
-            {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\provincias.txt"
-            "TargetName" = "8:provincias.txt"
-            "Tag" = "8:"
-            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_306C081A1EEF44EE8BB2265893467FFD"
-            {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_anverso.gif"
-            "TargetName" = "8:tarjeta_socio_anverso.gif"
-            "Tag" = "8:"
-            "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:TRUE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40B3BCA422144DC0863FCE2537E95DF0"
-            {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\CDB-PESCAREINOSA-WEB.ico"
-            "TargetName" = "8:CDB-PESCAREINOSA-WEB.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4E5DD05D1CC149D7B53917ABCE24450C"
             {
             "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\cantabria_cp.txt"
@@ -406,6 +647,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5217931C4E2BEA460F2A4F0D232F6A7F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NPOI.OOXML, Version=2.6.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5217931C4E2BEA460F2A4F0D232F6A7F"
+                    {
+                    "Name" = "8:NPOI.OOXML.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NPOI.OOXML.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_62D28B5D491574AB152C10316FB91355"
@@ -479,6 +751,57 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F3D35E8D43D4D59ADFF5045980564E3"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_anverso.gif"
+            "TargetName" = "8:tarjeta_socio_anverso.gif"
+            "Tag" = "8:"
+            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8A92A31E9ABFDF0778CE735EAD4567CD"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_8A92A31E9ABFDF0778CE735EAD4567CD"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_903FC01EC15146CFA4E05E8DB7D5C22A"
             {
             "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\comunidades.txt"
@@ -519,6 +842,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A8412A58FC911853A25EF12A2D3A5111"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A8412A58FC911853A25EF12A2D3A5111"
+                    {
+                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A90064C4AC2346648826CC0B7C6F9A74"
             {
             "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_reverso.jpg"
@@ -537,6 +891,57 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_federativas.txt"
+            "TargetName" = "8:deleted_federativas.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:TRUE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CBC9FA33EC418BD0791C20F3B4C5B708"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"
+                "ScatterAssemblies"
+                {
+                    "_CBC9FA33EC418BD0791C20F3B4C5B708"
+                    {
+                    "Name" = "8:netstandard.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:netstandard.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_380AA482293B4C95832712098C7A3663"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F6290AC2EE33B7BBEFF7DDBE45AB8A6C"
@@ -682,7 +1087,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gestión Socios"
         "ProductCode" = "8:{EF6995B9-7A92-453A-921A-EB81D01F8AA6}"
-        "PackageCode" = "8:{545B405D-69AD-42E4-9024-E0B1A88699FC}"
+        "PackageCode" = "8:{C64CBA26-8AB0-4020-A679-F37C84F5AA6A}"
         "UpgradeCode" = "8:{785850BD-AC7D-4D86-A014-B6AF6F281C40}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
