@@ -142,4 +142,42 @@
         frm_federativas.btn_modificar.Visible = False
         frm_federativas.btn_insertar.Visible = False
     End Sub
+
+    ''' <summary>
+    ''' Archivo -> Exportar -> Listado socios: genera un PDF con todos los socios de la temporada actual
+    ''' (título centrado, línea en blanco y tabla N / NOMBRE / APELLIDOS / DNI / DIRECCION / LOCALIDAD).
+    ''' </summary>
+    Private Sub ListadoSociosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ListadoSociosToolStripMenuItem.Click
+        Using dlg As New SaveFileDialog()
+            dlg.Title = "Exportar listado de socios"
+            dlg.Filter = "Documento PDF (*.pdf)|*.pdf"
+            dlg.DefaultExt = "pdf"
+            dlg.FileName = "Listado_socios_" & listado_pdf.TextoTemporada() & ".pdf"
+            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            If dlg.ShowDialog(Me) <> DialogResult.OK Then Return
+
+            Dim total As Integer
+            Try
+                Me.Cursor = Cursors.WaitCursor
+                total = listado_pdf.GenerarListadoSocios(dlg.FileName)
+            Catch ex As IO.IOException
+                MsgBox("No se ha podido guardar el PDF. Compruebe que no está abierto en otro programa." & vbCrLf & ex.Message, MsgBoxStyle.Exclamation)
+                Return
+            Catch ex As Exception
+                MsgBox("No se ha podido generar el listado de socios: " & ex.Message, MsgBoxStyle.Critical)
+                Return
+            Finally
+                Me.Cursor = Cursors.Default
+            End Try
+
+            If MsgBox("Listado generado con " & total.ToString() & " socios:" & vbCrLf & dlg.FileName & vbCrLf & vbCrLf & "¿Desea abrirlo ahora?",
+                      MsgBoxStyle.Question Or MsgBoxStyle.YesNo, "Listado de socios") = MsgBoxResult.Yes Then
+                Try
+                    Process.Start(dlg.FileName)
+                Catch ex As Exception
+                    MsgBox("El PDF se ha guardado, pero no se ha podido abrir: " & ex.Message)
+                End Try
+            End If
+        End Using
+    End Sub
 End Class

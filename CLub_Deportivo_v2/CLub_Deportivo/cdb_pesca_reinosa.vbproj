@@ -120,6 +120,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="bbdd_npoi.vb" />
+    <Compile Include="listado_pdf.vb" />
     <Compile Include="frm_actualizar_bbdd.Designer.vb">
       <DependentUpon>frm_actualizar_bbdd.vb</DependentUpon>
     </Compile>
