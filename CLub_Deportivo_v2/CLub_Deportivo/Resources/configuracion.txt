@@ -11,7 +11,7 @@ Excel_ODBC
 
 ----Excel-ODBC----
 Archivo de base de datos:
-C:\Users\roberto\Downloads\tarjetas_socio_2027_purge.xls
+
 DSN:
 cdb-pesca-xlsx
 Tabla de socios:
@@ -23,18 +23,18 @@ Tabla de tarjetas federativas:
 
 ----MySQL----
 Servidor:
-Servidor:
+
 Puerto:
-Puerto:
+
 Base de datos:
-Base de datos:
+
 Usuario:
-Usuario:
+
 Contraseña:
-Contraseña:
+
 Tabla de socios:
-Tabla de socios:
+
 Tabla de base de datos de socios:
-Tabla de base de datos de socios:
+
 Tabla de tarjetas federativas:
 

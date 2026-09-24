@@ -7,6 +7,23 @@
     Private Sub frm_principal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             bbdd.leer_configuracion()
+
+            ' Comprobar ANTES de conectar que el conector ODBC y el libro existen: así se muestra un
+            ' mensaje claro en lugar del error de ODBC, y se ofrece abrir la Configuración.
+            If bbdd.tp = bbdd.tipobd.Excel_ODBC Then
+                Dim problema As String = bbdd.ComprobarConexionExcel()
+                If problema <> "" Then
+                    If MessageBox.Show(problema & vbCrLf & vbCrLf & "¿Desea abrir ahora la Configuración para revisarlo?",
+                                       "Conexión con los datos de socios", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+                        ' Al guardar, la Configuración vuelve a leer los datos (cargar)
+                        Using f As New frm_configuracion()
+                            f.ShowDialog()
+                        End Using
+                    End If
+                    Return ' no se purga ni se carga con una conexión incorrecta
+                End If
+            End If
+
             ' Vaciar las "papeleras" (socios y federativas) AL ARRANCAR: es el único momento en que el
             ' controlador ODBC todavía no ha abierto el .xls. Una vez usado, lo mantiene
             ' bloqueado hasta que se cierra el programa y Excel no puede modificarlo.

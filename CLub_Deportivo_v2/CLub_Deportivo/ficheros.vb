@@ -7,6 +7,23 @@ Module ficheros
     Dim sr3 As StreamReader
     Public lista_localidades As New List(Of localidad)
     Public lista_provincias As New List(Of String)
+
+    ''' <summary>
+    ''' Ficheros que el usuario puede modificar y que, por tanto, deben vivir en
+    ''' %AppData%\CDB-PESCA-REINOSA\Resources (la carpeta del programa es de solo lectura).
+    ''' Los demás recursos (provincias, localidades, códigos postales...) son de solo lectura:
+    ''' se leen directamente de la carpeta Resources del programa y no se copian.
+    ''' Las papeleras (deleted_socios.txt / deleted_federativas.txt) las crea vacías el instalador
+    ''' o la propia aplicación cuando hace falta; nunca se copian desde la carpeta del programa.
+    ''' </summary>
+    Public ReadOnly FicherosDeUsuario As String() = {"configuracion.txt", "tarjeta_socio_anverso.gif", "tarjeta_socio_reverso.jpg"}
+
+    Public Function EsFicheroDeUsuario(nombre As String) As Boolean
+        For Each f In FicherosDeUsuario
+            If String.Equals(f, nombre, StringComparison.OrdinalIgnoreCase) Then Return True
+        Next
+        Return False
+    End Function
     Public Sub leer()
         Try
             Dim baseRes As String = My.Settings.ruta_recursos

@@ -33,14 +33,15 @@ Namespace My
                     Next
                 End If
 
-                ' Copiar solo los ficheros que falten: nunca se sobrescriben los del usuario
-                ' (su configuración ni su papelera de federativas).
+                ' Copiar SOLO los ficheros modificables por el usuario (configuracion.txt y las dos
+                ' imágenes de la tarjeta de socio) y solo si faltan: nunca se sobrescriben los suyos.
+                ' Los de solo lectura (provincias, localidades, CP...) se leen de la carpeta del programa.
+                ' Las papeleras (deleted_*.txt) no se copian nunca.
                 If Directory.Exists(appRes) Then
                     For Each src In Directory.GetFiles(appRes)
                         Try
                             Dim nombre = Path.GetFileName(src)
-                            If nombre.Equals("deleted_federativas.txt", StringComparison.OrdinalIgnoreCase) Then Continue For
-                            If nombre.StartsWith("~$") Then Continue For ' temporales de Office
+                            If Not ficheros.EsFicheroDeUsuario(nombre) Then Continue For
                             Dim dst = Path.Combine(userRes, nombre)
                             If Not File.Exists(dst) Then File.Copy(src, dst)
                         Catch

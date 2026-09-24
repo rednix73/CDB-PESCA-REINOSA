@@ -15,13 +15,37 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
+        "MsmKey" = "8:_3798EB269ED040FBBC0394A3EC4E482F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_14E90420363D411581F73BA0B2B7DAA2"
+        "MsmKey" = "8:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3FFB9A19794248D283626A53887DC20A"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7F3D35E8D43D4D59ADFF5045980564E3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4C406FD2F0D34D38A877E27055827937"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_117261BB364E4CF1BDDD99F0C9C99664"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -117,7 +141,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\SetupCDBPescareinosa.msi"
+        "OutputFilename" = "8:Debug\\SetupCDBPescaReinosa.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -136,10 +160,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
                     }
                 }
             }
@@ -149,7 +173,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup1.msi"
+        "OutputFilename" = "8:Release\\SetupCDBPescaReinosa.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -168,10 +192,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
                     }
                 }
             }
@@ -196,18 +220,98 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.8"
                 "AllowLaterVersions" = "11:FALSE"
-                "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
+                "InstallUrl" = "8:https://go.microsoft.com/fwlink/?LinkId=2085155"
                 }
             }
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14E90420363D411581F73BA0B2B7DAA2"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3798EB269ED040FBBC0394A3EC4E482F"
             {
-            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\MANUAL DE INSTALACIÓN.doc"
-            "TargetName" = "8:MANUAL DE INSTALACIÓN.doc"
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_socios.txt"
+            "TargetName" = "8:deleted_socios.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:TRUE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AD3A3DDAD5E743A5A0B7867A00CBB8BF"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\deleted_federativas.txt"
+            "TargetName" = "8:deleted_federativas.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_FEE9073CDBF0427C84277F034383E261"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:TRUE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3FFB9A19794248D283626A53887DC20A"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\configuracion.txt"
+            "TargetName" = "8:configuracion.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7F3D35E8D43D4D59ADFF5045980564E3"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_anverso.gif"
+            "TargetName" = "8:tarjeta_socio_anverso.gif"
+            "Tag" = "8:"
+            "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4C406FD2F0D34D38A877E27055827937"
+            {
+            "SourcePath" = "8:..\\CLub_Deportivo\\Resources\\tarjeta_socio_reverso.jpg"
+            "TargetName" = "8:tarjeta_socio_reverso.jpg"
             "Tag" = "8:"
             "Folder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
             "Condition" = "8:"
@@ -256,7 +360,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -407,7 +511,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -427,7 +531,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -494,7 +598,7 @@
                 {
                     "{9EF0B969-E518-4E46-987F-47570745A589}:_596D43A4A12C47DB956AFAC047795955"
                     {
-                    "Name" = "8:CDB‑PESCA‑REINOSA"
+                    "Name" = "8:CDB-PESCA-REINOSA"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
@@ -577,15 +681,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Gestión Socios"
-        "ProductCode" = "8:{CBA06C75-1B51-477F-82E9-9FEEF8196BB6}"
-        "PackageCode" = "8:{81C87E66-A932-4A89-AF30-679FA8A2C05F}"
+        "ProductCode" = "8:{EF6995B9-7A92-453A-921A-EB81D01F8AA6}"
+        "PackageCode" = "8:{545B405D-69AD-42E4-9024-E0B1A88699FC}"
         "UpgradeCode" = "8:{785850BD-AC7D-4D86-A014-B6AF6F281C40}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.1.0"
         "Manufacturer" = "8:CDBPescaReinosa"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -722,7 +826,7 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_93BBD2E92BC04E74AF17D057E2D05629"
             "Folder" = "8:_B8F3656EBC5E442FA77555F667D09AD2"
-            "WorkingFolder" = "8:_56E9C7DEA3AD4ABB9804366EAE4565BE"
+            "WorkingFolder" = "8:_FEE9073CDBF0427C84277F034383E261"
             "Icon" = "8:"
             "Feature" = "8:"
             }

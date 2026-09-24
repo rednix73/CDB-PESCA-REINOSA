@@ -62,6 +62,8 @@ Public Class frm_configuracion
                 For Each src In Directory.GetFiles(appRes)
                     Try
                         Dim fn = Path.GetFileName(src)
+                        ' Solo los ficheros modificables (configuración e imágenes de la tarjeta)
+                        If Not ficheros.EsFicheroDeUsuario(fn) Then Continue For
                         Dim dst As String = Path.Combine(userRes, fn)
                         If Not File.Exists(dst) Then
                             File.Copy(src, dst, True)
@@ -118,6 +120,8 @@ Public Class frm_configuracion
         cmb_bd.SelectedItem = bbdd.tp.ToString()
         txt_archivo_excel.Text = bbdd.ruta_bd_excel
         txt_dsn.Text = bbdd.DSN
+        ' El libro se toma SIEMPRE del conector ODBC (es donde se configura la ruta)
+        ActualizarLibroDesdeDSN()
         txt_tabla_socios_xls.Text = tabla_socios_xls
         txt_tabla_bdsocios_xls.Text = tabla_bdsocios_xls
         'mysql
@@ -173,13 +177,44 @@ Public Class frm_configuracion
         End Try
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        OpenFile_bbdd.Filter = "Archivos excel|*.xls;*.xlsx|Todos los archivos|*.*"
-        OpenFile_bbdd.ShowDialog()
+    ' =====================================================================================
+    '  CONECTOR ODBC: el libro Excel se configura en el conector (DSN) y aquí solo se muestra.
+    ' =====================================================================================
+
+    ''' <summary>
+    ''' Lee del conector ODBC indicado en txt_dsn la ruta del libro, la muestra en
+    ''' txt_archivo_excel (solo lectura) e indica en lbl_estado_dsn si todo es correcto.
+    ''' </summary>
+    Private Sub ActualizarLibroDesdeDSN()
+        Dim nombre As String = txt_dsn.Text.Trim()
+        Dim problema As String = bbdd.ComprobarConexionExcel(nombre)
+        txt_archivo_excel.Text = If(bbdd.DsnExiste(nombre), bbdd.RutaLibroDesdeDSN(nombre), "")
+        If problema = "" Then
+            lbl_estado_dsn.ForeColor = Color.DarkGreen
+            lbl_estado_dsn.Text = "Conector correcto: el libro existe."
+        Else
+            lbl_estado_dsn.ForeColor = Color.Firebrick
+            ' Solo la primera línea del mensaje (el resto se muestra al guardar)
+            lbl_estado_dsn.Text = problema.Split(New String() {vbCrLf}, StringSplitOptions.None)(0)
+        End If
+        tip_dsn.SetToolTip(lbl_estado_dsn, problema)
     End Sub
 
-    Private Sub OpenFile_bbdd_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFile_bbdd.FileOk
-        txt_archivo_excel.Text = OpenFile_bbdd.FileName
+    ' Al salir de la casilla del DSN se comprueba el nombre escrito
+    Private Sub txt_dsn_Leave(sender As Object, e As EventArgs) Handles txt_dsn.Leave
+        ActualizarLibroDesdeDSN()
+    End Sub
+
+    ' Abre el administrador ODBC de 32 bits para crear el conector o cambiar su libro
+    Private Sub btn_odbc_Click(sender As Object, e As EventArgs) Handles btn_odbc.Click
+        bbdd.AbrirAdministradorODBC32()
+    End Sub
+
+    ' Al volver al formulario (por ejemplo tras cerrar el administrador ODBC) se refresca la ruta
+    Private Sub frm_configuracion_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        If cmb_bd.SelectedItem IsNot Nothing AndAlso cmb_bd.SelectedItem.ToString() = bbdd.tipobd.Excel_ODBC.ToString() Then
+            ActualizarLibroDesdeDSN()
+        End If
     End Sub
 
     Private Sub btn_guardar_Click(sender As Object, e As EventArgs) Handles btn_guardar.Click
@@ -199,6 +234,16 @@ Public Class frm_configuracion
             If salmon <= 0 OrElse trucha <= 0 Then
                 MsgBox("Los precios de las tarjetas deben ser números mayores que 0 (por ejemplo 17 o 17,50).")
                 Return
+            End If
+
+            ' Con Excel-ODBC, avisar si el conector o el libro no son correctos (se puede guardar igualmente)
+            If cmb_bd.SelectedItem.ToString() = bbdd.tipobd.Excel_ODBC.ToString() Then
+                ActualizarLibroDesdeDSN()
+                Dim problema As String = bbdd.ComprobarConexionExcel(txt_dsn.Text.Trim())
+                If problema <> "" Then
+                    If MessageBox.Show(problema & vbCrLf & vbCrLf & "¿Desea guardar la configuración de todos modos?",
+                                       "Conector ODBC", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) <> DialogResult.Yes Then Return
+                End If
             End If
 
             Dim ruta As String = Path.Combine(My.Settings.ruta_recursos, "configuracion.txt")

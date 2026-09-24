@@ -271,6 +271,87 @@ Module bbdd
         Return ""
     End Function
 
+    ''' <summary>
+    ''' Indica si existe un conector ODBC (DSN de usuario o de sistema) de 32 bits con ese nombre.
+    ''' </summary>
+    Public Function DsnExiste(nombreDsn As String) As Boolean
+        If String.IsNullOrWhiteSpace(nombreDsn) Then Return False
+        For Each hive In New Microsoft.Win32.RegistryHive() {Microsoft.Win32.RegistryHive.CurrentUser, Microsoft.Win32.RegistryHive.LocalMachine}
+            Try
+                Using raiz = Microsoft.Win32.RegistryKey.OpenBaseKey(hive, Microsoft.Win32.RegistryView.Registry32)
+                    Using k = raiz.OpenSubKey("SOFTWARE\ODBC\ODBC.INI\" & nombreDsn.Trim())
+                        If k IsNot Nothing Then Return True
+                    End Using
+                End Using
+            Catch
+            End Try
+        Next
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' Indica si existe un DSN con ese nombre pero SOLO en la vista de 64 bits del registro
+    ''' (creado con el administrador ODBC de 64 bits, que la aplicación no puede usar).
+    ''' </summary>
+    Public Function DsnSolo64Bits(nombreDsn As String) As Boolean
+        If String.IsNullOrWhiteSpace(nombreDsn) OrElse Not Environment.Is64BitOperatingSystem Then Return False
+        If DsnExiste(nombreDsn) Then Return False
+        For Each hive In New Microsoft.Win32.RegistryHive() {Microsoft.Win32.RegistryHive.CurrentUser, Microsoft.Win32.RegistryHive.LocalMachine}
+            Try
+                Using raiz = Microsoft.Win32.RegistryKey.OpenBaseKey(hive, Microsoft.Win32.RegistryView.Registry64)
+                    Using k = raiz.OpenSubKey("SOFTWARE\ODBC\ODBC.INI\" & nombreDsn.Trim())
+                        If k IsNot Nothing Then Return True
+                    End Using
+                End Using
+            Catch
+            End Try
+        Next
+        Return False
+    End Function
+
+    ''' <summary>
+    ''' Comprueba que la conexión con el libro Excel está bien configurada: que hay un nombre de DSN,
+    ''' que el conector ODBC de 32 bits existe y que el libro al que apunta existe.
+    ''' </summary>
+    ''' <returns>Cadena vacía si todo es correcto; si no, un mensaje que explica el problema.</returns>
+    Public Function ComprobarConexionExcel(Optional nombreDsn As String = Nothing) As String
+        Dim nombre As String = If(nombreDsn, DSN)
+        nombre = If(nombre, "").Trim()
+        If nombre = "" Then
+            Return "No se ha indicado el nombre del conector ODBC (DSN) en la Configuración."
+        End If
+        If Not DsnExiste(nombre) Then
+            If DsnSolo64Bits(nombre) Then
+                Return "El conector ODBC '" & nombre & "' se creó con el administrador ODBC de 64 bits y la aplicación necesita uno de 32 bits." & vbCrLf &
+                       "Créelo de nuevo con el administrador ODBC de 32 bits (botón 'Administrador ODBC' de la Configuración)."
+            End If
+            Return "No existe ningún conector ODBC de 32 bits llamado '" & nombre & "'." & vbCrLf &
+                   "Créelo con el administrador ODBC de 32 bits (botón 'Administrador ODBC' de la Configuración) o corrija el nombre del DSN."
+        End If
+        Dim libro As String = RutaLibroDesdeDSN(nombre)
+        If libro = "" Then
+            Return "El conector ODBC '" & nombre & "' no tiene ningún libro Excel seleccionado." & vbCrLf &
+                   "Abra el administrador ODBC de 32 bits, pulse 'Configurar...' y 'Seleccionar libro...'."
+        End If
+        If Not File.Exists(libro) Then
+            Return "El conector ODBC '" & nombre & "' apunta a un libro que no existe:" & vbCrLf & libro & vbCrLf &
+                   "Si ha cambiado de temporada o de carpeta, abra el administrador ODBC de 32 bits, pulse 'Configurar...' y seleccione el libro correcto."
+        End If
+        Return ""
+    End Function
+
+    ''' <summary>Abre el administrador de orígenes de datos ODBC de 32 bits (SysWOW64\odbcad32.exe en Windows de 64 bits).</summary>
+    Public Sub AbrirAdministradorODBC32()
+        Try
+            ' SystemX86 = C:\Windows\SysWOW64 en Windows de 64 bits y C:\Windows\System32 en Windows de 32 bits
+            Dim exe As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.SystemX86), "odbcad32.exe")
+            If Not File.Exists(exe) Then exe = "odbcad32.exe"
+            Process.Start(exe)
+        Catch ex As Exception
+            MsgBox("No se pudo abrir el administrador ODBC de 32 bits: " & ex.Message)
+        End Try
+    End Sub
+
     ''' <summary>Se mantiene por compatibilidad: ahora purga todas las papeleras (federativas y socios).</summary>
     Public Function PurgeDeletedFederativas(Optional preguntar As Boolean = True) As Integer
         Return PurgarPapeleras(preguntar)
